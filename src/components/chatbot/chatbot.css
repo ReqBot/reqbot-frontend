@@ -1,0 +1,9 @@
+.centered {
+  margin: auto;
+}
+
+.k-widget.k-chat {
+  border-color: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #fafafa;
+}

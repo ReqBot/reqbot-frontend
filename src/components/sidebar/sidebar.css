@@ -1,0 +1,23 @@
+.imgTable {
+  width: 50px;
+}
+
+.center {
+  text-align: center;
+}
+
+.titleSide {
+  margin: 24px 0 0 24px !important;
+}
+
+.buttonSideBar {
+  text-align: center !important;
+  width: 70%;
+  margin: auto !important;
+  padding: 96px 0 0 0 !important;
+}
+
+.kfARSm.active {
+  border-radius: 5%;
+  padding: 0px;
+}
