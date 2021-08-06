@@ -42,14 +42,12 @@ class Chatbot extends Component {
 
   render() {
     return (
-      <div class="centered">
-        <Chat
-          user={this.user}
-          messages={this.state.messages}
-          onMessageSend={this.addNewMessage}
-          placeholder={"Type a message..."}
-        />
-      </div>
+      <Chat
+        user={this.user}
+        messages={this.state.messages}
+        onMessageSend={this.addNewMessage}
+        placeholder={"Type a message..."}
+      />
     );
   }
 }

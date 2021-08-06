@@ -22,7 +22,7 @@ class Sidebar extends Component {
             overflow: "scroll initial",
           }}
         >
-          <CDBSidebar textColor="#fff" backgroundColor="#333">
+          <CDBSidebar textColor="#fff" backgroundColor="#545871">
             <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
               <a
                 href="/"

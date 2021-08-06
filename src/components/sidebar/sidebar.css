@@ -21,3 +21,7 @@
   border-radius: 5%;
   padding: 0px;
 }
+
+button:focus {
+  outline: none !important;
+}

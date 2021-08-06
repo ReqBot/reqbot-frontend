@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
 import Sidebar from "./components/sidebar/sidebar";
-import Chatbot from "./components/chatbot/chatbot";
+
+import TabsProyect from "./components/tabsProyect/tabsProyect";
+
 function App() {
   return (
     <React.Fragment>
@@ -20,7 +22,7 @@ function App() {
               <Route
                 exact
                 path="/redactar"
-                render={(props) => <Chatbot></Chatbot>}
+                render={(props) => <TabsProyect></TabsProyect>}
               />
             </Switch>
           </div>

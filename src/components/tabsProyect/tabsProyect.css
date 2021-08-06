@@ -1,0 +1,23 @@
+.tab-div-parent {
+  padding: 50px 50px 50px 50px;
+}
+
+.tab-div-child {
+  border: 1px solid #dee2e6;
+  height: 700px;
+  border-radius: 2%;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: #545871;
+}
+
+.nav-tabs .nav-link {
+  color: #9a9ba4;
+}
+
+.titleDiv {
+  text-align: center;
+  margin-top: 3%;
+}

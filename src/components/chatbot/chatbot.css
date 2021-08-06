@@ -1,9 +1,7 @@
-.centered {
-  margin: auto;
-}
-
-.k-widget.k-chat {
-  border-color: rgba(0, 0, 0, 0.12);
-  color: rgba(0, 0, 0, 0.87);
-  background-color: #fafafa;
+.k-chat {
+  height: 100% !important;
+  width: 100% !important;
+  max-width: none !important;
+  border-radius: 2%;
+  border-color: none;
 }
