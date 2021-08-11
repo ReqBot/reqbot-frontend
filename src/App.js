@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
 import Sidebar from "./components/sidebar/sidebar";
-
+import Proyectos from "./components/proyects/proyects";
 import TabsProyect from "./components/tabsProyect/tabsProyect";
 
 function App() {
@@ -11,13 +11,15 @@ function App() {
     <React.Fragment>
       <Router>
         <div class="aside">
-          <Sidebar></Sidebar>
+          <div class="sidebar-div">
+            <Sidebar></Sidebar>
+          </div>
           <div class="view">
             <Switch>
               <Route
                 exact
                 path="/proyects"
-                render={(props) => <h1>Proyects Render Try</h1>}
+                render={(props) => <Proyectos></Proyectos>}
               />
               <Route
                 exact

@@ -1,0 +1,53 @@
+.proyectCard {
+  width: 550px !important;
+  height: 300px !important;
+  text-align: center;
+  border-radius: 25px;
+  margin: 24px 48px 24px 48px;
+}
+
+.proyectCard:hover {
+  cursor: pointer;
+}
+
+.proyectCard .title {
+  margin-top: 10px;
+  color: #545871;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.proyectCard .subtitle {
+  color: #dee2e6;
+  font-size: 20px;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.header-proyectos h1 {
+  text-align: center;
+  margin: auto;
+  margin-top: 3%;
+  margin-bottom: 2rem;
+  color: #545871;
+  font-weight: bolder;
+}
+
+.searchbar-div {
+  width: 72%;
+  margin: auto;
+}
+
+.flex-div {
+  padding: 0% 3% 0% 3%;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+}
+
+#button-search {
+  color: white;
+  background-color: #545871;
+  border-color: #545871;
+  border-radius: 0px;
+}

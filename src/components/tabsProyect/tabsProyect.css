@@ -5,7 +5,7 @@
 .tab-div-child {
   border: 1px solid #dee2e6;
   height: 700px;
-  border-radius: 2%;
+  border-radius: 5px;
 }
 
 .nav-tabs .nav-link.active,
@@ -14,7 +14,9 @@
 }
 
 .nav-tabs .nav-link {
+  border: none;
   color: #9a9ba4;
+  background-color: #f7eceb;
 }
 
 .titleDiv {
