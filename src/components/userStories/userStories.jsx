@@ -3,9 +3,9 @@ import Card from "react-bootstrap/Card";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
-import "./proyects.css";
+import "./userStories.css";
 
-class Proyects extends Component {
+class UserStories extends Component {
   state = {
     proyectsShowed: [],
   };
@@ -47,12 +47,12 @@ class Proyects extends Component {
   };
 
   Test = ({ stations }) => (
-    <div class="flex-div">
+    <div class="flex-div-userStories">
       {stations.map((station) => (
         <div>
-          <Card className="proyectCard">
+          <Card className="userCard">
             <Card.Body>
-              <Card.Title className="title">Card Title</Card.Title>
+              <Card.Title className="title">Historia de Usuario 1</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 Ultima Modificacion:
               </Card.Subtitle>
@@ -80,8 +80,7 @@ class Proyects extends Component {
       <React.Fragment>
         <div>
           <div class="header-proyectos">
-            <h1>Proyectos</h1>
-            <div class="searchbar-div">
+            <div class="searchbar-div-userStories">
               <InputGroup className="mb-3">
                 <FormControl
                   placeholder="Buscar"
@@ -102,4 +101,4 @@ class Proyects extends Component {
   }
 }
 
-export default Proyects;
+export default UserStories;

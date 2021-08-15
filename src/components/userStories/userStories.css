@@ -1,0 +1,45 @@
+.userCard {
+  width: 500px !important;
+  height: 280px !important;
+  text-align: center;
+  border-radius: 25px;
+  margin: 24px 48px 12px 48px;
+}
+
+.userCard:hover {
+  cursor: pointer;
+}
+
+.userCard .title {
+  margin-top: 10px;
+  color: #545871;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.userCard .subtitle {
+  color: #dee2e6;
+  font-size: 20px;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.searchbar-div-userStories {
+  padding-top: 32px;
+  width: 80%;
+  margin: auto;
+}
+
+.flex-div-userStories {
+  padding: 0% 1% 0% 1%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow: row wrap;
+}
+
+#button-search {
+  color: white;
+  background-color: #545871;
+  border-color: #545871;
+  border-radius: 0px;
+}

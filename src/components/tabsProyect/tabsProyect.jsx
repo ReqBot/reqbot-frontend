@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Tab, Tabs } from "react-bootstrap";
 import "./tabsProyect.css";
 import Chatbot from "../chatbot/chatbot";
+import UserStories from "../userStories/userStories";
 
 class TabsProyect extends Component {
   constructor(props) {
@@ -13,9 +14,7 @@ class TabsProyect extends Component {
   render() {
     return (
       <React.Fragment>
-        <div class="titleDiv">
-          <h1>Titulo de Proyecto</h1>
-        </div>
+        <div class="titleDiv"></div>
         <div class="tab-div-parent">
           <Tabs defaultActiveKey="chatbot" id="uncontrolled-tab-example">
             <Tab eventKey="chatbot" title="Chatbot">
@@ -25,7 +24,7 @@ class TabsProyect extends Component {
             </Tab>
             <Tab eventKey="historias" title="Historias">
               <div class="tab-div-child">
-                <h2>Hello</h2>
+                <UserStories></UserStories>
               </div>
             </Tab>
             <Tab eventKey="info" title="Info">
