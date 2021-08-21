@@ -7,12 +7,16 @@ import Proyectos from "./components/proyects/proyects";
 import TabsProyect from "./components/tabsProyect/tabsProyect";
 
 function App() {
+  let alertShow = () => {
+    alert("Debe elegir un proyecto para continuar.");
+  };
+
   return (
     <React.Fragment>
       <Router>
         <div class="aside">
           <div class="sidebar-div">
-            <Sidebar></Sidebar>
+            <Sidebar showAlert={alertShow}></Sidebar>
           </div>
           <div class="view">
             <Switch>

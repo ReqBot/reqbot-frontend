@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import Pagination from "react-bootstrap/Pagination";
 import "./proyects.css";
 
 class Proyects extends Component {
@@ -11,26 +12,78 @@ class Proyects extends Component {
   };
 
   componentDidMount() {
-    this.setState({
-      proyectsShowed: this.proyects,
-    });
+    if (this.proyects.length > 4) {
+      this.setState({
+        proyectsShowed: this.proyects.slice(0, 4),
+      });
+    } else {
+      this.setState({
+        proyectsShowed: this.proyects,
+      });
+    }
   }
 
+  index = 0;
+
   proyects = [
-    { call: "station one", frequency: "000" },
-    { call: "station two", frequency: "001" },
-    { call: "station two1", frequency: "001" },
-    { call: "station four", frequency: "001" },
+    {
+      nombre: "carritOS",
+      fechaModificacion: "8/14/2021",
+      etiqueta: "Movil",
+      estado: "En Progreso",
+      numeroDeHistorias: "5",
+      numeroUsuarios: "4",
+    },
+    {
+      nombre: "Cubi Pools",
+      fechaModificacion: "5/10/2020",
+      etiqueta: "Web",
+      estado: "En Progreso",
+      numeroDeHistorias: "4",
+      numeroUsuarios: "5",
+    },
+    {
+      nombre: "MF DOOM",
+      fechaModificacion: "2/11/2020",
+      etiqueta: "Movil",
+      estado: "En Progreso",
+      numeroDeHistorias: "8",
+      numeroUsuarios: "6",
+    },
+    {
+      nombre: "Proyect Manhattan",
+      fechaModificacion: "9/16/2019",
+      etiqueta: "Web",
+      estado: "Finalizado",
+      numeroDeHistorias: "10",
+      numeroUsuarios: "3",
+    },
+    {
+      nombre: "Americas Most Blunted",
+      fechaModificacion: "12/24/2018",
+      etiqueta: "Movil",
+      estado: "Finalizado",
+      numeroDeHistorias: "15",
+      numeroUsuarios: "4",
+    },
+    {
+      nombre: "carritOS 2",
+      fechaModificacion: "11/29/2018",
+      etiqueta: "Movil",
+      estado: "Finalizado",
+      numeroDeHistorias: "14",
+      numeroUsuarios: "5",
+    },
   ];
 
   filterFunction = (objects, value) => {
     var filteredObjects = [];
     for (const i in objects) {
-      if (objects[i].call.includes(value)) {
+      if (objects[i].nombre.includes(value)) {
         filteredObjects.push(objects[i]);
       }
     }
-
+    filteredObjects = filteredObjects.slice(0, 4);
     return filteredObjects;
   };
 
@@ -46,17 +99,44 @@ class Proyects extends Component {
     }
   };
 
-  Test = ({ stations }) => (
+  previosPage = () => {
+    if (this.index - 4 >= 0) {
+      this.index = this.index - 4;
+      console.log(this.index);
+      this.setState({
+        proyectsShowed: this.proyects.slice(this.index, this.index + 4),
+      });
+    }
+  };
+
+  nextPage = () => {
+    if (this.index + 4 < this.proyects.length) {
+      this.index = this.index + 4;
+      if (this.index + 4 > this.proyects.length) {
+        this.setState({
+          proyectsShowed: this.proyects.slice(this.index, this.proyects.length),
+        });
+      } else {
+        this.setState({
+          proyectsShowed: this.proyects.slice(this.index, this.index + 4),
+        });
+      }
+    }
+  };
+
+  CardProyect = ({ proyectsEntry }) => (
     <div class="flex-div">
-      {stations.map((station) => (
+      {proyectsEntry.map((proyect) => (
         <div>
           <Card className="proyectCard">
             <Card.Body>
-              <Card.Title className="title">Card Title</Card.Title>
+              <Card.Title className="title">{proyect.nombre}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 Ultima Modificacion:
               </Card.Subtitle>
-              <Card.Subtitle className="subtitle">12:30 am</Card.Subtitle>
+              <Card.Subtitle className="subtitle">
+                {proyect.fechaModificacion}
+              </Card.Subtitle>
               <Card.Text>
                 <div>
                   <b>eti1</b>
@@ -78,7 +158,7 @@ class Proyects extends Component {
   render() {
     return (
       <React.Fragment>
-        <div>
+        <div class="proyects-div">
           <div class="header-proyectos">
             <h1>Proyectos</h1>
             <div class="searchbar-div">
@@ -93,8 +173,17 @@ class Proyects extends Component {
               </InputGroup>
             </div>
           </div>
+
+          <div class="div-pagination">
+            <Pagination>
+              <Pagination.Prev onClick={this.previosPage} />
+              <Pagination.Next onClick={this.nextPage} />
+            </Pagination>
+          </div>
           <div>
-            <this.Test stations={this.state.proyectsShowed}></this.Test>
+            <this.CardProyect
+              proyectsEntry={this.state.proyectsShowed}
+            ></this.CardProyect>
           </div>
         </div>
       </React.Fragment>

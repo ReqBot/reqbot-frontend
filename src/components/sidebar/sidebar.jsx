@@ -10,8 +10,20 @@ import {
 import { NavLink } from "react-router-dom";
 import "./sidebar.css";
 import logo from "../../img/logo.png";
+import { createPortal } from "react-dom/cjs/react-dom.development";
+import { withRouter } from "react-router-dom";
 
 class Sidebar extends Component {
+  modalShow = () => {
+    if (window.location.href != "http://localhost:3000/proyects") {
+      this.props.history.push({
+        pathname: "/proyects",
+      });
+    } else {
+      this.props.showAlert();
+    }
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -52,11 +64,13 @@ class Sidebar extends Component {
                   </CDBSidebarMenuItem>
                 </NavLink>
 
-                <NavLink exact to="/redactar">
-                  <CDBSidebarMenuItem active="true" className="buttonSideBar">
-                    Redactar Requisito
-                  </CDBSidebarMenuItem>
-                </NavLink>
+                <CDBSidebarMenuItem
+                  active="true"
+                  className="buttonSideBar"
+                  onClick={this.modalShow}
+                >
+                  Redactar Requisito
+                </CDBSidebarMenuItem>
               </CDBSidebarMenu>
             </CDBSidebarContent>
 
@@ -76,4 +90,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);

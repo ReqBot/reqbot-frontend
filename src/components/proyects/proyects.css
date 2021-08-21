@@ -51,3 +51,39 @@
   border-color: #545871;
   border-radius: 0px;
 }
+
+.proyects-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.div-pagination {
+  width: 73%;
+  margin-left: auto;
+  margin-right: auto;
+  float: right;
+}
+
+.pagination {
+  float: right;
+  margin-bottom: 0px;
+}
+
+.page-link {
+  background-color: #f7eceb;
+  border: none;
+  color: #545871;
+  font-size: 24px;
+  padding: 0.2rem 0.75rem;
+}
+
+.page-link:hover {
+  z-index: 2;
+  color: #f7eceb;
+  background-color: #f7eceb;
+  border-color: #f7eceb;
+}
+
+.visually-hidden {
+  display: none;
+}
