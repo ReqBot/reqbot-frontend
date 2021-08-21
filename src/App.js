@@ -5,25 +5,32 @@ import "./App.css";
 import Sidebar from "./components/sidebar/sidebar";
 import Proyectos from "./components/proyects/proyects";
 import TabsProyect from "./components/tabsProyect/tabsProyect";
+import Button from "react-bootstrap/Button";
 
 function App() {
-  let alertShow = () => {
-    alert("Debe elegir un proyecto para continuar.");
+  let sideBarParent = () => {
+    proyectsShowAlert();
   };
+
+  let proyectsShowAlert = () => {};
 
   return (
     <React.Fragment>
       <Router>
         <div class="aside">
           <div class="sidebar-div">
-            <Sidebar showAlert={alertShow}></Sidebar>
+            <Sidebar showProyectsAlert={sideBarParent}></Sidebar>
           </div>
           <div class="view">
             <Switch>
               <Route
                 exact
                 path="/proyects"
-                render={(props) => <Proyectos></Proyectos>}
+                render={(props) => (
+                  <Proyectos
+                    setClick={(click) => (proyectsShowAlert = click)}
+                  ></Proyectos>
+                )}
               />
               <Route
                 exact

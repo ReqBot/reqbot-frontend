@@ -5,13 +5,22 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import Pagination from "react-bootstrap/Pagination";
 import "./proyects.css";
+import Alert from "react-bootstrap/Alert";
 
 class Proyects extends Component {
   state = {
     proyectsShowed: [],
+    isHidden: false,
   };
 
+  constructor(props) {
+    super(props);
+    this.getAlert = this.getAlert.bind(this);
+  }
+
   componentDidMount() {
+    this.props.setClick(this.getAlert);
+
     if (this.proyects.length > 4) {
       this.setState({
         proyectsShowed: this.proyects.slice(0, 4),
@@ -24,6 +33,10 @@ class Proyects extends Component {
   }
 
   index = 0;
+
+  getAlert() {
+    alert("clicked");
+  }
 
   proyects = [
     {
@@ -159,6 +172,7 @@ class Proyects extends Component {
     return (
       <React.Fragment>
         <div class="proyects-div">
+          {this.state.isHidden ? <Alert variant={"danger"}></Alert> : null}
           <div class="header-proyectos">
             <h1>Proyectos</h1>
             <div class="searchbar-div">

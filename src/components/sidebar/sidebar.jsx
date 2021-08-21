@@ -14,14 +14,12 @@ import { createPortal } from "react-dom/cjs/react-dom.development";
 import { withRouter } from "react-router-dom";
 
 class Sidebar extends Component {
-  modalShow = () => {
-    if (window.location.href != "http://localhost:3000/proyects") {
-      this.props.history.push({
-        pathname: "/proyects",
-      });
-    } else {
-      this.props.showAlert();
-    }
+  constructor(props) {
+    super(props);
+  }
+
+  showAlert = () => {
+    this.props.showProyectsAlert();
   };
 
   render() {
@@ -67,7 +65,7 @@ class Sidebar extends Component {
                 <CDBSidebarMenuItem
                   active="true"
                   className="buttonSideBar"
-                  onClick={this.modalShow}
+                  onClick={this.showAlert}
                 >
                   Redactar Requisito
                 </CDBSidebarMenuItem>
