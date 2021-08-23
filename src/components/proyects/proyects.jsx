@@ -6,6 +6,8 @@ import Button from "react-bootstrap/Button";
 import Pagination from "react-bootstrap/Pagination";
 import "./proyects.css";
 import Alert from "react-bootstrap/Alert";
+import { FaHandsHelping } from "react-icons/fa";
+import { withRouter } from "react-router-dom";
 
 class Proyects extends Component {
   state = {
@@ -35,8 +37,34 @@ class Proyects extends Component {
   index = 0;
 
   getAlert() {
-    alert("clicked");
+    this.setState({
+      isHidden: true,
+    });
+
+    this.useEffect();
   }
+
+  useEffect() {
+    const timeId = setTimeout(() => {
+      // After 3 seconds set the show value to false
+      this.setState({
+        isHidden: false,
+      });
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }
+
+  goDetailProject = (proyectIndex) => {
+    this.props.history.push({
+      pathname: "/redactar",
+      megastate: { proyect: proyectIndex },
+    });
+
+    console.log(proyectIndex);
+  };
 
   proyects = [
     {
@@ -141,7 +169,10 @@ class Proyects extends Component {
     <div class="flex-div">
       {proyectsEntry.map((proyect) => (
         <div>
-          <Card className="proyectCard">
+          <Card
+            className="proyectCard"
+            onClick={this.goDetailProject.bind(this, proyect)}
+          >
             <Card.Body>
               <Card.Title className="title">{proyect.nombre}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
@@ -172,7 +203,13 @@ class Proyects extends Component {
     return (
       <React.Fragment>
         <div class="proyects-div">
-          {this.state.isHidden ? <Alert variant={"danger"}></Alert> : null}
+          {this.state.isHidden ? (
+            <Alert variant={"danger"}>
+              {" "}
+              <FaHandsHelping id="helpingHandIcon"></FaHandsHelping>
+              Debe elegir un proyecto para continuar.{" "}
+            </Alert>
+          ) : null}
           <div class="header-proyectos">
             <h1>Proyectos</h1>
             <div class="searchbar-div">
@@ -205,4 +242,4 @@ class Proyects extends Component {
   }
 }
 
-export default Proyects;
+export default withRouter(Proyects);

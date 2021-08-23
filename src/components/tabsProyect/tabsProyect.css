@@ -1,5 +1,5 @@
 .tab-div-parent {
-  padding: 50px 50px 50px 50px;
+  padding: 24px 50px 50px 50px;
 }
 
 .tab-div-child {
@@ -26,4 +26,13 @@
 
 .nav-tabs {
   border-bottom: none;
+}
+
+.titleDiv h1 {
+  text-align: center;
+  margin: auto;
+  margin-top: 3.5%;
+  margin-bottom: 0rem;
+  color: #545871;
+  font-weight: bolder;
 }
