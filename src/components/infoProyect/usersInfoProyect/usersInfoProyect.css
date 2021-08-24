@@ -17,14 +17,12 @@
   height: 50px;
   padding-right: 16px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #545871;
 }
 
 .col-clientes .header p {
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin: auto;
 }
 
 .col-analistas {
@@ -39,15 +37,13 @@
   height: 50px;
   padding-right: 16px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #545871;
   padding-left: 36px;
 }
 
 .col-analistas .header p {
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin: auto;
 }
 
 #button-info-header {
@@ -59,6 +55,7 @@
   width: 100px;
   height: 30px;
   line-height: 1;
+  margin-left: auto;
 }
 
 .info-body {
@@ -66,4 +63,50 @@
   border-bottom: 1px solid #545871;
   padding-left: 36px;
   height: 60px;
+  display: flex;
+  font-size: 15px;
+}
+
+#settings-user-wheel {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 12px;
+  font-size: 21px;
+}
+
+#settings-user-wheel:hover {
+  cursor: pointer;
+}
+
+.setting-user-text {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 64px;
+}
+
+.body-container-overflow {
+  max-height: 240px;
+  overflow: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-bottom: 1px solid #545871;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #545871;
 }

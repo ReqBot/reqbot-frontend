@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./usersInfoProyect.css";
 import Button from "react-bootstrap/Button";
+import { AiFillSetting } from "react-icons/ai";
 
 class UserInfoProyect extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class UserInfoProyect extends Component {
       apellido: "Kcomt",
       correo: "",
       contraseña: "",
-      rol: "Analista",
+      rol: "Cliente",
       estado: "Activo",
     },
     {
@@ -25,7 +26,7 @@ class UserInfoProyect extends Component {
       apellido: "Lopez",
       correo: "",
       contraseña: "",
-      rol: "Cliente",
+      rol: "Analista",
       estado: "Activo",
     },
     {
@@ -34,6 +35,22 @@ class UserInfoProyect extends Component {
       correo: "",
       contraseña: "",
       rol: "Analista",
+      estado: "Activo",
+    },
+    {
+      nombre: "Junioe",
+      apellido: "Lopez",
+      correo: "",
+      contraseña: "",
+      rol: "Cliente",
+      estado: "Activo",
+    },
+    {
+      nombre: "Piero",
+      apellido: "Melano",
+      correo: "",
+      contraseña: "",
+      rol: "Cliente",
       estado: "Activo",
     },
     {
@@ -66,10 +83,11 @@ class UserInfoProyect extends Component {
   }
 
   userRows = ({ users }) => (
-    <div>
+    <div class="body-container-overflow">
       {users.map((user) => (
         <div class="info-body">
-          <div>
+          <AiFillSetting id="settings-user-wheel"></AiFillSetting>
+          <div class="setting-user-text">
             {user.nombre}&nbsp;{user.apellido}
           </div>
           <div></div>
