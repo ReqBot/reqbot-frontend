@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./infoProyect.css";
+import Button from "react-bootstrap/Button";
+import UserInfoProyect from "./usersInfoProyect/usersInfoProyect";
 
 class InfoProyect extends Component {
   constructor(props) {
@@ -24,6 +26,16 @@ class InfoProyect extends Component {
           <div class="estado">
             <p class="sub-title">Estado: &nbsp;</p>
             <p> {this.props.proyect.estado}</p>
+          </div>
+
+          <div class="descripcion">{this.props.proyect.descripcion}</div>
+          <div class="button-div">
+            <Button id="button-info">Editar</Button>
+          </div>
+
+          <div class="info-users">
+            {" "}
+            <UserInfoProyect></UserInfoProyect>
           </div>
         </div>
       </React.Fragment>

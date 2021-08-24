@@ -19,7 +19,13 @@ class Sidebar extends Component {
   }
 
   showAlert = () => {
-    this.props.showProyectsAlert();
+    if (window.location.href != "http://localhost:3000/proyects") {
+      this.props.history.push({
+        pathname: "/proyects",
+      });
+    } else {
+      this.props.showProyectsAlert();
+    }
   };
 
   render() {

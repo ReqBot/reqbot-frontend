@@ -1,0 +1,69 @@
+.contenedor-tabla {
+  display: flex;
+  border-top: 1px solid #545871;
+}
+
+.col-clientes {
+  width: 50%;
+  border-right: 1px solid #545871;
+}
+
+.col-clientes .header {
+  padding-left: 36px;
+  background-color: white;
+  color: #545871;
+  font-size: 16px;
+  font-weight: bold;
+  height: 50px;
+  padding-right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #545871;
+}
+
+.col-clientes .header p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.col-analistas {
+  width: 50%;
+}
+
+.col-analistas .header {
+  background-color: white;
+  color: #545871;
+  font-size: 16px;
+  font-weight: bold;
+  height: 50px;
+  padding-right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #545871;
+  padding-left: 36px;
+}
+
+.col-analistas .header p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#button-info-header {
+  font-size: 14px;
+  color: #545871;
+  background-color: #dadbe6;
+  border-color: #dadbe6;
+  border-radius: 20px;
+  width: 100px;
+  height: 30px;
+  line-height: 1;
+}
+
+.info-body {
+  background-color: white;
+  border-bottom: 1px solid #545871;
+  padding-left: 36px;
+  height: 60px;
+}

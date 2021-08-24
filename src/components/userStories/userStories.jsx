@@ -4,6 +4,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import "./userStories.css";
+import { FaSearch } from "react-icons/fa";
 
 class UserStories extends Component {
   state = {
@@ -81,14 +82,15 @@ class UserStories extends Component {
         <div>
           <div class="header-proyectos">
             <div class="searchbar-div-userStories">
-              <InputGroup className="mb-3">
+              <InputGroup id="input-userStories" className="mb-3">
+                <FaSearch id="seach-icon"></FaSearch>
                 <FormControl
                   placeholder="Buscar"
                   aria-label="Recipient's username"
                   aria-describedby="basic-addon2"
                   onChange={this.editSearchTerm}
+                  id="search-userStories"
                 />
-                <Button id="button-search">Buscar</Button>
               </InputGroup>
             </div>
           </div>
