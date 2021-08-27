@@ -8,20 +8,20 @@ import { FaSearch } from "react-icons/fa";
 
 class UserStories extends Component {
   state = {
-    proyectsShowed: [],
+    userStoriesShowed: [],
   };
 
   componentDidMount() {
     this.setState({
-      proyectsShowed: this.proyects,
+      userStoriesShowed: this.userStories,
     });
   }
 
-  proyects = [
-    { call: "station one", frequency: "000" },
-    { call: "station two", frequency: "001" },
-    { call: "station two1", frequency: "001" },
-    { call: "station four", frequency: "001" },
+  userStories = [
+    { call: "Historia 1", frequency: "000" },
+    { call: "Historia 1", frequency: "001" },
+    { call: "Historia 2", frequency: "001" },
+    { call: "Historia 3", frequency: "001" },
   ];
 
   filterFunction = (objects, value) => {
@@ -38,11 +38,14 @@ class UserStories extends Component {
   editSearchTerm = (e) => {
     if (e.target.value != null) {
       this.setState({
-        proyectsShowed: this.filterFunction(this.proyects, e.target.value),
+        userStoriesShowed: this.filterFunction(
+          this.userStories,
+          e.target.value
+        ),
       });
     } else {
       this.setState({
-        proyectsShowed: this.proyects,
+        userStoriesShowed: this.userStories,
       });
     }
   };
@@ -95,7 +98,7 @@ class UserStories extends Component {
             </div>
           </div>
           <div>
-            <this.Test stations={this.state.proyectsShowed}></this.Test>
+            <this.Test stations={this.state.userStoriesShowed}></this.Test>
           </div>
         </div>
       </React.Fragment>

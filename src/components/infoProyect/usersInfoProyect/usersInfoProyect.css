@@ -14,7 +14,7 @@
   color: #545871;
   font-size: 16px;
   font-weight: bold;
-  height: 50px;
+  height: 60px;
   padding-right: 16px;
   display: flex;
   align-items: center;
@@ -34,7 +34,7 @@
   color: #545871;
   font-size: 16px;
   font-weight: bold;
-  height: 50px;
+  height: 60px;
   padding-right: 16px;
   display: flex;
   align-items: center;
@@ -97,7 +97,6 @@
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-bottom: 1px solid #545871;
 }
 
 /* Handle */
@@ -109,4 +108,92 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #545871;
+}
+
+#settings-info-user {
+}
+
+#btn-close {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 12px;
+  font-size: 21px;
+  color: #545871;
+}
+
+#btn-close:hover {
+  cursor: pointer;
+}
+
+.modal-content {
+  background-color: #f0f1f7;
+  min-height: 300px;
+}
+
+.modal-header {
+  color: #545871;
+  margin-left: 16px;
+}
+
+.modal-body {
+  color: #545871;
+}
+
+#boton-guardar-modal {
+  background-color: #545871;
+  border-color: #545871;
+  color: white;
+}
+
+#boton-cerrar-modal {
+  color: #545871;
+  background-color: #dadbe6;
+  border-color: #dadbe6;
+}
+
+.add-to-proyects-body {
+  max-height: 600px;
+  overflow: auto;
+}
+
+.add-to-proyects-info-body {
+  background-color: #f0f1f7;
+  padding-left: 36px;
+  height: 100px;
+  display: flex;
+  font-size: 15px;
+  border-bottom: 1px solid #dee2e6;
+  font-weight: bold;
+}
+
+#agregar-usuario-proyecto {
+  font-size: 14px;
+  color: white;
+  background-color: #545871;
+  border-color: #545871;
+  border-radius: 20px;
+  width: 100px;
+  height: 30px;
+  line-height: 1;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 16px;
+}
+
+.add-user-img {
+  border-radius: 30px;
+  height: 50px;
+  width: 50px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.searchbar-div-add-user-proyect {
+  width: 90%;
+  margin: auto;
+}
+
+#search-bar-add-user-proyect {
+  height: 30px;
 }
