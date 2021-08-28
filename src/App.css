@@ -36,14 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-.aside {
-  background: green;
-  display: flex;
-  min-height: 100vh;
-}
-
-.view {
-  flex-grow: 1;
-  background: #f7eceb;
-}
