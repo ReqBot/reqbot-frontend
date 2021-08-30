@@ -5,45 +5,61 @@ import "./App.css";
 import Dashboard from "./components/dashboard/dashboard";
 import Login from "./components/login/login";
 import Register from "./components/register/register";
+import ForgotPassword from "./components/forgotPassword/forgotPassword";
 
-function App() {
-  let loggedIn = false;
-
-  let sideBarParent = () => {
-    proyectsShowAlert();
+class App extends Component {
+  state = {
+    loggedIn: false,
   };
 
-  let proyectsShowAlert = () => {};
+  constructor(props) {
+    super(props);
+  }
 
-  let loggin = (number) => {
-    console.log(number);
+  loggin = (condition) => {
+    this.setState({
+      loggedIn: condition,
+    });
   };
 
-  return (
-    <React.Fragment>
-      <Router>
-        <Switch>
-          {loggedIn ? (
-            <Route exact path="/" render={(props) => <Dashboard></Dashboard>} />
-          ) : null}
+  render() {
+    return (
+      <React.Fragment>
+        <Router>
+          <Switch>
+            {this.state.loggedIn ? (
+              <Route
+                path="/dashboard"
+                render={(props) => <Dashboard></Dashboard>}
+              />
+            ) : null}
 
-          {!loggedIn ? (
+            {!this.state.loggedIn ? (
+              <Route
+                exact
+                path="/"
+                render={(props) => (
+                  <Login changeParentLogin={this.loggin}></Login>
+                )}
+              />
+            ) : null}
+
             <Route
               exact
-              path="/"
-              render={(props) => <Login changeParentLogin={loggin}></Login>}
+              path="/register"
+              render={(props) => <Register></Register>}
             />
-          ) : null}
 
-          <Route
-            exact
-            path="/register"
-            render={(props) => <Register></Register>}
-          />
-        </Switch>
-      </Router>
-    </React.Fragment>
-  );
+            <Route
+              exact
+              path="/forgot-password"
+              render={(props) => <ForgotPassword></ForgotPassword>}
+            />
+          </Switch>
+        </Router>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;

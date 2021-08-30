@@ -5,44 +5,47 @@ import "./dashboard.css";
 import Sidebar from "../sidebar/sidebar";
 import Proyectos from "../proyects/proyects";
 import TabsProyect from "../tabsProyect/tabsProyect";
-
+import Organization from "../organization/organization";
 import { withRouter } from "react-router-dom";
 
 class Dashboard extends Component {
+  componentDidMount() {
+    console.log(this.props.match.url);
+  }
   sideBarParent = () => {
     this.proyectsShowAlert();
   };
-
   proyectsShowAlert = () => {};
 
   render() {
     return (
       <React.Fragment>
-        <Router>
-          <div class="aside">
-            <div class="sidebar-div">
-              <Sidebar showProyectsAlert={this.sideBarParent}></Sidebar>
-            </div>
-            <div class="view">
-              <Switch>
-                <Route
-                  exact
-                  path="/proyects"
-                  render={(props) => (
-                    <Proyectos
-                      setClick={(click) => (this.proyectsShowAlert = click)}
-                    ></Proyectos>
-                  )}
-                />
-                <Route
-                  exact
-                  path="/redactar"
-                  render={(props) => <TabsProyect></TabsProyect>}
-                />
-              </Switch>
-            </div>
+        <div class="aside">
+          <div class="sidebar-div">
+            <Sidebar showProyectsAlert={this.sideBarParent}></Sidebar>
           </div>
-        </Router>
+          <div class="view">
+            <Switch>
+              <Route
+                path={this.props.match.url + "/proyects"}
+                render={(props) => (
+                  <Proyectos
+                    setClick={(click) => (this.proyectsShowAlert = click)}
+                  ></Proyectos>
+                )}
+              />
+              <Route
+                path={this.props.match.url + "/redactar"}
+                render={(props) => <TabsProyect></TabsProyect>}
+              />
+
+              <Route
+                path={this.props.match.url + "/organization"}
+                render={(props) => <Organization></Organization>}
+              />
+            </Switch>
+          </div>
+        </div>
       </React.Fragment>
     );
   }

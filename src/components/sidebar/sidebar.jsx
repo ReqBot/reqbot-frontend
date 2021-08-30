@@ -21,7 +21,7 @@ class Sidebar extends Component {
   showAlert = () => {
     if (window.location.href != "http://localhost:3000/proyects") {
       this.props.history.push({
-        pathname: "/proyects",
+        pathname: "/dashboard/proyects",
       });
     } else {
       this.props.showProyectsAlert();
@@ -56,13 +56,13 @@ class Sidebar extends Component {
                     <img class="imgTable" src={logo} alt=" " />
                   </div>
                 </CDBSidebarMenuItem>
-                <NavLink exact to="/proyects">
+                <NavLink exact to="/dashboard/proyects">
                   <CDBSidebarMenuItem className="titleSide">
                     Proyectos
                   </CDBSidebarMenuItem>
                 </NavLink>
 
-                <NavLink exact to="/proyects">
+                <NavLink exact to="/dashboard/organization">
                   <CDBSidebarMenuItem className="titleSide">
                     Organización
                   </CDBSidebarMenuItem>

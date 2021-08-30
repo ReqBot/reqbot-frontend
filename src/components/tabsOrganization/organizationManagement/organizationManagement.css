@@ -1,0 +1,27 @@
+.organizacion-usuarios {
+  width: 100%;
+  border-right: 1px solid #545871;
+}
+
+.organizacion-usuarios .header {
+  padding-left: 36px;
+  background-color: white;
+  color: #545871;
+  font-size: 16px;
+  font-weight: bold;
+  height: 60px;
+  padding-right: 16px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #545871;
+}
+
+.organizacion-usuarios .header p {
+  margin: auto;
+}
+
+.organizacion-contenedor-tabla {
+  margin-top: 32px;
+  display: flex;
+  border-top: 1px solid #545871;
+}

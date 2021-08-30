@@ -22,9 +22,53 @@ class Register extends Component {
   render() {
     return (
       <React.Fragment>
-        <Button id="login-button" onClick={this.goToRegister}>
-          Registrarme
-        </Button>
+        <div class="login-container">
+          <img class="login-image" src={logo}></img>
+          <h1>ReqBot</h1>
+          <div class="input-parts">
+            {" "}
+            <InputGroup className="mb-3 login-input">
+              <FormControl
+                placeholder="Correo"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+            <InputGroup className="mb-3 login-input">
+              <FormControl
+                placeholder="Contraseña"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+            <InputGroup className="mb-3 login-input">
+              <FormControl
+                placeholder="Contraseña"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+            <InputGroup className="mb-3 login-input">
+              <FormControl
+                placeholder="Contraseña"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+            <InputGroup className="mb-3 login-input">
+              <FormControl
+                placeholder="Contraseña"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+            <div class="login-buttons-div">
+              <Button id="login-button" onClick={this.goToRegister}>
+                Registrarme
+              </Button>
+            </div>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
