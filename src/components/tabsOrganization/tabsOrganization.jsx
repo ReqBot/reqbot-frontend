@@ -16,7 +16,7 @@ class TabsOrganization extends Component {
   render() {
     return (
       <React.Fragment>
-        <div class="titleDiv">
+        <div class="organization-titleDiv">
           <h1>Organization</h1>
         </div>
         <div class="tab-div-parent">

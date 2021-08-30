@@ -12,6 +12,63 @@ class OrganizationManagement extends Component {
   }
   componentDidMount() {}
 
+  proyects = [
+    {
+      nombre: "carritOS",
+      fechaModificacion: "8/14/2021",
+      etiqueta: "Movil",
+      estado: "En Progreso",
+      numeroDeHistorias: "5",
+      numeroUsuarios: "4",
+      descripcion: this.dummyText,
+    },
+    {
+      nombre: "Cubi Pools",
+      fechaModificacion: "5/10/2020",
+      etiqueta: "Web",
+      estado: "En Progreso",
+      numeroDeHistorias: "4",
+      numeroUsuarios: "5",
+      descripcion: this.dummyText,
+    },
+    {
+      nombre: "MF DOOM",
+      fechaModificacion: "2/11/2020",
+      etiqueta: "Movil",
+      estado: "En Progreso",
+      numeroDeHistorias: "8",
+      numeroUsuarios: "6",
+      descripcion: "",
+    },
+    {
+      nombre: "Proyect Manhattan",
+      fechaModificacion: "9/16/2019",
+      etiqueta: "Web",
+      estado: "Finalizado",
+      numeroDeHistorias: "10",
+      numeroUsuarios: "3",
+      descripcion: "",
+    },
+    {
+      nombre: "Americas Most Blunted",
+      fechaModificacion: "12/24/2018",
+      etiqueta: "Movil",
+      estado: "Finalizado",
+      numeroDeHistorias: "15",
+      numeroUsuarios: "4",
+      descripcion: this.dummyText,
+    },
+    {
+      nombre: "carritOS 2",
+      fechaModificacion: "11/29/2018",
+      etiqueta: "Movil",
+      estado: "Finalizado",
+      numeroDeHistorias: "14",
+      numeroUsuarios: "5",
+      descripcion: this.dummyText,
+    },
+  ];
+
   usuarios = [
     {
       nombre: "Luis",
@@ -85,7 +142,7 @@ class OrganizationManagement extends Component {
   userRows = ({ users }) => (
     <div class="body-container-overflow">
       {users.map((user) => (
-        <div class="info-body">
+        <div class="organization-info-body ">
           <AiFillSetting
             id="settings-user-wheel"
             onClick={this.hanldeSettings}
@@ -97,6 +154,19 @@ class OrganizationManagement extends Component {
       ))}
     </div>
   );
+
+  projectRows = ({ users }) => (
+    <div class="body-container-overflow">
+      {users.map((user) => (
+        <div class="organization-info-body">
+          <div class="setting-user-text">
+            {user.nombre}&nbsp;{user.apellido}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
   render() {
     return (
       <React.Fragment>
@@ -105,11 +175,11 @@ class OrganizationManagement extends Component {
             {" "}
             <div class="header">
               <p>Proyectos</p>
-              <Button id="button-info-header" onClick={this.hanldeAdd}>
+              <Button id="organization-button-header" onClick={this.hanldeAdd}>
                 Crear
               </Button>
             </div>{" "}
-            <this.userRows users={this.usuarios}></this.userRows>
+            <this.projectRows users={this.usuarios}></this.projectRows>
           </div>
         </div>
         <div class="organizacion-contenedor-tabla">
@@ -117,7 +187,7 @@ class OrganizationManagement extends Component {
             {" "}
             <div class="header">
               <p>Usuarios</p>
-              <Button id="button-info-header" onClick={this.hanldeAdd}>
+              <Button id="organization-button-header" onClick={this.hanldeAdd}>
                 Crear
               </Button>
             </div>{" "}

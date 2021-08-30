@@ -17,11 +17,32 @@
 }
 
 .organizacion-usuarios .header p {
-  margin: auto;
+  margin: auto auto auto 64px;
 }
 
 .organizacion-contenedor-tabla {
-  margin-top: 32px;
+  margin: 16px 0px 54px 0px;
   display: flex;
   border-top: 1px solid #545871;
+}
+
+#organization-button-header {
+  font-size: 14px;
+  color: white;
+  background-color: #545871;
+  border-color: #545871;
+  border-radius: 20px;
+  width: 100px;
+  height: 30px;
+  line-height: 1;
+  margin-left: auto;
+}
+
+.organization-info-body {
+  background-color: white;
+  border-bottom: 1px solid #545871;
+  padding-left: 36px;
+  height: 80px;
+  display: flex;
+  font-size: 15px;
 }
