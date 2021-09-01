@@ -12,6 +12,9 @@ class OrganizationManagement extends Component {
   }
   componentDidMount() {}
 
+  dummyText =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem. Sed facilisis vulputate massa, quis elementum leo sagittis non. Aliquam  facilisis mollis dolor id ullamcorper. Phasellus cursus nunc ut eros rutrum vulputate. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum libero justo, ornare quis cursus ut, luctus sed diam.";
+
   proyects = [
     {
       nombre: "carritOS",
@@ -29,7 +32,7 @@ class OrganizationManagement extends Component {
       estado: "En Progreso",
       numeroDeHistorias: "4",
       numeroUsuarios: "5",
-      descripcion: this.dummyText,
+      descripcion: "Lorem ipsum dolor sit amet",
     },
     {
       nombre: "MF DOOM",
@@ -38,7 +41,7 @@ class OrganizationManagement extends Component {
       estado: "En Progreso",
       numeroDeHistorias: "8",
       numeroUsuarios: "6",
-      descripcion: "",
+      descripcion: this.dummyText,
     },
     {
       nombre: "Proyect Manhattan",
@@ -47,7 +50,7 @@ class OrganizationManagement extends Component {
       estado: "Finalizado",
       numeroDeHistorias: "10",
       numeroUsuarios: "3",
-      descripcion: "",
+      descripcion: this.dummyText,
     },
     {
       nombre: "Americas Most Blunted",
@@ -140,27 +143,33 @@ class OrganizationManagement extends Component {
   }
 
   userRows = ({ users }) => (
-    <div class="body-container-overflow">
+    <div class="body-container-overflow-organization">
       {users.map((user) => (
-        <div class="organization-info-body ">
-          <AiFillSetting
-            id="settings-user-wheel"
-            onClick={this.hanldeSettings}
-          ></AiFillSetting>
-          <div class="setting-user-text">
+        <div class="organization-info-body">
+          <div class="organization-user-text-name">
             {user.nombre}&nbsp;{user.apellido}
+          </div>
+          <div class="organization-user-text-rol">
+            <b>Rol:</b> {user.rol}
+          </div>
+          <div class="organization-user-text-state">
+            <b>Estado:</b> {user.estado}
           </div>
         </div>
       ))}
     </div>
   );
 
-  projectRows = ({ users }) => (
-    <div class="body-container-overflow">
-      {users.map((user) => (
-        <div class="organization-info-body">
-          <div class="setting-user-text">
-            {user.nombre}&nbsp;{user.apellido}
+  projectRows = ({ proyects }) => (
+    <div class="body-container-overflow-organization">
+      {proyects.map((proyect) => (
+        <div class="organization-info-body-proyect">
+          <div class="organization-proyect-text-name">{proyect.nombre}</div>
+          <div class="organization-proyect-text-description">
+            {proyect.descripcion}
+          </div>
+          <div class="organization-proyect-text-date-2">
+            <b>Ultima Modificación:</b> {proyect.fechaModificacion}
           </div>
         </div>
       ))}
@@ -170,28 +179,36 @@ class OrganizationManagement extends Component {
   render() {
     return (
       <React.Fragment>
-        <div class="organizacion-contenedor-tabla">
-          <div class="organizacion-usuarios">
-            {" "}
-            <div class="header">
-              <p>Proyectos</p>
-              <Button id="organization-button-header" onClick={this.hanldeAdd}>
-                Crear
-              </Button>
-            </div>{" "}
-            <this.projectRows users={this.usuarios}></this.projectRows>
+        <div class="contenedor-org-manage">
+          <div class="organizacion-contenedor-tabla-top">
+            <div class="organizacion-usuarios">
+              {" "}
+              <div class="header">
+                <p>Proyectos</p>
+                <Button
+                  id="organization-button-header"
+                  onClick={this.hanldeAdd}
+                >
+                  Crear
+                </Button>
+              </div>{" "}
+              <this.projectRows proyects={this.proyects}></this.projectRows>
+            </div>
           </div>
-        </div>
-        <div class="organizacion-contenedor-tabla">
-          <div class="organizacion-usuarios">
-            {" "}
-            <div class="header">
-              <p>Usuarios</p>
-              <Button id="organization-button-header" onClick={this.hanldeAdd}>
-                Crear
-              </Button>
-            </div>{" "}
-            <this.userRows users={this.usuarios}></this.userRows>
+          <div class="organizacion-contenedor-tabla-bottom">
+            <div class="organizacion-usuarios">
+              {" "}
+              <div class="header">
+                <p>Usuarios</p>
+                <Button
+                  id="organization-button-header"
+                  onClick={this.hanldeAdd}
+                >
+                  Crear
+                </Button>
+              </div>{" "}
+              <this.userRows users={this.usuarios}></this.userRows>
+            </div>
           </div>
         </div>
       </React.Fragment>

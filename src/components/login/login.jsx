@@ -23,7 +23,7 @@ class Login extends Component {
   goLogin = () => {
     this.props.changeParentLogin(true);
     this.props.history.push({
-      pathname: "/dashboard",
+      pathname: "/dashboard/proyects",
     });
   };
 

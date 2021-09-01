@@ -16,6 +16,10 @@
   border-radius: 10px;
 }
 
+.nav-tabs .nav-item {
+  margin-bottom: 0px;
+}
+
 .nav-tabs .nav-link {
   border: none;
   color: #9a9ba4;

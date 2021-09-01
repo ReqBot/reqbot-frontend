@@ -1,6 +1,10 @@
+.contenedor-org-manage {
+  padding-top: 16px;
+  display: flex;
+}
+
 .organizacion-usuarios {
   width: 100%;
-  border-right: 1px solid #545871;
 }
 
 .organizacion-usuarios .header {
@@ -17,13 +21,20 @@
 }
 
 .organizacion-usuarios .header p {
-  margin: auto auto auto 64px;
+  margin: auto auto auto 0px;
 }
 
-.organizacion-contenedor-tabla {
-  margin: 16px 0px 54px 0px;
+.organizacion-contenedor-tabla-top {
   display: flex;
   border-top: 1px solid #545871;
+  width: 48%;
+}
+
+.organizacion-contenedor-tabla-bottom {
+  display: flex;
+  border-top: 1px solid #545871;
+  width: 48%;
+  margin-left: 32px;
 }
 
 #organization-button-header {
@@ -40,9 +51,101 @@
 
 .organization-info-body {
   background-color: white;
-  border-bottom: 1px solid #545871;
   padding-left: 36px;
-  height: 80px;
+  height: 100px;
   display: flex;
   font-size: 15px;
+  border-radius: 15px;
+  margin-top: 14px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.organization-info-body:hover {
+  cursor: pointer;
+}
+
+.organization-info-body-proyect {
+  background-color: white;
+  padding-left: 36px;
+  height: 150px;
+  display: flex;
+  font-size: 15px;
+  border-radius: 15px;
+  margin-top: 14px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.organization-info-body-proyect:hover {
+  cursor: pointer;
+}
+
+.organization-proyect-text-name {
+  color: #545871;
+  font-weight: bolder;
+  width: 100px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.organization-proyect-text-description {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10%;
+  overflow: hidden;
+  width: 200px;
+  max-height: 75%;
+  color: gray;
+}
+
+.organization-proyect-text-date-1 {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 16px;
+  width: fit-content;
+  font-weight: bold;
+  color: gray;
+}
+
+.organization-proyect-text-date-2 {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 32px;
+  width: fit-content;
+  font-style: italic;
+  color: gray;
+  width: 100px;
+}
+
+.organization-user-text-name {
+  color: #545871;
+  font-weight: bolder;
+  width: 100px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.organization-user-text-rol {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20%;
+  overflow: hidden;
+  width: 100px;
+  max-height: 70%;
+  color: gray;
+}
+
+.organization-user-text-state {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 32px;
+  width: fit-content;
+  color: gray;
+}
+
+.body-container-overflow-organization {
+  max-height: 650px;
+  overflow: auto;
 }

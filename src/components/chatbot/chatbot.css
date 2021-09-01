@@ -5,3 +5,9 @@
   border-radius: 5px;
   border-color: none;
 }
+
+.k-chat .k-alt .k-bubble {
+  background-color: #545871;
+  border-color: #545871;
+  color: white;
+}

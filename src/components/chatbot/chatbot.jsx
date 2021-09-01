@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { Chat } from "@progress/kendo-react-conversational-ui";
 import "./chatbot.css";
+import axios from "axios";
+
 class Chatbot extends Component {
   constructor(props) {
+    console.log(new Date());
     super(props);
     this.user = {
       id: 1,
-      avatarUrl: "https://via.placeholder.com/24/008000/008000.png",
+      avatarUrl: "https://image.flaticon.com/icons/png/512/64/64572.png",
     };
     this.bot = { id: 0 };
     this.state = {
@@ -14,24 +17,46 @@ class Chatbot extends Component {
         {
           author: this.bot,
           timestamp: new Date(),
-          text: "Hello, this is a demo bot. I don't do much, but I can count symbols!",
+          text: "Hola, soy reqbot. Puedo ayudarte con la elicitación de requisitos!",
         },
       ],
     };
   }
 
   addNewMessage = (event) => {
+    console.log(event.message.text);
     let botResponce = Object.assign({}, event.message);
-    botResponce.text = this.countReplayLength(event.message.text);
-    botResponce.author = this.bot;
     this.setState((prevState) => ({
       messages: [...prevState.messages, event.message],
     }));
-    setTimeout(() => {
-      this.setState((prevState) => ({
-        messages: [...prevState.messages, botResponce],
-      }));
-    }, 1000);
+
+    const headers = {
+      session_id: "d69988d7-6804-42b0-b45b-fc2bc177bd78",
+    };
+    let jsonSent = {
+      q: event.message.text.toString(),
+    };
+
+    axios
+      .post("http://localhost:5000/api/watson/message", jsonSent, {
+        headers: headers,
+      })
+      .then((response) => {
+        console.log(response.data);
+        botResponce.text = response.data.message;
+        botResponce.author = this.bot;
+        this.setState((prevState) => ({
+          messages: [...prevState.messages, botResponce],
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+        botResponce.text = "Perdon, tuve un problema";
+        botResponce.author = this.bot;
+        this.setState((prevState) => ({
+          messages: [...prevState.messages, botResponce],
+        }));
+      });
   };
 
   countReplayLength = (question) => {
