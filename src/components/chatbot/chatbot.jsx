@@ -31,7 +31,7 @@ class Chatbot extends Component {
     }));
 
     const headers = {
-      session_id: "d69988d7-6804-42b0-b45b-fc2bc177bd78",
+      session_id: "526f7122-ace8-4eab-879a-4cdfa37fa7ff",
     };
     let jsonSent = {
       q: event.message.text.toString(),

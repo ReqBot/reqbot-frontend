@@ -6,6 +6,7 @@ import Sidebar from "../sidebar/sidebar";
 import Proyectos from "../proyects/proyects";
 import TabsProyect from "../tabsProyect/tabsProyect";
 import Organization from "../organization/organization";
+import ProyectsAdmin from "../proyectsadmin/proyectsadmin";
 import { withRouter } from "react-router-dom";
 
 class Dashboard extends Component {
@@ -40,8 +41,15 @@ class Dashboard extends Component {
               />
 
               <Route
+                exact
                 path={this.props.match.url + "/organization"}
                 render={(props) => <Organization></Organization>}
+              />
+
+              <Route
+                exact
+                path={this.props.match.url + "/organization/proyect/info"}
+                render={(props) => <ProyectsAdmin></ProyectsAdmin>}
               />
             </Switch>
           </div>

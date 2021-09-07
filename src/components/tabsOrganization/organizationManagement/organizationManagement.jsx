@@ -142,6 +142,13 @@ class OrganizationManagement extends Component {
     return filteredUsers;
   }
 
+  goToProyectInfo = (proyectIndex) => {
+    this.props.history.push({
+      pathname: "/dashboard/organization/proyect/info",
+      megastate: { proyect: proyectIndex },
+    });
+  };
+
   userRows = ({ users }) => (
     <div class="body-container-overflow-organization">
       {users.map((user) => (
@@ -163,7 +170,10 @@ class OrganizationManagement extends Component {
   projectRows = ({ proyects }) => (
     <div class="body-container-overflow-organization">
       {proyects.map((proyect) => (
-        <div class="organization-info-body-proyect">
+        <div
+          class="organization-info-body-proyect"
+          onClick={this.goToProyectInfo.bind(this, proyect)}
+        >
           <div class="organization-proyect-text-name">{proyect.nombre}</div>
           <div class="organization-proyect-text-description">
             {proyect.descripcion}

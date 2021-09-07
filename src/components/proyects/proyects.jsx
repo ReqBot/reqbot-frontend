@@ -65,8 +65,6 @@ class Proyects extends Component {
       pathname: "/dashboard/redactar",
       megastate: { proyect: proyectIndex },
     });
-
-    console.log(proyectIndex);
   };
 
   proyects = [
