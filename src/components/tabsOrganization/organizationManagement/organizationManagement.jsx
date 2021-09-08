@@ -149,6 +149,18 @@ class OrganizationManagement extends Component {
     });
   };
 
+  goToCreateProyect = () => {
+    this.props.history.push({
+      pathname: "/dashboard/organization/create/proyect",
+    });
+  };
+
+  goToCreateUser = () => {
+    this.props.history.push({
+      pathname: "/dashboard/organization/create/user",
+    });
+  };
+
   userRows = ({ users }) => (
     <div class="body-container-overflow-organization">
       {users.map((user) => (
@@ -197,7 +209,7 @@ class OrganizationManagement extends Component {
                 <p>Proyectos</p>
                 <Button
                   id="organization-button-header"
-                  onClick={this.hanldeAdd}
+                  onClick={this.goToCreateProyect}
                 >
                   Crear
                 </Button>

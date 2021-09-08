@@ -146,6 +146,11 @@ class UserInfoProyect extends Component {
   };
 
   hanldeAdd = () => {
+    if (!this.state.modalAdd) {
+      this.setState({
+        usuariosShowed: this.usuarios,
+      });
+    }
     this.setState({
       modalAdd: !this.state.modalAdd,
     });
@@ -225,14 +230,14 @@ class UserInfoProyect extends Component {
               onClick={this.hanldeSettings}
               id="boton-cerrar-modal"
             >
-              Cerrar
+              Cancelar
             </Button>
             <Button
               variant="primary"
               onClick={this.hanldeSettings}
               id="boton-guardar-modal"
             >
-              Guardar
+              Si
             </Button>
           </Modal.Footer>
         </Modal>

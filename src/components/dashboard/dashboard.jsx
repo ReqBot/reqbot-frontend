@@ -6,7 +6,9 @@ import Sidebar from "../sidebar/sidebar";
 import Proyectos from "../proyects/proyects";
 import TabsProyect from "../tabsProyect/tabsProyect";
 import Organization from "../organization/organization";
-import ProyectsAdmin from "../proyectsadmin/proyectsadmin";
+import EditProyect from "../editProyect/editProyect";
+import CreateProyect from "../createProyect/createProyect";
+import CreateUser from "../createUser/createUser";
 import { withRouter } from "react-router-dom";
 
 class Dashboard extends Component {
@@ -49,7 +51,19 @@ class Dashboard extends Component {
               <Route
                 exact
                 path={this.props.match.url + "/organization/proyect/info"}
-                render={(props) => <ProyectsAdmin></ProyectsAdmin>}
+                render={(props) => <EditProyect></EditProyect>}
+              />
+
+              <Route
+                exact
+                path={this.props.match.url + "/organization/create/proyect"}
+                render={(props) => <CreateProyect></CreateProyect>}
+              />
+
+              <Route
+                exact
+                path={this.props.match.url + "/organization/create/user"}
+                render={(props) => <CreateProyect></CreateProyect>}
               />
             </Switch>
           </div>

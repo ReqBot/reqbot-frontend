@@ -13,7 +13,7 @@
 }
 
 .contenedor-proyect-admin {
-  padding: 5%;
+  padding: 4% 5% 5% 5%;
   display: flex;
   color: #545871;
 }
@@ -65,7 +65,7 @@
   background-color: white;
 }
 
-#save-button {
+#edit-button {
   color: #545871;
   background-color: #dadbe6;
   border-color: #dadbe6;
