@@ -217,7 +217,7 @@ class EditProyect extends Component {
             <div class="etiqueta-div">
               <InputGroup className="mb-3 login-input">
                 <FormControl
-                  aria-label="Nombre"
+                  aria-label="Etiqueta"
                   aria-describedby="basic-addon1"
                 />
               </InputGroup>
@@ -228,10 +228,7 @@ class EditProyect extends Component {
             </this.etiquetasRows>
 
             <h5>Estado:</h5>
-            <Form.Select
-              aria-label="Default select example"
-              id="proyect-info-select"
-            >
+            <Form.Select aria-label="Estado" id="proyect-info-select">
               <option>Open this select menu</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -240,6 +237,7 @@ class EditProyect extends Component {
 
             <h5>Descripción:</h5>
             <Form.Control
+              aria-label="Descripcion"
               as="textarea"
               placeholder="Leave a comment here"
               style={{ height: "19%" }}

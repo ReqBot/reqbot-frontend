@@ -52,7 +52,7 @@ class CreateProyect extends Component {
             <div class="etiqueta-div">
               <InputGroup className="mb-3 login-input">
                 <FormControl
-                  aria-label="Nombre"
+                  aria-label="Etiqueta"
                   aria-describedby="basic-addon1"
                 />
               </InputGroup>
@@ -62,23 +62,18 @@ class CreateProyect extends Component {
               {" "}
             </this.etiquetasRows>
 
-            <h5>Estado:</h5>
-            <Form.Select
-              aria-label="Default select example"
-              id="proyect-info-select"
-            >
-              <option>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </Form.Select>
-
             <h5>Descripción:</h5>
             <Form.Control
               as="textarea"
+              aria-label="Descripcion"
               placeholder="Leave a comment here"
               style={{ height: "19%" }}
             />
+
+            <h5>Estado:</h5>
+            <Form.Select aria-label="Estado" id="proyect-info-select" disabled>
+              <option>Activo</option>
+            </Form.Select>
 
             <div class="login-buttons-div">
               <Button id="save-button" onClick={this.goLogin}>

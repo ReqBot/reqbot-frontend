@@ -76,7 +76,7 @@ class OrganizationManagement extends Component {
     {
       nombre: "Luis",
       apellido: "Kcomt",
-      correo: "",
+      correo: "luiskcomt@gmail.com",
       contraseña: "",
       rol: "Cliente",
       estado: "Activo",
@@ -84,7 +84,7 @@ class OrganizationManagement extends Component {
     {
       nombre: "Cesar",
       apellido: "Lopez",
-      correo: "",
+      correo: "luiskcomt@gmail.com",
       contraseña: "",
       rol: "Analista",
       estado: "Activo",
@@ -92,7 +92,7 @@ class OrganizationManagement extends Component {
     {
       nombre: "Bruno",
       apellido: "Atocha",
-      correo: "",
+      correo: "luiskcomt@gmail.com",
       contraseña: "",
       rol: "Analista",
       estado: "Activo",
@@ -100,7 +100,7 @@ class OrganizationManagement extends Component {
     {
       nombre: "Junioe",
       apellido: "Lopez",
-      correo: "",
+      correo: "luiskcomt@gmail.com",
       contraseña: "",
       rol: "Cliente",
       estado: "Activo",
@@ -108,7 +108,7 @@ class OrganizationManagement extends Component {
     {
       nombre: "Piero",
       apellido: "Melano",
-      correo: "",
+      correo: "luiskcomt@gmail.com",
       contraseña: "",
       rol: "Cliente",
       estado: "Activo",
@@ -116,7 +116,7 @@ class OrganizationManagement extends Component {
     {
       nombre: "Junioe",
       apellido: "Lopez",
-      correo: "",
+      correo: "luiskcomt@gmail.com",
       contraseña: "",
       rol: "Cliente",
       estado: "Activo",
@@ -124,7 +124,7 @@ class OrganizationManagement extends Component {
     {
       nombre: "Piero",
       apellido: "Melano",
-      correo: "",
+      correo: "luiskcomt@gmail.com",
       contraseña: "",
       rol: "Cliente",
       estado: "Activo",
@@ -149,6 +149,13 @@ class OrganizationManagement extends Component {
     });
   };
 
+  goToEditUser = (userIndex) => {
+    this.props.history.push({
+      pathname: "/dashboard/organization/edit/user",
+      megastate: { user: userIndex },
+    });
+  };
+
   goToCreateProyect = () => {
     this.props.history.push({
       pathname: "/dashboard/organization/create/proyect",
@@ -164,7 +171,10 @@ class OrganizationManagement extends Component {
   userRows = ({ users }) => (
     <div class="body-container-overflow-organization">
       {users.map((user) => (
-        <div class="organization-info-body">
+        <div
+          class="organization-info-body"
+          onClick={this.goToEditUser.bind(this, user)}
+        >
           <div class="organization-user-text-name">
             {user.nombre}&nbsp;{user.apellido}
           </div>
@@ -224,7 +234,7 @@ class OrganizationManagement extends Component {
                 <p>Usuarios</p>
                 <Button
                   id="organization-button-header"
-                  onClick={this.hanldeAdd}
+                  onClick={this.goToCreateUser}
                 >
                   Crear
                 </Button>

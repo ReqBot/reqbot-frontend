@@ -9,6 +9,7 @@ import Organization from "../organization/organization";
 import EditProyect from "../editProyect/editProyect";
 import CreateProyect from "../createProyect/createProyect";
 import CreateUser from "../createUser/createUser";
+import EditUser from "../editUser/editUser";
 import { withRouter } from "react-router-dom";
 
 class Dashboard extends Component {
@@ -63,7 +64,13 @@ class Dashboard extends Component {
               <Route
                 exact
                 path={this.props.match.url + "/organization/create/user"}
-                render={(props) => <CreateProyect></CreateProyect>}
+                render={(props) => <CreateUser></CreateUser>}
+              />
+
+              <Route
+                exact
+                path={this.props.match.url + "/organization/edit/user"}
+                render={(props) => <EditUser></EditUser>}
               />
             </Switch>
           </div>

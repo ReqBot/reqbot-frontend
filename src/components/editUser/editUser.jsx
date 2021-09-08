@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import "./createUser.css";
+import "./editUser.css";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 import { GrAdd } from "react-icons/gr";
 
-class CreateUser extends Component {
+class EditUser extends Component {
   constructor(props) {
     super(props);
     console.log(props);
@@ -35,7 +35,7 @@ class CreateUser extends Component {
     return (
       <React.Fragment>
         <div class="header-proyect-admin">
-          <h1>Crear Usuario</h1>
+          <h1>Editar Usuario</h1>
         </div>
         <div class="contenedor-proyect-admin">
           <div class="proyect-admin-center">
@@ -46,6 +46,7 @@ class CreateUser extends Component {
                   <FormControl
                     aria-label="Nombre"
                     aria-describedby="basic-addon1"
+                    defaultValue={this.props.location.megastate.user.nombre}
                   />
                 </InputGroup>
               </div>
@@ -55,6 +56,7 @@ class CreateUser extends Component {
                   <FormControl
                     aria-label="Apellido"
                     aria-describedby="basic-addon1"
+                    defaultValue={this.props.location.megastate.user.apellido}
                   />
                 </InputGroup>
               </div>
@@ -65,6 +67,7 @@ class CreateUser extends Component {
               <FormControl
                 aria-label="Correo"
                 aria-describedby="basic-addon1"
+                defaultValue={this.props.location.megastate.user.correo}
               />
             </InputGroup>
 
@@ -87,15 +90,17 @@ class CreateUser extends Component {
             </InputGroup>
 
             <h5>Rol:</h5>
-            <Form.Select aria-label="Estado" id="proyect-info-select">
+            <Form.Select aria-label="Rol" id="proyect-info-select">
               <option>Eliga un rol</option>
               <option value="1">Cliente</option>
               <option value="2">Analista</option>
             </Form.Select>
 
             <h5>Estado:</h5>
-            <Form.Select aria-label="Estado" id="proyect-info-select" disabled>
-              <option>Activo</option>
+            <Form.Select aria-label="Estado" id="proyect-info-select">
+              <option>Eliga un Estado</option>
+              <option value="1">Activo</option>
+              <option value="2">Inactivo</option>
             </Form.Select>
 
             <div class="login-buttons-div">
@@ -114,4 +119,4 @@ class CreateUser extends Component {
   }
 }
 
-export default withRouter(CreateUser);
+export default withRouter(EditUser);
