@@ -10,6 +10,8 @@ import EditProyect from "../editProyect/editProyect";
 import CreateProyect from "../createProyect/createProyect";
 import CreateUser from "../createUser/createUser";
 import EditUser from "../editUser/editUser";
+import EditOrganizationInfo from "../editOrganizationInfo/editOrganizationInfo";
+import TabsProyectAnalyst from "../tabsProyectAnalyst/tabsProyectAnalyst";
 import { withRouter } from "react-router-dom";
 
 class Dashboard extends Component {
@@ -71,6 +73,20 @@ class Dashboard extends Component {
                 exact
                 path={this.props.match.url + "/organization/edit/user"}
                 render={(props) => <EditUser></EditUser>}
+              />
+
+              <Route
+                exact
+                path={this.props.match.url + "/organization/edit/info"}
+                render={(props) => (
+                  <EditOrganizationInfo></EditOrganizationInfo>
+                )}
+              />
+
+              <Route
+                exact
+                path={this.props.match.url + "/analyst"}
+                render={(props) => <TabsProyectAnalyst></TabsProyectAnalyst>}
               />
             </Switch>
           </div>

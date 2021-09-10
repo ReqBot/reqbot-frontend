@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import "./userStories.css";
+import Button from "react-bootstrap/Button";
+import "./userStoriesAnalyst.css";
 import { FaSearch } from "react-icons/fa";
 
-class UserStories extends Component {
+class UserStoriesAnalyst extends Component {
   state = {
     userStoriesShowed: [],
   };
@@ -22,6 +23,32 @@ class UserStories extends Component {
     { call: "Historia 2", frequency: "001" },
     { call: "Historia 3", frequency: "001" },
   ];
+
+  filterFunction = (objects, value) => {
+    var filteredObjects = [];
+    for (const i in objects) {
+      if (objects[i].call.includes(value)) {
+        filteredObjects.push(objects[i]);
+      }
+    }
+
+    return filteredObjects;
+  };
+
+  editSearchTerm = (e) => {
+    if (e.target.value != null) {
+      this.setState({
+        userStoriesShowed: this.filterFunction(
+          this.userStories,
+          e.target.value
+        ),
+      });
+    } else {
+      this.setState({
+        userStoriesShowed: this.userStories,
+      });
+    }
+  };
 
   Test = ({ stations }) => (
     <div class="flex-div-userStories">
@@ -56,11 +83,27 @@ class UserStories extends Component {
     return (
       <React.Fragment>
         <div>
-          <this.Test stations={this.state.userStoriesShowed}></this.Test>
+          <div class="header-proyectos">
+            <div class="searchbar-div-userStories">
+              <InputGroup id="input-userStories" className="mb-3">
+                <FaSearch id="seach-icon"></FaSearch>
+                <FormControl
+                  placeholder="Buscar"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  onChange={this.editSearchTerm}
+                  id="search-userStories"
+                />
+              </InputGroup>
+            </div>
+          </div>
+          <div>
+            <this.Test stations={this.state.userStoriesShowed}></this.Test>
+          </div>
         </div>
       </React.Fragment>
     );
   }
 }
 
-export default UserStories;
+export default UserStoriesAnalyst;

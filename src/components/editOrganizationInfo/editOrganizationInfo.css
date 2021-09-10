@@ -1,0 +1,11 @@
+.color-picker-div h5 {
+  text-align: left;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.line-flex-color {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
