@@ -62,7 +62,7 @@ class Proyects extends Component {
 
   goDetailProject = (proyectIndex) => {
     this.props.history.push({
-      pathname: "/dashboard/analyst",
+      pathname: "/dashboard/redactar",
       megastate: { proyect: proyectIndex },
     });
   };
