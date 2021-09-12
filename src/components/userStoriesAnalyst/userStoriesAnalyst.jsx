@@ -18,10 +18,42 @@ class UserStoriesAnalyst extends Component {
   }
 
   userStories = [
-    { call: "Historia 1", frequency: "000" },
-    { call: "Historia 1", frequency: "001" },
-    { call: "Historia 2", frequency: "001" },
-    { call: "Historia 3", frequency: "001" },
+    {
+      nombre: "Historia 1",
+      rol: "Admin",
+      funcionalidad: "Logearme via gmail",
+      resultado: "por facilidad de logeo",
+    },
+    {
+      nombre: "Historia 1",
+      rol: "Admin",
+      funcionalidad: "Logearme via gmail",
+      resultado: "por facilidad de logeo",
+    },
+    {
+      nombre: "Historia 1",
+      rol: "Admin",
+      funcionalidad: "Logearme via gmail",
+      resultado: "por facilidad de logeo",
+    },
+    {
+      nombre: "Historia 1",
+      rol: "Admin",
+      funcionalidad: "Logearme via gmail",
+      resultado: "por facilidad de logeo",
+    },
+    {
+      nombre: "Historia 1",
+      rol: "Admin",
+      funcionalidad: "Logearme via gmail",
+      resultado: "por facilidad de logeo",
+    },
+    {
+      nombre: "Historia 1",
+      rol: "Admin",
+      funcionalidad: "Logearme via gmail",
+      resultado: "por facilidad de logeo",
+    },
   ];
 
   filterFunction = (objects, value) => {
@@ -50,28 +82,22 @@ class UserStoriesAnalyst extends Component {
     }
   };
 
-  Test = ({ stations }) => (
-    <div class="flex-div-userStories">
-      {stations.map((station) => (
+  Test = ({ UserStories }) => (
+    <div class="flex-div-userStories-analyst">
+      {UserStories.map((USRTORY) => (
         <div>
-          <Card className="userCard">
-            <Card.Body>
-              <Card.Title className="title">Historia de Usuario 1</Card.Title>
+          <Card className="userCard-analyst">
+            <Card.Body id="card-body-analyst">
+              <Card.Title className="title">{USRTORY.nombre}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                Ultima Modificacion:
+                Como {USRTORY.rol}
               </Card.Subtitle>
-              <Card.Subtitle className="subtitle">12:30 am</Card.Subtitle>
-              <Card.Text>
-                <div>
-                  <b>eti1</b>
-                  <b>eti2</b>
-                </div>
-              </Card.Text>
-            </Card.Body>
-            <Card.Body>
-              <Card.Link href="#">Historias</Card.Link>
-              <Card.Link href="#">Usuarios</Card.Link>
-              <Card.Link href="#">Estado</Card.Link>
+              <Card.Subtitle className="mb-2 text-muted">
+                Quiero {USRTORY.funcionalidad}
+              </Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">
+                Para {USRTORY.resultado}
+              </Card.Subtitle>
             </Card.Body>
           </Card>
         </div>
@@ -83,8 +109,8 @@ class UserStoriesAnalyst extends Component {
     return (
       <React.Fragment>
         <div>
-          <div class="header-proyectos">
-            <div class="searchbar-div-userStories">
+          <div class="header-proyectos-analyst">
+            <div class="searchbar-div-userStories-analyst">
               <InputGroup id="input-userStories" className="mb-3">
                 <FaSearch id="seach-icon"></FaSearch>
                 <FormControl
@@ -98,7 +124,7 @@ class UserStoriesAnalyst extends Component {
             </div>
           </div>
           <div>
-            <this.Test stations={this.state.userStoriesShowed}></this.Test>
+            <this.Test UserStories={this.state.userStoriesShowed}></this.Test>
           </div>
         </div>
       </React.Fragment>

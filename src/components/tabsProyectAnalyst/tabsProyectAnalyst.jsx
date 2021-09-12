@@ -18,7 +18,7 @@ class TabsProyectAnalyst extends Component {
         <div class="titleDiv">
           <h1>{this.props.location.megastate.proyect.nombre}</h1>
         </div>
-        <div class="tab-div-parent">
+        <div class="tab-div-parent-analyst">
           <Tabs defaultActiveKey="historias" id="uncontrolled-tab-example">
             <Tab eventKey="historias" title="Historias">
               <div class="tab-div-child">

@@ -23,9 +23,9 @@ class UserStories extends Component {
     { call: "Historia 3", frequency: "001" },
   ];
 
-  Test = ({ stations }) => (
+  HU = ({ HUS }) => (
     <div class="flex-div-userStories">
-      {stations.map((station) => (
+      {HUS.map((userstory) => (
         <div>
           <Card className="userCard">
             <Card.Body>
@@ -56,7 +56,7 @@ class UserStories extends Component {
     return (
       <React.Fragment>
         <div>
-          <this.Test stations={this.state.userStoriesShowed}></this.Test>
+          <this.HU HUS={this.state.userStoriesShowed}></this.HU>
         </div>
       </React.Fragment>
     );
