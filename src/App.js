@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
 import Dashboard from "./components/dashboard/dashboard";
@@ -16,10 +21,10 @@ class App extends Component {
     super(props);
   }
 
-  loggin = (condition) => {
-    this.setState({
-      loggedIn: condition,
-    });
+  loggin = (loggedIn, userName, rol) => {
+    localStorage.setItem("loggedIn", loggedIn);
+    localStorage.setItem("userName", userName);
+    localStorage.setItem("rol", rol);
   };
 
   render() {
@@ -27,33 +32,51 @@ class App extends Component {
       <React.Fragment>
         <Router>
           <Switch>
-            {this.state.loggedIn ? (
-              <Route
-                path="/dashboard"
-                render={(props) => <Dashboard></Dashboard>}
-              />
-            ) : null}
-
-            {!this.state.loggedIn ? (
-              <Route
-                exact
-                path="/"
-                render={(props) => (
-                  <Login changeParentLogin={this.loggin}></Login>
-                )}
-              />
-            ) : null}
-
             <Route
-              exact
-              path="/register"
-              render={(props) => <Register></Register>}
+              path="/dashboard"
+              render={(props) =>
+                localStorage.getItem("loggedIn") ? (
+                  <Dashboard></Dashboard>
+                ) : (
+                  <Redirect to="/" />
+                )
+              }
             />
 
             <Route
               exact
-              path="/forgot-password"
-              render={(props) => <ForgotPassword></ForgotPassword>}
+              path="/"
+              render={(props) =>
+                !localStorage.getItem("loggedIn") ? (
+                  <Login changeParentLogin={this.loggin}></Login>
+                ) : (
+                  <Redirect to="/dashboard/proyects" />
+                )
+              }
+            />
+
+            <Route
+              exact
+              path="/"
+              render={(props) =>
+                !localStorage.getItem("loggedIn") ? (
+                  <Register></Register>
+                ) : (
+                  <Redirect to="/dashboard/proyects" />
+                )
+              }
+            />
+
+            <Route
+              exact
+              path="/"
+              render={(props) =>
+                !localStorage.getItem("loggedIn") ? (
+                  <ForgotPassword></ForgotPassword>
+                ) : (
+                  <Redirect to="/dashboard/proyects" />
+                )
+              }
             />
           </Switch>
         </Router>

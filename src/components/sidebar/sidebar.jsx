@@ -28,6 +28,13 @@ class Sidebar extends Component {
     }
   };
 
+  logout = () => {
+    localStorage.clear();
+    this.props.history.push({
+      pathname: "/",
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -83,6 +90,7 @@ class Sidebar extends Component {
                 style={{
                   padding: "20px 5px",
                 }}
+                onClick={this.logout}
               >
                 Cerrar Sesión
               </div>

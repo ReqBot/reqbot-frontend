@@ -14,14 +14,20 @@ class Login extends Component {
   componentDidMount() {}
 
   goToRegister = () => {
+    /*
     console.log(3);
     this.props.history.push({
       pathname: "/register",
     });
+    */
+    this.props.changeParentLogin(true, "Andre", "analyst");
+    this.props.history.push({
+      pathname: "/dashboard/proyects",
+    });
   };
 
   goLogin = () => {
-    this.props.changeParentLogin(true);
+    this.props.changeParentLogin(true, "Luis", "client");
     this.props.history.push({
       pathname: "/dashboard/proyects",
     });

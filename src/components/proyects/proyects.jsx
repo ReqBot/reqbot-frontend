@@ -61,10 +61,17 @@ class Proyects extends Component {
   }
 
   goDetailProject = (proyectIndex) => {
-    this.props.history.push({
-      pathname: "/dashboard/redactar",
-      megastate: { proyect: proyectIndex },
-    });
+    if (localStorage.getItem("rol") == "client") {
+      this.props.history.push({
+        pathname: "/dashboard/redactar",
+        megastate: { proyect: proyectIndex },
+      });
+    } else {
+      this.props.history.push({
+        pathname: "/dashboard/analyst",
+        megastate: { proyect: proyectIndex },
+      });
+    }
   };
 
   proyects = [

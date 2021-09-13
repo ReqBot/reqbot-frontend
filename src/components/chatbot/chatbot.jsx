@@ -7,11 +7,13 @@ class Chatbot extends Component {
   constructor(props) {
     console.log(new Date());
     super(props);
+
     this.user = {
       id: 1,
       avatarUrl: "https://image.flaticon.com/icons/png/512/64/64572.png",
     };
     this.bot = { id: 0 };
+
     this.state = {
       messages: [
         {
@@ -20,19 +22,37 @@ class Chatbot extends Component {
           text: "Hola, soy reqbot. Puedo ayudarte con la elicitación de requisitos!",
         },
       ],
+      sesionIDIBM: false,
+      flagSesionIdIBM: false,
+
+      interviewStarted: false,
+      rol: undefined,
+      attribute: undefined,
+      consequence: undefined,
     };
   }
 
   addNewMessage = (event) => {
     console.log(event.message.text);
+
+    if (this.state.flagSesionIdIBM) {
+      this.getMessage(event);
+    } else {
+      this.getSesionIdIBM(event);
+    }
+  };
+
+  getMessage = (event) => {
     let botResponce = Object.assign({}, event.message);
+
     this.setState((prevState) => ({
       messages: [...prevState.messages, event.message],
     }));
 
     const headers = {
-      session_id: "526f7122-ace8-4eab-879a-4cdfa37fa7ff",
+      session_id: this.state.sesionIDIBM,
     };
+
     let jsonSent = {
       q: event.message.text.toString(),
     };
@@ -43,11 +63,45 @@ class Chatbot extends Component {
       })
       .then((response) => {
         console.log(response.data);
-        botResponce.text = response.data.message;
+        botResponce.text = response.data.data.message;
         botResponce.author = this.bot;
         this.setState((prevState) => ({
           messages: [...prevState.messages, botResponce],
         }));
+
+        if (this.state.interviewStarted) {
+          if (response.data.data.entity != "") {
+            if (response.data.data.entity == "atributo") {
+              this.setState({
+                attribute: event.message,
+              });
+            }
+            if (response.data.data.entity == "consecuencia") {
+              this.setState({
+                consequence: event.message,
+              });
+            }
+            if (response.data.data.entity == "rol") {
+              this.setState({
+                rol: event.message,
+              });
+            }
+          }
+
+          if (
+            this.state.attribute != undefined &&
+            this.state.consequence != undefined &&
+            this.state.rol != undefined
+          ) {
+            this.saveUserStory();
+          }
+        } else {
+          if (response.data.data.intent == "startInterview") {
+            this.setState({
+              interviewStarted: true,
+            });
+          }
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -56,6 +110,54 @@ class Chatbot extends Component {
         this.setState((prevState) => ({
           messages: [...prevState.messages, botResponce],
         }));
+      });
+  };
+
+  saveUserStory = () => {
+    const headers = {};
+
+    let jsonSent = {
+      nombre: "Historia 1",
+      rol: this.state.rol,
+      funcionalidad: this.state.attribute,
+      resultado: this.state.consequence,
+      fechaModificacion: "07-09-2021",
+      modificadoPor: "1",
+      idProyecto: "1",
+    };
+
+    axios
+      .post("http://localhost:5000/api/historiausuario", jsonSent, {
+        headers: headers,
+      })
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          interviewStarted: false,
+          rol: undefined,
+          attribute: undefined,
+          consequence: undefined,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  getSesionIdIBM = (event) => {
+    axios
+      .get("http://localhost:5000/api/watson/session")
+      .then((resonse) => {
+        this.setState({
+          sesionIDIBM: resonse.data.session_id,
+          flagSesionIdIBM: true,
+        });
+        console.log(this.state.sesionIDIBM);
+        this.getMessage(event);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("No se pudo conectar con el servidor.");
       });
   };
 
@@ -76,5 +178,4 @@ class Chatbot extends Component {
     );
   }
 }
-
 export default Chatbot;
