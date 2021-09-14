@@ -53,7 +53,7 @@ class Proyects extends Component {
       this.setState({
         isHidden: false,
       });
-    }, 5000);
+    }, 3000);
 
     return () => {
       clearTimeout(timeId);
@@ -217,13 +217,11 @@ class Proyects extends Component {
     return (
       <React.Fragment>
         <div class="proyects-div">
-          {this.state.isHidden ? (
-            <Alert variant={"danger"}>
-              {" "}
-              <FaHandsHelping id="helpingHandIcon"></FaHandsHelping>
-              Debe elegir un proyecto para continuar.{" "}
-            </Alert>
-          ) : null}
+          <Alert variant={"danger"} show={this.state.isHidden}>
+            {" "}
+            <FaHandsHelping id="helpingHandIcon"></FaHandsHelping>
+            Debe elegir un proyecto para continuar.{" "}
+          </Alert>
           <div class="header-proyectos">
             <h1>Proyectos</h1>
             <div class="searchbar-div">

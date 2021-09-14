@@ -8,12 +8,14 @@
   width: 900px;
   height: 150px !important;
   margin: 8px 48px 8px 48px;
+  border-radius: 15px;
 }
 
 .searchbar-div-userStories-analyst {
 }
 
 #card-body-analyst {
+  display: flex;
 }
 
 .flex-div-userStories-analyst {
@@ -23,4 +25,21 @@
   flex-flow: row wrap;
   overflow: auto;
   height: 650px;
+}
+.left-part-card-analyst {
+  width: 80%;
+}
+
+.right-part-card-analyst {
+  width: 20%;
+  display: flex;
+}
+
+#aprobar-button {
+  margin: auto 0px auto auto;
+  width: 50%;
+  height: 35%;
+  border-radius: 10px;
+  background-color: #545871;
+  border-color: #545871;
 }

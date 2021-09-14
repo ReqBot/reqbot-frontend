@@ -4,17 +4,17 @@
 
 .center {
   text-align: center;
+  height: 65px;
 }
-
 .titleSide {
-  margin: 24px 0 0 24px !important;
+  margin: 12px 0 0 24px !important;
 }
 
 .buttonSideBar {
   text-align: center !important;
   width: 70%;
   margin: auto !important;
-  padding: 96px 0 0 0 !important;
+  padding: 42px 0 0 0 !important;
 }
 
 .kfARSm.active {

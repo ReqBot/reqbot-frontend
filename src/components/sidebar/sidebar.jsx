@@ -19,7 +19,7 @@ class Sidebar extends Component {
   }
 
   showAlert = () => {
-    if (window.location.href != "http://localhost:3000/proyects") {
+    if (window.location.href != "http://localhost:3000/dashboard/proyects") {
       this.props.history.push({
         pathname: "/dashboard/proyects",
       });
@@ -30,6 +30,12 @@ class Sidebar extends Component {
 
   logout = () => {
     localStorage.clear();
+    this.props.history.push({
+      pathname: "/",
+    });
+  };
+
+  goHome = () => {
     this.props.history.push({
       pathname: "/",
     });
@@ -60,28 +66,70 @@ class Sidebar extends Component {
               <CDBSidebarMenu>
                 <CDBSidebarMenuItem className="center">
                   <div>
-                    <img class="imgTable" src={logo} alt=" " />
+                    <img
+                      class="imgTable"
+                      src={logo}
+                      alt=" "
+                      onClick={this.goHome}
+                    />
                   </div>
                 </CDBSidebarMenuItem>
+
+                {localStorage.getItem("rol") == "analyst" ||
+                localStorage.getItem("rol") == "client" ? (
+                  <NavLink exact to="/dashboard/proyects">
+                    <CDBSidebarMenuItem className="titleSide">
+                      Proyectos
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                ) : (
+                  <div></div>
+                )}
+
                 <NavLink exact to="/dashboard/proyects">
                   <CDBSidebarMenuItem className="titleSide">
-                    Proyectos
+                    Historias de Usuario
                   </CDBSidebarMenuItem>
                 </NavLink>
 
-                <NavLink exact to="/dashboard/organization">
+                <NavLink exact to="/dashboard/proyects">
                   <CDBSidebarMenuItem className="titleSide">
-                    Organización
+                    Tickets
                   </CDBSidebarMenuItem>
                 </NavLink>
 
-                <CDBSidebarMenuItem
-                  active="true"
-                  className="buttonSideBar"
-                  onClick={this.showAlert}
-                >
-                  Redactar Requisito
-                </CDBSidebarMenuItem>
+                {localStorage.getItem("rol") == "client" ? (
+                  <CDBSidebarMenuItem
+                    active="true"
+                    className="buttonSideBar"
+                    onClick={this.showAlert}
+                  >
+                    Redactar Requisito
+                  </CDBSidebarMenuItem>
+                ) : (
+                  <div></div>
+                )}
+
+                {localStorage.getItem("rol") == "analyst" ||
+                localStorage.getItem("rol") == "owner" ? (
+                  <NavLink exact to="/dashboard/proyects">
+                    <CDBSidebarMenuItem className="titleSide">
+                      Logs
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                ) : (
+                  <div></div>
+                )}
+
+                {localStorage.getItem("rol") == "owner" ? (
+                  <NavLink exact to="/dashboard/organization">
+                    <CDBSidebarMenuItem className="titleSide">
+                      Organización
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                ) : (
+                  <div></div>
+                )}
               </CDBSidebarMenu>
             </CDBSidebarContent>
 
