@@ -76,6 +76,7 @@ class Proyects extends Component {
 
   proyects = [
     {
+      id: "1",
       nombre: "carritOS",
       fechaModificacion: "8/14/2021",
       etiqueta: "Movil",
@@ -85,6 +86,7 @@ class Proyects extends Component {
       descripcion: this.dummyText,
     },
     {
+      id: "2",
       nombre: "Cubi Pools",
       fechaModificacion: "5/10/2020",
       etiqueta: "Web",
@@ -94,6 +96,7 @@ class Proyects extends Component {
       descripcion: this.dummyText,
     },
     {
+      id: "3",
       nombre: "MF DOOM",
       fechaModificacion: "2/11/2020",
       etiqueta: "Movil",
@@ -103,6 +106,7 @@ class Proyects extends Component {
       descripcion: "",
     },
     {
+      id: "4",
       nombre: "Proyect Manhattan",
       fechaModificacion: "9/16/2019",
       etiqueta: "Web",
@@ -112,6 +116,7 @@ class Proyects extends Component {
       descripcion: "",
     },
     {
+      id: "5",
       nombre: "Americas Most Blunted",
       fechaModificacion: "12/24/2018",
       etiqueta: "Movil",
@@ -121,6 +126,7 @@ class Proyects extends Component {
       descripcion: this.dummyText,
     },
     {
+      id: "6",
       nombre: "carritOS 2",
       fechaModificacion: "11/29/2018",
       etiqueta: "Movil",

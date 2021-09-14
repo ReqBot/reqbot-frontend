@@ -139,6 +139,7 @@ class Sidebar extends Component {
                   padding: "20px 5px",
                 }}
                 onClick={this.logout}
+                class="logout"
               >
                 Cerrar Sesión
               </div>

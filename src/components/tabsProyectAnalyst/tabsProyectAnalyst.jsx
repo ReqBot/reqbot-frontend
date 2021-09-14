@@ -39,6 +39,7 @@ class TabsProyectAnalyst extends Component {
               <div class="tab-div-child">
                 <UserStoriesAnalyst
                   handleAlert={this.handleAlert}
+                  proyect={this.props.location.megastate.proyect}
                 ></UserStoriesAnalyst>
               </div>
             </Tab>

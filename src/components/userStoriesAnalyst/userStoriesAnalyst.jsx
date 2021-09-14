@@ -7,6 +7,7 @@ import "./userStoriesAnalyst.css";
 import { FaSearch } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Modal from "react-bootstrap/Modal";
+import axios from "axios";
 
 class UserStoriesAnalyst extends Component {
   state = {
@@ -26,47 +27,94 @@ class UserStoriesAnalyst extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      userStoriesShowed: this.userStories,
-    });
+    this.getUserStories();
   }
+
+  getUserStories = () => {
+    axios
+      .get(
+        "http://localhost:5000/api/historiausuario/aprobados/" +
+          this.props.proyect.id
+      )
+      .then((resonse) => {
+        this.setState({
+          useStories: resonse.data,
+          userStoriesShowed: resonse.data,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          userStoriesShowed: this.userStories,
+        });
+      });
+  };
 
   userStories = [
     {
-      nombre: "Historia 1",
-      rol: "Admin",
-      funcionalidad: "Logearme via gmail",
-      resultado: "por facilidad de logeo",
+      idHistoriaUsuario: 2,
+      nombre: "Historia 2",
+      rol: "Cliente",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Aprobado",
     },
     {
-      nombre: "Historia 1",
-      rol: "Admin",
-      funcionalidad: "Logearme via gmail",
-      resultado: "por facilidad de logeo",
+      idHistoriaUsuario: 3,
+      nombre: "Historia 3",
+      rol: "Cliente",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Aprobado",
     },
     {
-      nombre: "Historia 1",
-      rol: "Admin",
-      funcionalidad: "Logearme via gmail",
-      resultado: "por facilidad de logeo",
+      idHistoriaUsuario: 2,
+      nombre: "Historia 2",
+      rol: "Cliente",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Aprobado",
     },
     {
-      nombre: "Historia 1",
-      rol: "Admin",
-      funcionalidad: "Logearme via gmail",
-      resultado: "por facilidad de logeo",
+      idHistoriaUsuario: 3,
+      nombre: "Historia 3",
+      rol: "Cliente",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Aprobado",
     },
     {
-      nombre: "Historia 1",
-      rol: "Admin",
-      funcionalidad: "Logearme via gmail",
-      resultado: "por facilidad de logeo",
+      idHistoriaUsuario: 2,
+      nombre: "Historia 2",
+      rol: "Cliente",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Aprobado",
     },
     {
-      nombre: "Historia 1",
-      rol: "Admin",
-      funcionalidad: "Logearme via gmail",
-      resultado: "por facilidad de logeo",
+      idHistoriaUsuario: 3,
+      nombre: "Historia 3",
+      rol: "Cliente",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Aprobado",
     },
   ];
 
@@ -134,32 +182,30 @@ class UserStoriesAnalyst extends Component {
   Test = ({ UserStories }) => (
     <div class="flex-div-userStories-analyst">
       {UserStories.map((USRTORY) => (
-        <div>
-          <Card className="userCard-analyst">
-            <Card.Body id="card-body-analyst">
-              <div class="left-part-card-analyst">
-                <Card.Title className="title">{USRTORY.nombre}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Como {USRTORY.rol}
-                </Card.Subtitle>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Quiero {USRTORY.funcionalidad}
-                </Card.Subtitle>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Para {USRTORY.resultado}
-                </Card.Subtitle>
-              </div>
-              <div class="right-part-card-analyst">
-                <Button
-                  id="aprobar-button"
-                  onClick={this.openAndSetApprove.bind(this, USRTORY)}
-                >
-                  Aprobar
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
-        </div>
+        <Card className="userCard-analyst">
+          <Card.Body id="card-body-analyst">
+            <div class="left-part-card-analyst">
+              <Card.Title className="title">{USRTORY.nombre}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
+                Como {USRTORY.rol}
+              </Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">
+                Quiero {USRTORY.funcionalidad}
+              </Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">
+                Para {USRTORY.resultado}
+              </Card.Subtitle>
+            </div>
+            <div class="right-part-card-analyst">
+              <Button
+                id="aprobar-button"
+                onClick={this.openAndSetApprove.bind(this, USRTORY)}
+              >
+                Aprobar
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
       ))}
     </div>
   );
@@ -182,7 +228,7 @@ class UserStoriesAnalyst extends Component {
               </InputGroup>
             </div>
           </div>
-          <div>
+          <div class="overflow-analyst">
             <this.Test UserStories={this.state.userStoriesShowed}></this.Test>
           </div>
         </div>

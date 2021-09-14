@@ -18,12 +18,15 @@ class UserStories extends Component {
 
   getUserStories = () => {
     axios
-      .get("http://localhost:5000/api/historiausuario/")
+      .get(
+        "http://localhost:5000/api/historiausuario/aprobados/" +
+          this.props.proyect.id
+      )
       .then((resonse) => {
-        console.log(resonse.data);
+        console.log(resonse);
         this.setState({
-          useStories: this.userStories,
-          userStoriesShowed: this.userStories,
+          useStories: resonse.data,
+          userStoriesShowed: resonse.data,
         });
       })
       .catch((error) => {
@@ -35,10 +38,28 @@ class UserStories extends Component {
   };
 
   userStories = [
-    { call: "Historia 1", frequency: "000" },
-    { call: "Historia 1", frequency: "001" },
-    { call: "Historia 2", frequency: "001" },
-    { call: "Historia 3", frequency: "001" },
+    {
+      idHistoriaUsuario: 2,
+      nombre: "Historia 2",
+      rol: "Cliente",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Aprobado",
+    },
+    {
+      idHistoriaUsuario: 3,
+      nombre: "Historia 3",
+      rol: "Cliente",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Aprobado",
+    },
   ];
 
   HU = ({ HUS }) => (
