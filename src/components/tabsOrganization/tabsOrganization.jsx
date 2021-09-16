@@ -17,7 +17,7 @@ class TabsOrganization extends Component {
     return (
       <React.Fragment>
         <div class="organization-titleDiv">
-          <h1>Organización</h1>
+          <h1>{this.props.org.nombre}</h1>
         </div>
         <div class="tab-div-parent">
           <Tabs defaultActiveKey="general" id="uncontrolled-tab-example">

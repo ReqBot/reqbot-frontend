@@ -19,7 +19,7 @@ class Chatbot extends Component {
         {
           author: this.bot,
           timestamp: new Date(),
-          text: "Hola, soy reqbot. Puedo ayudarte con la elicitación de requisitos!",
+          text: "Hi, I'm reqbot. I can help you with the elicitation of requirements!",
         },
       ],
       sesionIDIBM: false,
@@ -73,17 +73,17 @@ class Chatbot extends Component {
           if (response.data.data.entity != "") {
             if (response.data.data.entity == "atributo") {
               this.setState({
-                attribute: event.message,
+                attribute: event.message.text.toString(),
               });
             }
             if (response.data.data.entity == "consecuencia") {
               this.setState({
-                consequence: event.message,
+                consequence: event.message.text.toString(),
               });
             }
             if (response.data.data.entity == "rol") {
               this.setState({
-                rol: event.message,
+                rol: event.message.text.toString(),
               });
             }
           }
@@ -115,17 +115,18 @@ class Chatbot extends Component {
 
   saveUserStory = () => {
     const headers = {};
-
+    console.log(this.state.rol);
     let jsonSent = {
-      nombre: "Historia 1",
+      nombre: "Historia X",
       rol: this.state.rol,
       funcionalidad: this.state.attribute,
       resultado: this.state.consequence,
       fechaModificacion: "07-09-2021",
       modificadoPor: "1",
-      idProyecto: "1",
+      idProyecto: this.props.proyect.idProyecto,
+      estado: "Pendiente",
     };
-
+    console.log(jsonSent);
     axios
       .post("http://localhost:5000/api/historiausuario", jsonSent, {
         headers: headers,

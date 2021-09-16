@@ -11,7 +11,7 @@ class Organization extends Component {
   render() {
     return (
       <React.Fragment>
-        <TabsOrganization></TabsOrganization>
+        <TabsOrganization org={this.props.org}></TabsOrganization>
       </React.Fragment>
     );
   }

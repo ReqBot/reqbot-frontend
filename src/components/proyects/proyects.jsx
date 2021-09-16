@@ -8,12 +8,16 @@ import "./proyects.css";
 import Alert from "react-bootstrap/Alert";
 import { FaHandsHelping } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 
 class Proyects extends Component {
   state = {
+    proyectsReal: [],
     proyectsShowed: [],
     isHidden: false,
   };
+
+  index = 0;
 
   dummyText =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem. Sed facilisis vulputate massa, quis elementum leo sagittis non. Aliquam  facilisis mollis dolor id ullamcorper. Phasellus cursus nunc ut eros rutrum vulputate. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum libero justo, ornare quis cursus ut, luctus sed diam.";
@@ -25,19 +29,38 @@ class Proyects extends Component {
 
   componentDidMount() {
     this.props.setClick(this.getAlert);
+    this.getProyects();
+  }
 
-    if (this.proyects.length > 4) {
+  getProyects = () => {
+    axios
+      .get("http://localhost:5000/api/proyecto/organizacion/" + "1")
+      .then((resonse) => {
+        this.setState({
+          proyectsReal: resonse.data,
+        });
+
+        this.setPagination();
+      })
+      .catch((error) => {
+        this.setState({
+          proyectsReal: this.proyects,
+        });
+        this.setPagination();
+      });
+  };
+
+  setPagination() {
+    if (this.state.proyectsReal.length > 4) {
       this.setState({
-        proyectsShowed: this.proyects.slice(0, 4),
+        proyectsShowed: this.state.proyectsReal.slice(0, 4),
       });
     } else {
       this.setState({
-        proyectsShowed: this.proyects,
+        proyectsShowed: this.state.proyectsReal,
       });
     }
   }
-
-  index = 0;
 
   getAlert() {
     this.setState({
@@ -76,64 +99,24 @@ class Proyects extends Component {
 
   proyects = [
     {
-      id: "1",
-      nombre: "carritOS",
-      fechaModificacion: "8/14/2021",
-      etiqueta: "Movil",
-      estado: "En Progreso",
-      numeroDeHistorias: "5",
-      numeroUsuarios: "4",
-      descripcion: this.dummyText,
-    },
-    {
-      id: "2",
-      nombre: "Cubi Pools",
-      fechaModificacion: "5/10/2020",
+      idProyecto: 1,
+      nombre: "CarritOS",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
       etiqueta: "Web",
-      estado: "En Progreso",
-      numeroDeHistorias: "4",
-      numeroUsuarios: "5",
-      descripcion: this.dummyText,
+      estado: "Activo",
+      numeroDeHistorias: 0,
+      numeroUsuarios: 0,
+      idOrganizacion: 1,
     },
     {
-      id: "3",
-      nombre: "MF DOOM",
-      fechaModificacion: "2/11/2020",
-      etiqueta: "Movil",
-      estado: "En Progreso",
-      numeroDeHistorias: "8",
-      numeroUsuarios: "6",
-      descripcion: "",
-    },
-    {
-      id: "4",
-      nombre: "Proyect Manhattan",
-      fechaModificacion: "9/16/2019",
+      idProyecto: 1,
+      nombre: "CarritOS",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
       etiqueta: "Web",
-      estado: "Finalizado",
-      numeroDeHistorias: "10",
-      numeroUsuarios: "3",
-      descripcion: "",
-    },
-    {
-      id: "5",
-      nombre: "Americas Most Blunted",
-      fechaModificacion: "12/24/2018",
-      etiqueta: "Movil",
-      estado: "Finalizado",
-      numeroDeHistorias: "15",
-      numeroUsuarios: "4",
-      descripcion: this.dummyText,
-    },
-    {
-      id: "6",
-      nombre: "carritOS 2",
-      fechaModificacion: "11/29/2018",
-      etiqueta: "Movil",
-      estado: "Finalizado",
-      numeroDeHistorias: "14",
-      numeroUsuarios: "5",
-      descripcion: this.dummyText,
+      estado: "Activo",
+      numeroDeHistorias: 0,
+      numeroUsuarios: 0,
+      idOrganizacion: 1,
     },
   ];
 
@@ -151,11 +134,14 @@ class Proyects extends Component {
   editSearchTerm = (e) => {
     if (e.target.value != null) {
       this.setState({
-        proyectsShowed: this.filterFunction(this.proyects, e.target.value),
+        proyectsShowed: this.filterFunction(
+          this.state.proyectsReal,
+          e.target.value
+        ),
       });
     } else {
       this.setState({
-        proyectsShowed: this.proyects,
+        proyectsShowed: this.state.proyectsReal,
       });
     }
   };
@@ -165,21 +151,30 @@ class Proyects extends Component {
       this.index = this.index - 4;
       console.log(this.index);
       this.setState({
-        proyectsShowed: this.proyects.slice(this.index, this.index + 4),
+        proyectsShowed: this.state.proyectsReal.slice(
+          this.index,
+          this.index + 4
+        ),
       });
     }
   };
 
   nextPage = () => {
-    if (this.index + 4 < this.proyects.length) {
+    if (this.index + 4 < this.state.proyectsReal.length) {
       this.index = this.index + 4;
-      if (this.index + 4 > this.proyects.length) {
+      if (this.index + 4 > this.state.proyectsReal.length) {
         this.setState({
-          proyectsShowed: this.proyects.slice(this.index, this.proyects.length),
+          proyectsShowed: this.state.proyectsReal.slice(
+            this.index,
+            this.state.proyectsReal.length
+          ),
         });
       } else {
         this.setState({
-          proyectsShowed: this.proyects.slice(this.index, this.index + 4),
+          proyectsShowed: this.state.proyectsReal.slice(
+            this.index,
+            this.index + 4
+          ),
         });
       }
     }

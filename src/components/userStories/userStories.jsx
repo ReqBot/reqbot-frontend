@@ -5,6 +5,7 @@ import FormControl from "react-bootstrap/FormControl";
 import "./userStories.css";
 import { FaSearch } from "react-icons/fa";
 import axios from "axios";
+import { FiMoreVertical } from "react-icons/fi";
 
 class UserStories extends Component {
   state = {
@@ -20,7 +21,7 @@ class UserStories extends Component {
     axios
       .get(
         "http://localhost:5000/api/historiausuario/aprobados/" +
-          this.props.proyect.id
+          this.props.proyect.idProyecto
       )
       .then((resonse) => {
         console.log(resonse);
@@ -68,22 +69,39 @@ class UserStories extends Component {
         <div>
           <Card className="userCard">
             <Card.Body>
-              <Card.Title className="title">Historia de Usuario 1</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                Ultima Modificacion:
-              </Card.Subtitle>
-              <Card.Subtitle className="subtitle">12:30 am</Card.Subtitle>
-              <Card.Text>
+              <div className="card-top-div">
+                <div className="card-top-div-left">
+                  <Card.Title className="title">{userstory.nombre}</Card.Title>
+                </div>
+                <div className="card-top-div-right">
+                  <FiMoreVertical id="more-icon"></FiMoreVertical>
+                </div>
+              </div>
+              <Card.Text className="text">
                 <div>
-                  <b>eti1</b>
-                  <b>eti2</b>
+                  <b>Como &nbsp;</b>
+                  {userstory.rol}
+                  <b>&nbsp;quiero &nbsp;</b>
+                  {userstory.funcionalidad}
+                  <b>&nbsp;para &nbsp;</b>
+                  {userstory.resultado}
                 </div>
               </Card.Text>
             </Card.Body>
             <Card.Body>
-              <Card.Link href="#">Historias</Card.Link>
-              <Card.Link href="#">Usuarios</Card.Link>
-              <Card.Link href="#">Estado</Card.Link>
+              <div className="card-footer-div">
+                <div className="card-footer-div-left">
+                  <p>
+                    <b>Estado: &nbsp;</b> {userstory.estado}
+                  </p>
+                </div>
+                <div className="card-footer-div-right">
+                  <p>
+                    <b>Ultima Modificación: &nbsp;</b>{" "}
+                    {userstory.fechaModificacion}
+                  </p>
+                </div>
+              </div>
             </Card.Body>
           </Card>
         </div>

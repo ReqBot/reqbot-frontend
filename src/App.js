@@ -19,6 +19,11 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+
+    window.onunload = () => {
+      // Clear the local storage
+      localStorage.clear();
+    };
   }
 
   loggin = (loggedIn, userName, rol) => {

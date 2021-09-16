@@ -13,12 +13,15 @@ class UserStoriesAnalyst extends Component {
   state = {
     userStoriesShowed: [],
     modalApprove: false,
-    selectedUserStory: {
-      nombre: "",
-      rol: "",
-      funcionalidad: "",
-      resultado: "",
-    },
+    selectedUserStoryId: "",
+    selectedUserStoryNombre: "",
+    selectedUserStoryRol: "",
+    selectedUserStoryFuncionalidad: "",
+    selectedUserStoryResultado: "",
+    selectedUserStoryFecha: "",
+    selectedUserStoryModPor: "",
+    selectedUserStoryIdProyecto: "",
+    selectedUserStoryEstado: "",
   };
 
   constructor(props) {
@@ -33,8 +36,8 @@ class UserStoriesAnalyst extends Component {
   getUserStories = () => {
     axios
       .get(
-        "http://localhost:5000/api/historiausuario/aprobados/" +
-          this.props.proyect.id
+        "http://localhost:5000/api/historiausuario/pendientes/" +
+          this.props.proyect.idProyecto
       )
       .then((resonse) => {
         this.setState({
@@ -147,7 +150,16 @@ class UserStoriesAnalyst extends Component {
   openAndSetApprove = (HUIndexed) => {
     this.setState({
       modalApprove: !this.state.modalApprove,
-      selectedUserStory: HUIndexed,
+
+      selectedUserStoryId: HUIndexed.idHistoriaUsuario,
+      selectedUserStoryNombre: HUIndexed.nombre,
+      selectedUserStoryRol: HUIndexed.rol,
+      selectedUserStoryFuncionalidad: HUIndexed.funcionalidad,
+      selectedUserStoryResultado: HUIndexed.resultado,
+      selectedUserStoryFecha: HUIndexed.fechaModificacion,
+      selectedUserStoryModPor: HUIndexed.modificadoPor,
+      selectedUserStoryIdProyecto: HUIndexed.idProyecto,
+      selectedUserStoryEstado: HUIndexed.estado,
     });
   };
 
@@ -174,9 +186,37 @@ class UserStoriesAnalyst extends Component {
   }
 
   approveUserStory = () => {
-    //EDIT STORY
-    this.hanldeApprove();
-    this.getAlert();
+    const headers = {};
+
+    let jsonSent = {
+      nombre: this.state.selectedUserStoryNombre,
+      rol: this.state.selectedUserStoryRol,
+      funcionalidad: this.state.selectedUserStoryFuncionalidad,
+      resultado: this.state.selectedUserStoryResultado,
+      fechaModificacion: this.state.selectedUserStoryFecha,
+      modificadoPor: this.state.selectedUserStoryModPor,
+      idProyecto: this.state.selectedUserStoryIdProyecto,
+      estado: "Aprobado",
+    };
+
+    axios
+      .put(
+        "http://localhost:5000/api/historiausuario/" +
+          this.state.selectedUserStoryId,
+        jsonSent,
+        {
+          headers: headers,
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        this.hanldeApprove();
+        this.getAlert();
+        this.getUserStories();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   Test = ({ UserStories }) => (
@@ -209,6 +249,16 @@ class UserStoriesAnalyst extends Component {
       ))}
     </div>
   );
+
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
+  };
 
   render() {
     return (
@@ -252,7 +302,9 @@ class UserStoriesAnalyst extends Component {
                 <FormControl
                   aria-label="Apellido"
                   aria-describedby="basic-addon1"
-                  defaultValue={this.state.selectedUserStory.rol}
+                  defaultValue={this.state.selectedUserStoryRol}
+                  name="selectedUserStoryRol"
+                  onChange={this.handleChange}
                 />
               </InputGroup>
             </div>
@@ -262,7 +314,9 @@ class UserStoriesAnalyst extends Component {
                 <FormControl
                   aria-label="Apellido"
                   aria-describedby="basic-addon1"
-                  defaultValue={this.state.selectedUserStory.funcionalidad}
+                  defaultValue={this.state.selectedUserStoryFuncionalidad}
+                  name="selectedUserStoryFuncionalidad"
+                  onChange={this.handleChange}
                 />
               </InputGroup>
             </div>
@@ -272,7 +326,9 @@ class UserStoriesAnalyst extends Component {
                 <FormControl
                   aria-label="Apellido"
                   aria-describedby="basic-addon1"
-                  defaultValue={this.state.selectedUserStory.resultado}
+                  defaultValue={this.state.selectedUserStoryResultado}
+                  name="selectedUserStoryResultado"
+                  onChange={this.handleChange}
                 />
               </InputGroup>
             </div>

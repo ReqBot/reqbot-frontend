@@ -23,7 +23,9 @@ class TabsProyect extends Component {
           <Tabs defaultActiveKey="chatbot" id="uncontrolled-tab-example">
             <Tab eventKey="chatbot" title="Chatbot">
               <div class="tab-div-child">
-                <Chatbot></Chatbot>
+                <Chatbot
+                  proyect={this.props.location.megastate.proyect}
+                ></Chatbot>
               </div>
             </Tab>
             <Tab eventKey="historias" title="Historias">

@@ -1,0 +1,47 @@
+.flex-div-tickets {
+  padding: 0% 1% 0% 1%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow: row wrap;
+  overflow: auto;
+  height: 700px;
+}
+
+.div-tickets {
+  padding: 1% 5% 2% 5%;
+}
+
+.tickets-card {
+  width: 70% !important;
+  height: 100px !important;
+  text-align: center;
+  border-radius: 10px;
+  margin: 8px 0px 8px 0px;
+  color: #545871;
+}
+
+#tickets-card-body {
+  padding: 16px;
+}
+
+.top-search-div {
+  margin-top: 32px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+#input-tickets {
+  border-bottom: 1px solid #a6a9ad;
+  width: 30%;
+}
+
+#crear-ticket {
+  margin-left: auto;
+  width: 10%;
+  height: 30%;
+  border-radius: 15px;
+  background-color: #545871;
+  border-color: #545871;
+}

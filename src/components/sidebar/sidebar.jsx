@@ -75,11 +75,16 @@ class Sidebar extends Component {
                   </div>
                 </CDBSidebarMenuItem>
 
-                {localStorage.getItem("rol") == "analyst" ||
-                localStorage.getItem("rol") == "client" ? (
-                  <NavLink exact to="/dashboard/proyects">
+                <NavLink exact to="/dashboard/proyects">
+                  <CDBSidebarMenuItem className="titleSide">
+                    Proyectos
+                  </CDBSidebarMenuItem>
+                </NavLink>
+
+                {localStorage.getItem("rol") == "owner" ? (
+                  <NavLink exact to="/dashboard/organization">
                     <CDBSidebarMenuItem className="titleSide">
-                      Proyectos
+                      Organización
                     </CDBSidebarMenuItem>
                   </NavLink>
                 ) : (
@@ -88,11 +93,10 @@ class Sidebar extends Component {
 
                 <NavLink exact to="/dashboard/proyects">
                   <CDBSidebarMenuItem className="titleSide">
-                    Historias de Usuario
+                    Logs
                   </CDBSidebarMenuItem>
                 </NavLink>
-
-                <NavLink exact to="/dashboard/proyects">
+                <NavLink exact to="/dashboard/tickets">
                   <CDBSidebarMenuItem className="titleSide">
                     Tickets
                   </CDBSidebarMenuItem>
@@ -106,27 +110,6 @@ class Sidebar extends Component {
                   >
                     Redactar Requisito
                   </CDBSidebarMenuItem>
-                ) : (
-                  <div></div>
-                )}
-
-                {localStorage.getItem("rol") == "analyst" ||
-                localStorage.getItem("rol") == "owner" ? (
-                  <NavLink exact to="/dashboard/proyects">
-                    <CDBSidebarMenuItem className="titleSide">
-                      Logs
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                ) : (
-                  <div></div>
-                )}
-
-                {localStorage.getItem("rol") == "owner" ? (
-                  <NavLink exact to="/dashboard/organization">
-                    <CDBSidebarMenuItem className="titleSide">
-                      Organización
-                    </CDBSidebarMenuItem>
-                  </NavLink>
                 ) : (
                   <div></div>
                 )}

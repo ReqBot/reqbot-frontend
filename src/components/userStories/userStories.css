@@ -1,9 +1,10 @@
 .userCard {
   width: 500px !important;
-  height: 280px !important;
+  height: 270px !important;
   text-align: center;
   border-radius: 10px;
   margin: 24px 48px 12px 48px;
+  color: #545871;
 }
 
 .userCard:hover {
@@ -16,7 +17,9 @@
   font-size: 26px;
   font-weight: bold;
 }
-
+.userCard .text {
+  margin-top: 32px;
+}
 .userCard .subtitle {
   color: #dee2e6;
   font-size: 20px;
@@ -58,4 +61,34 @@
   margin-top: auto;
   color: #545871;
   margin-bottom: auto;
+}
+
+.card-footer-div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card-footer-div-left {
+  width: 30%;
+}
+.card-footer-div-right {
+  width: 45%;
+}
+
+.card-top-div {
+  display: flex;
+}
+
+.card-top-div-left {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-top-div-right {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#more-icon {
+  font-size: 25px;
 }

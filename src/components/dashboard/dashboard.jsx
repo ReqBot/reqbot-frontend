@@ -13,16 +13,51 @@ import EditUser from "../editUser/editUser";
 import EditOrganizationInfo from "../editOrganizationInfo/editOrganizationInfo";
 import TabsProyectAnalyst from "../tabsProyectAnalyst/tabsProyectAnalyst";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
+import Tickets from "../tickets/tickets";
 
 class Dashboard extends Component {
+  state = {
+    org: undefined,
+    idOrg: 1,
+  };
+
   componentDidMount() {
     console.log(this.props.match.url);
+
+    this.getOrganization();
   }
   sideBarParent = () => {
     this.proyectsShowAlert();
   };
   proyectsShowAlert = () => {};
 
+  getOrganization = () => {
+    axios
+      .get("http://localhost:5000/api/organizacion/" + this.state.idOrg)
+      .then((response) => {
+        this.setState({
+          org: response.data[0],
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          proyectsReal: this.mockOrg,
+        });
+      });
+  };
+
+  mockOrg = {
+    idOrganizacion: 1,
+    nombre: "Gotel Labs",
+    siglas: "Gotel",
+    descripcion: "Gotel Labs dedicados a la transformacion digital",
+    imagen:
+      "https://www.renaultgroup.com/wp-content/uploads/2021/03/nouveau_logo_renault_banner.jpg",
+    colorPrimario: "#FFFFFF",
+    colorSecundario: "#000000",
+    idPlan: 2,
+  };
   render() {
     return (
       <React.Fragment>
@@ -37,56 +72,76 @@ class Dashboard extends Component {
                 render={(props) => (
                   <Proyectos
                     setClick={(click) => (this.proyectsShowAlert = click)}
+                    org={this.state.org}
                   ></Proyectos>
                 )}
               />
               <Route
                 path={this.props.match.url + "/redactar"}
-                render={(props) => <TabsProyect></TabsProyect>}
+                render={(props) => (
+                  <TabsProyect org={this.state.org}></TabsProyect>
+                )}
+              />
+
+              <Route
+                path={this.props.match.url + "/tickets"}
+                render={(props) => <Tickets org={this.state.org}></Tickets>}
               />
 
               <Route
                 exact
                 path={this.props.match.url + "/organization"}
-                render={(props) => <Organization></Organization>}
+                render={(props) => (
+                  <Organization org={this.state.org}></Organization>
+                )}
               />
 
               <Route
                 exact
                 path={this.props.match.url + "/organization/proyect/info"}
-                render={(props) => <EditProyect></EditProyect>}
+                render={(props) => (
+                  <EditProyect org={this.state.org}></EditProyect>
+                )}
               />
 
               <Route
                 exact
                 path={this.props.match.url + "/organization/create/proyect"}
-                render={(props) => <CreateProyect></CreateProyect>}
+                render={(props) => (
+                  <CreateProyect org={this.state.org}></CreateProyect>
+                )}
               />
 
               <Route
                 exact
                 path={this.props.match.url + "/organization/create/user"}
-                render={(props) => <CreateUser></CreateUser>}
+                render={(props) => (
+                  <CreateUser org={this.state.org}></CreateUser>
+                )}
               />
 
               <Route
                 exact
                 path={this.props.match.url + "/organization/edit/user"}
-                render={(props) => <EditUser></EditUser>}
+                render={(props) => <EditUser org={this.state.org}></EditUser>}
               />
 
               <Route
                 exact
                 path={this.props.match.url + "/organization/edit/info"}
                 render={(props) => (
-                  <EditOrganizationInfo></EditOrganizationInfo>
+                  <EditOrganizationInfo
+                    org={this.state.org}
+                  ></EditOrganizationInfo>
                 )}
               />
 
               <Route
                 exact
                 path={this.props.match.url + "/analyst"}
-                render={(props) => <TabsProyectAnalyst></TabsProyectAnalyst>}
+                render={(props) => (
+                  <TabsProyectAnalyst org={this.state.org}></TabsProyectAnalyst>
+                )}
               />
             </Switch>
           </div>
