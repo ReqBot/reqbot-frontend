@@ -62,7 +62,7 @@ class App extends Component {
 
             <Route
               exact
-              path="/"
+              path="/register"
               render={(props) =>
                 !localStorage.getItem("loggedIn") ? (
                   <Register></Register>
@@ -74,7 +74,7 @@ class App extends Component {
 
             <Route
               exact
-              path="/"
+              path="/forgotPassword"
               render={(props) =>
                 !localStorage.getItem("loggedIn") ? (
                   <ForgotPassword></ForgotPassword>

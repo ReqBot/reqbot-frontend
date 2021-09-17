@@ -7,10 +7,6 @@ import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
 
 class Login extends Component {
-  state = {
-    loggedIn: false,
-  };
-
   componentDidMount() {}
 
   goToRegister = () => {

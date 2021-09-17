@@ -87,11 +87,11 @@ class Dashboard extends Component {
               <Route
                 path={this.props.match.url + "/tickets"}
                 render={(props) => {
-                  localStorage.getItem("rol") == "admin" ? (
-                    <TicketsAdmin org={this.state.org}></TicketsAdmin>
-                  ) : (
-                    <Tickets org={this.state.org}></Tickets>
-                  );
+                  if (localStorage.getItem("rol") == "admin") {
+                    return <TicketsAdmin org={this.state.org}></TicketsAdmin>;
+                  } else {
+                    return <Tickets org={this.state.org}></Tickets>;
+                  }
                 }}
               />
 
