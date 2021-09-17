@@ -29,7 +29,7 @@ class Sidebar extends Component {
   };
 
   logout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     this.props.history.push({
       pathname: "/",
     });
@@ -81,7 +81,7 @@ class Sidebar extends Component {
                   </CDBSidebarMenuItem>
                 </NavLink>
 
-                {localStorage.getItem("rol") == "owner" ? (
+                {sessionStorage.getItem("rol") == "owner" ? (
                   <NavLink exact to="/dashboard/organization">
                     <CDBSidebarMenuItem className="titleSide">
                       Organización
@@ -102,7 +102,7 @@ class Sidebar extends Component {
                   </CDBSidebarMenuItem>
                 </NavLink>
 
-                {localStorage.getItem("rol") == "client" ? (
+                {sessionStorage.getItem("rol") == "client" ? (
                   <CDBSidebarMenuItem
                     active="true"
                     className="buttonSideBar"

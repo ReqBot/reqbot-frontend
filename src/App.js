@@ -19,17 +19,12 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
-    window.onunload = () => {
-      // Clear the local storage
-      localStorage.clear();
-    };
   }
 
   loggin = (loggedIn, userName, rol) => {
-    localStorage.setItem("loggedIn", loggedIn);
-    localStorage.setItem("userName", userName);
-    localStorage.setItem("rol", rol);
+    sessionStorage.setItem("loggedIn", loggedIn);
+    sessionStorage.setItem("userName", userName);
+    sessionStorage.setItem("rol", rol);
   };
 
   render() {
@@ -40,7 +35,7 @@ class App extends Component {
             <Route
               path="/dashboard"
               render={(props) =>
-                localStorage.getItem("loggedIn") ? (
+                sessionStorage.getItem("loggedIn") ? (
                   <Dashboard></Dashboard>
                 ) : (
                   <Redirect to="/" />
@@ -52,7 +47,7 @@ class App extends Component {
               exact
               path="/"
               render={(props) =>
-                !localStorage.getItem("loggedIn") ? (
+                !sessionStorage.getItem("loggedIn") ? (
                   <Login changeParentLogin={this.loggin}></Login>
                 ) : (
                   <Redirect to="/dashboard/proyects" />
@@ -64,7 +59,7 @@ class App extends Component {
               exact
               path="/register"
               render={(props) =>
-                !localStorage.getItem("loggedIn") ? (
+                !sessionStorage.getItem("loggedIn") ? (
                   <Register></Register>
                 ) : (
                   <Redirect to="/dashboard/proyects" />
@@ -76,7 +71,7 @@ class App extends Component {
               exact
               path="/forgotPassword"
               render={(props) =>
-                !localStorage.getItem("loggedIn") ? (
+                !sessionStorage.getItem("loggedIn") ? (
                   <ForgotPassword></ForgotPassword>
                 ) : (
                   <Redirect to="/dashboard/proyects" />

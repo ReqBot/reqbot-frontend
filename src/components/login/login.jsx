@@ -9,6 +9,10 @@ import { withRouter } from "react-router-dom";
 class Login extends Component {
   componentDidMount() {}
 
+  constructor(props) {
+    super(props);
+  }
+
   goToRegister = () => {
     /*
     console.log(3);
