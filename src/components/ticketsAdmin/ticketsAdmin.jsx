@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Card from "react-bootstrap/Card";
-import "./tickets.css";
+import "./ticketsAdmin.css";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import { FaSearch } from "react-icons/fa";
 
-class Tickets extends Component {
+class TicketsAdmin extends Component {
   constructor(props) {
     super(props);
     console.log(props);
@@ -139,7 +139,6 @@ class Tickets extends Component {
               </div>
 
               <div class="ticket-text-block-4">
-                <Button id="rechazar-ticket">Rechazar</Button>
                 <Button id="aprobar-ticket">Aprobar</Button>
               </div>
             </div>
@@ -175,4 +174,4 @@ class Tickets extends Component {
   }
 }
 
-export default withRouter(Tickets);
+export default withRouter(TicketsAdmin);

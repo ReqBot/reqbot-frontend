@@ -15,6 +15,7 @@ import TabsProyectAnalyst from "../tabsProyectAnalyst/tabsProyectAnalyst";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Tickets from "../tickets/tickets";
+import TicketsAdmin from "../ticketsAdmin/ticketsAdmin";
 
 class Dashboard extends Component {
   state = {
@@ -85,7 +86,13 @@ class Dashboard extends Component {
 
               <Route
                 path={this.props.match.url + "/tickets"}
-                render={(props) => <Tickets org={this.state.org}></Tickets>}
+                render={(props) => {
+                  localStorage.getItem("rol") == "admin" ? (
+                    <TicketsAdmin org={this.state.org}></TicketsAdmin>
+                  ) : (
+                    <Tickets org={this.state.org}></Tickets>
+                  );
+                }}
               />
 
               <Route
