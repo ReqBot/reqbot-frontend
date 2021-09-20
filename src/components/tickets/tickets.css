@@ -53,6 +53,8 @@
 .ticket-text-block-1 {
   width: 25%;
   text-align: left;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .bottom-text-tickets {
@@ -68,12 +70,16 @@
 
 .ticket-text-block-3 {
   width: 30%;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .ticket-text-block-4 {
-  width: 30%;
+  width: 20%;
   display: flex;
   justify-content: space-around;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .flex-div-tickets-text {

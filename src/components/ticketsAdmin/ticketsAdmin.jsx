@@ -121,24 +121,12 @@ class TicketsAdmin extends Component {
                   {userstory.fecha}
                 </div>
               </div>
-              <div class="ticket-text-block-2">
-                {" "}
-                {userstory.tipo}
-                <br></br>
-                {userstory.descripcion}
-              </div>
+              <div class="ticket-text-block-2">{userstory.descripcion}</div>
 
-              <div class="ticket-text-block-3">
-                {userstory.estado}
-                <br></br>
-                <div className="bottom-text-tickets">
-                  <b>Enviado por: </b>
+              <div class="ticket-text-block-3-admin">{userstory.tipo}</div>
 
-                  {userstory.creadoPor}
-                </div>
-              </div>
-
-              <div class="ticket-text-block-4">
+              <div class="ticket-text-block-4-buttons">
+                <Button id="rechazar-ticket">Rechazar</Button>
                 <Button id="aprobar-ticket">Aprobar</Button>
               </div>
             </div>
@@ -164,7 +152,6 @@ class TicketsAdmin extends Component {
               id="search-userStories"
             />
           </InputGroup>
-          <Button id="crear-ticket">Nuevo</Button>
         </div>
         <div class="div-tickets">
           <this.ticketsRow HUS={this.mockTickets}></this.ticketsRow>

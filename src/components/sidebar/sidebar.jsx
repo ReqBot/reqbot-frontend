@@ -91,7 +91,7 @@ class Sidebar extends Component {
                   <div></div>
                 )}
 
-                <NavLink exact to="/dashboard/proyects">
+                <NavLink exact to="/dashboard/logs">
                   <CDBSidebarMenuItem className="titleSide">
                     Logs
                   </CDBSidebarMenuItem>

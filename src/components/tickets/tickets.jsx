@@ -121,15 +121,11 @@ class Tickets extends Component {
                   {userstory.fecha}
                 </div>
               </div>
-              <div class="ticket-text-block-2">
-                {" "}
-                {userstory.tipo}
-                <br></br>
-                {userstory.descripcion}
-              </div>
+              <div class="ticket-text-block-2">{userstory.descripcion}</div>
 
               <div class="ticket-text-block-3">
-                {userstory.estado}
+                {" "}
+                {userstory.tipo}
                 <br></br>
                 <div className="bottom-text-tickets">
                   <b>Enviado por: </b>
@@ -138,10 +134,7 @@ class Tickets extends Component {
                 </div>
               </div>
 
-              <div class="ticket-text-block-4">
-                <Button id="rechazar-ticket">Rechazar</Button>
-                <Button id="aprobar-ticket">Aprobar</Button>
-              </div>
+              <div class="ticket-text-block-4">{userstory.estado}</div>
             </div>
           </Card.Body>
         </Card>
@@ -149,6 +142,11 @@ class Tickets extends Component {
     </div>
   );
 
+  newTicket = () => {
+    this.props.history.push({
+      pathname: "/dashboard/create/ticket",
+    });
+  };
   render() {
     return (
       <React.Fragment>
@@ -165,7 +163,9 @@ class Tickets extends Component {
               id="search-userStories"
             />
           </InputGroup>
-          <Button id="crear-ticket">Nuevo</Button>
+          <Button id="crear-ticket" onClick={this.newTicket}>
+            Nuevo
+          </Button>
         </div>
         <div class="div-tickets">
           <this.ticketsRow HUS={this.mockTickets}></this.ticketsRow>

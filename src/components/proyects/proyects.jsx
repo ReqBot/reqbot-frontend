@@ -9,12 +9,20 @@ import Alert from "react-bootstrap/Alert";
 import { FaHandsHelping } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+import Modal from "react-bootstrap/Modal";
+import { AiFillCloseCircle } from "react-icons/ai";
+import Form from "react-bootstrap/Form";
 
 class Proyects extends Component {
   state = {
+    proyectsNoFilters: [],
     proyectsReal: [],
     proyectsShowed: [],
     isHidden: false,
+    modalFilterOrder: false,
+
+    checkBoxOne: false,
+    checkBoxTwo: false,
   };
 
   index = 0;
@@ -38,6 +46,7 @@ class Proyects extends Component {
       .then((resonse) => {
         this.setState({
           proyectsReal: resonse.data,
+          proyectsNoFilters: resonse.data,
         });
 
         this.setPagination();
@@ -45,6 +54,7 @@ class Proyects extends Component {
       .catch((error) => {
         this.setState({
           proyectsReal: this.proyects,
+          proyectsNoFilters: this.proyects,
         });
         this.setPagination();
       });
@@ -84,7 +94,7 @@ class Proyects extends Component {
   }
 
   goDetailProject = (proyectIndex) => {
-    if (localStorage.getItem("rol") == "client") {
+    if (sessionStorage.getItem("rol") == "client") {
       this.props.history.push({
         pathname: "/dashboard/redactar",
         megastate: { proyect: proyectIndex },
@@ -110,10 +120,20 @@ class Proyects extends Component {
     },
     {
       idProyecto: 1,
-      nombre: "CarritOS",
+      nombre: "CarritOS2",
       fechaModificacion: "2021-07-09T05:00:00.000Z",
       etiqueta: "Web",
       estado: "Activo",
+      numeroDeHistorias: 0,
+      numeroUsuarios: 0,
+      idOrganizacion: 1,
+    },
+    {
+      idProyecto: 1,
+      nombre: "CarritOS3",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      etiqueta: "Web",
+      estado: "Inactivo",
       numeroDeHistorias: 0,
       numeroUsuarios: 0,
       idOrganizacion: 1,
@@ -180,6 +200,12 @@ class Proyects extends Component {
     }
   };
 
+  handleFilterOrder = () => {
+    this.setState({
+      modalFilterOrder: !this.state.modalFilterOrder,
+    });
+  };
+
   CardProyect = ({ proyectsEntry }) => (
     <div class="flex-div">
       {proyectsEntry.map((proyect) => (
@@ -214,6 +240,69 @@ class Proyects extends Component {
     </div>
   );
 
+  handleClick = (event) => {
+    const target = event.target;
+    const name = target.name;
+
+    if (name == "checkBoxOne") {
+      console.log(1);
+      this.setState({
+        checkBoxOne: !this.state.checkBoxOne,
+      });
+    }
+    if (name == "checkBoxTwo") {
+      console.log(2);
+      this.setState({
+        checkBoxTwo: !this.state.checkBoxTwo,
+      });
+    }
+  };
+
+  deleteFilters = () => {
+    this.setState(
+      {
+        proyectsReal: this.state.proyectsNoFilters,
+      },
+      () => {
+        this.setPagination();
+        this.setState({
+          modalFilterOrder: !this.state.modalFilterOrder,
+        });
+      }
+    );
+  };
+
+  applyFilters = () => {
+    this.setState(
+      {
+        proyectsReal: [],
+      },
+      () => {
+        if (this.state.checkBoxOne) {
+          this.state.proyectsReal.push(this.filterByCondition("Activo"));
+        }
+        if (this.state.checkBoxTwo) {
+          this.state.proyectsReal.push(this.filterByCondition("Inactivo"));
+        }
+        this.setPagination();
+        this.setState({
+          modalFilterOrder: !this.state.modalFilterOrder,
+        });
+      }
+    );
+  };
+
+  filterByCondition = (condition) => {
+    var filteredObjects = [];
+
+    for (const i in this.state.proyectsNoFilters) {
+      if (this.state.proyectsNoFilters[i].estado == condition) {
+        filteredObjects.push(this.state.proyectsNoFilters[i]);
+      }
+    }
+    return filteredObjects;
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -239,6 +328,12 @@ class Proyects extends Component {
           </div>
 
           <div class="div-pagination">
+            <Button
+              id="filtrar-ordenar-button"
+              onClick={this.handleFilterOrder}
+            >
+              Filtrar/Ordenar
+            </Button>
             <Pagination>
               <Pagination.Prev onClick={this.previosPage} />
               <Pagination.Next onClick={this.nextPage} />
@@ -250,6 +345,71 @@ class Proyects extends Component {
             ></this.CardProyect>
           </div>
         </div>
+
+        <Modal
+          show={this.state.modalFilterOrder}
+          onHide={this.handleFilterOrder}
+          id="settings-info-user"
+        >
+          <Modal.Header>
+            <Modal.Title>Filtrar/Ordenar</Modal.Title>
+            <AiFillCloseCircle
+              id="btn-close"
+              onClick={this.handleFilterOrder}
+            ></AiFillCloseCircle>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <b>Filtrar por</b>
+              <div className="check-line">
+                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                  <Form.Check
+                    type="checkbox"
+                    label="Activo"
+                    name="checkBoxOne"
+                    onClick={this.handleClick}
+                    checked={this.state.checkBoxOne}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                  <Form.Check
+                    type="checkbox"
+                    label="Inactivo"
+                    name="checkBoxTwo"
+                    onClick={this.handleClick}
+                    checked={this.state.checkBoxTwo}
+                  />
+                </Form.Group>
+              </div>
+            </div>
+            <div>
+              <b>Ordenar Por</b>
+              <Form.Select aria-label="Estado" id="proyect-info-select-filter">
+                <option></option>
+                <option value="1">Id</option>
+                <option value="1">Fecha de Modificación</option>
+                <option value="2">Nombre</option>
+              </Form.Select>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              id="boton-cerrar-modal"
+              onClick={this.deleteFilters}
+            >
+              Limpiar
+            </Button>
+            <Button
+              variant="primary"
+              id="boton-guardar-modal"
+              onClick={this.applyFilters}
+            >
+              Aplicar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </React.Fragment>
     );
   }

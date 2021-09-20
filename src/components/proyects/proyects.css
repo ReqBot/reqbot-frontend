@@ -42,10 +42,11 @@
 }
 
 .flex-div {
-  padding: 0% 3% 0% 3%;
   display: flex;
-  justify-content: center;
   flex-flow: row wrap;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1300px;
 }
 
 #button-search {
@@ -106,4 +107,29 @@
   margin-right: 12px;
   font-size: 20px;
   font-weight: bolder;
+}
+
+#filtrar-ordenar-button {
+  color: #545871;
+  background-color: #f7eceb;
+  border-color: #f7eceb;
+  border-radius: 15px;
+  height: 35px;
+  margin-left: 0px;
+  font-weight: bolder;
+}
+
+.check-line {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 8px;
+}
+
+#proyect-info-select-filter {
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  border: none;
+  padding-left: 8px;
+  color: #545871;
+  margin-top: 8px;
 }

@@ -20,3 +20,15 @@
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.ticket-text-block-3-admin {
+  width: 25%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.ticket-text-block-4-buttons {
+  width: 35%;
+  display: flex;
+  justify-content: space-around;
+}

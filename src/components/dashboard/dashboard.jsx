@@ -16,6 +16,8 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Tickets from "../tickets/tickets";
 import TicketsAdmin from "../ticketsAdmin/ticketsAdmin";
+import CreateTicket from "../createTicket/createTicket";
+import Logs from "../logs/logs";
 
 class Dashboard extends Component {
   state = {
@@ -87,7 +89,7 @@ class Dashboard extends Component {
               <Route
                 path={this.props.match.url + "/tickets"}
                 render={(props) => {
-                  if (localStorage.getItem("rol") == "admin") {
+                  if (sessionStorage.getItem("rol") == "owner") {
                     return <TicketsAdmin org={this.state.org}></TicketsAdmin>;
                   } else {
                     return <Tickets org={this.state.org}></Tickets>;
@@ -129,6 +131,14 @@ class Dashboard extends Component {
 
               <Route
                 exact
+                path={this.props.match.url + "/create/ticket"}
+                render={(props) => (
+                  <CreateTicket org={this.state.org}></CreateTicket>
+                )}
+              />
+
+              <Route
+                exact
                 path={this.props.match.url + "/organization/edit/user"}
                 render={(props) => <EditUser org={this.state.org}></EditUser>}
               />
@@ -149,6 +159,12 @@ class Dashboard extends Component {
                 render={(props) => (
                   <TabsProyectAnalyst org={this.state.org}></TabsProyectAnalyst>
                 )}
+              />
+
+              <Route
+                exact
+                path={this.props.match.url + "/logs"}
+                render={(props) => <Logs org={this.state.org}></Logs>}
               />
             </Switch>
           </div>
