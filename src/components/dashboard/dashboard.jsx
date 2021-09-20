@@ -17,7 +17,7 @@ import axios from "axios";
 import Tickets from "../tickets/tickets";
 import TicketsAdmin from "../ticketsAdmin/ticketsAdmin";
 import CreateTicket from "../createTicket/createTicket";
-import Logs from "../logs/logs";
+import Logys from "../logys/logys";
 
 class Dashboard extends Component {
   state = {
@@ -164,7 +164,7 @@ class Dashboard extends Component {
               <Route
                 exact
                 path={this.props.match.url + "/logs"}
-                render={(props) => <Logs org={this.state.org}></Logs>}
+                render={(props) => <Logys org={this.state.org}></Logys>}
               />
             </Switch>
           </div>

@@ -29,15 +29,19 @@
 
 .searchbar-div-userStories {
   padding-top: 32px;
-  width: 50%;
+  width: 80%;
   margin: auto;
+  display: flex;
+  justify-content: space-around;
 }
 
 .flex-div-userStories {
   padding: 0% 1% 0% 1%;
   display: flex;
-  justify-content: space-evenly;
   flex-flow: row wrap;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1300px;
 }
 
 #button-search {
@@ -55,6 +59,7 @@
 
 #input-userStories {
   border-bottom: 1px solid #a6a9ad;
+  width: 40%;
 }
 
 #seach-icon {
@@ -91,4 +96,15 @@
 
 #more-icon {
   font-size: 25px;
+}
+
+#filtrar-ordenar-button {
+  color: #545871;
+  background-color: #f7eceb;
+  border-color: #f7eceb;
+  border-radius: 15px;
+  height: 35px;
+  margin-left: 0px;
+  font-weight: bolder;
+  width: 20%;
 }
