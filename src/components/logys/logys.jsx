@@ -54,7 +54,6 @@ class Logys extends Component {
 
   mockLogs = [
     {
-      titulo: "Ticket 1",
       fecha: "2021-07-09",
       tipo: "Entrenamiento",
       descripcion:
@@ -63,7 +62,6 @@ class Logys extends Component {
       creadoPor: "Luis Doe",
     },
     {
-      titulo: "Ticket 2",
       fecha: "2021-07-09",
       tipo: "Tecnico",
       descripcion:
@@ -72,7 +70,6 @@ class Logys extends Component {
       creadoPor: "Cesar Lopez",
     },
     {
-      titulo: "Ticket 3",
       fecha: "2021-07-09",
       tipo: "Entrenamiento",
       descripcion:
@@ -81,7 +78,6 @@ class Logys extends Component {
       creadoPor: "Luis Doe",
     },
     {
-      titulo: "Ticket 4",
       fecha: "2021-07-09",
       tipo: "Tecnico",
       descripcion:
@@ -90,58 +86,8 @@ class Logys extends Component {
       creadoPor: "Cesar Doe",
     },
     {
-      titulo: "Ticket 3",
       fecha: "2021-07-09",
-      tipo: "Entrenamiento",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
       creadoPor: "Luis Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
     },
   ];
 
