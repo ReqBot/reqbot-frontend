@@ -8,9 +8,11 @@ import { FaSearch } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
-
+import Form from "react-bootstrap/Form";
 class UserStoriesAnalyst extends Component {
   state = {
+    useStoriesNoFilter: [],
+    useStories: [],
     userStoriesShowed: [],
     modalApprove: false,
     selectedUserStoryId: "",
@@ -22,6 +24,11 @@ class UserStoriesAnalyst extends Component {
     selectedUserStoryModPor: "",
     selectedUserStoryIdProyecto: "",
     selectedUserStoryEstado: "",
+
+    modalFilterOrder: false,
+    checkBoxOne: false,
+    checkBoxTwo: false,
+    rol: "",
   };
 
   constructor(props) {
@@ -43,11 +50,14 @@ class UserStoriesAnalyst extends Component {
         this.setState({
           useStories: resonse.data,
           userStoriesShowed: resonse.data,
+          useStoriesNoFilter: resonse.data,
         });
       })
       .catch((error) => {
         this.setState({
           userStoriesShowed: this.userStories,
+          useStories: this.userStories,
+          useStoriesNoFilter: this.userStories,
         });
       });
   };
@@ -62,7 +72,7 @@ class UserStoriesAnalyst extends Component {
       fechaModificacion: "2021-07-09T05:00:00.000Z",
       modificadoPor: 1,
       idProyecto: 1,
-      estado: "Aprobado",
+      estado: "Pendiente",
     },
     {
       idHistoriaUsuario: 3,
@@ -73,7 +83,7 @@ class UserStoriesAnalyst extends Component {
       fechaModificacion: "2021-07-09T05:00:00.000Z",
       modificadoPor: 1,
       idProyecto: 1,
-      estado: "Aprobado",
+      estado: "Pendiente",
     },
     {
       idHistoriaUsuario: 2,
@@ -84,7 +94,7 @@ class UserStoriesAnalyst extends Component {
       fechaModificacion: "2021-07-09T05:00:00.000Z",
       modificadoPor: 1,
       idProyecto: 1,
-      estado: "Aprobado",
+      estado: "Pendiente",
     },
     {
       idHistoriaUsuario: 3,
@@ -95,7 +105,7 @@ class UserStoriesAnalyst extends Component {
       fechaModificacion: "2021-07-09T05:00:00.000Z",
       modificadoPor: 1,
       idProyecto: 1,
-      estado: "Aprobado",
+      estado: "Pendiente",
     },
     {
       idHistoriaUsuario: 2,
@@ -106,12 +116,12 @@ class UserStoriesAnalyst extends Component {
       fechaModificacion: "2021-07-09T05:00:00.000Z",
       modificadoPor: 1,
       idProyecto: 1,
-      estado: "Aprobado",
+      estado: "Pendiente",
     },
     {
       idHistoriaUsuario: 3,
       nombre: "Historia 3",
-      rol: "Cliente",
+      rol: "Admin",
       funcionalidad: "Loguearse con Apple",
       resultado: "Para tener facilidad de loguearse",
       fechaModificacion: "2021-07-09T05:00:00.000Z",
@@ -260,12 +270,109 @@ class UserStoriesAnalyst extends Component {
     });
   };
 
+  handleFilterOrder = () => {
+    this.setState({
+      modalFilterOrder: !this.state.modalFilterOrder,
+    });
+  };
+
+  handleClick = (event) => {
+    const target = event.target;
+    const name = target.name;
+
+    if (name == "checkBoxOne") {
+      this.setState({
+        checkBoxOne: !this.state.checkBoxOne,
+      });
+    }
+    if (name == "checkBoxTwo") {
+      this.setState({
+        checkBoxTwo: !this.state.checkBoxTwo,
+      });
+    }
+  };
+
+  deleteFilters = () => {
+    this.setState(
+      {
+        useStories: this.state.useStoriesNoFilter,
+        userStoriesShowed: this.state.useStoriesNoFilter,
+      },
+      () => {
+        this.setState({
+          modalFilterOrder: !this.state.modalFilterOrder,
+          checkBoxOne: false,
+          checkBoxTwo: false,
+          rol: "",
+        });
+      }
+    );
+  };
+
+  applyFilters = () => {
+    var userStoriesAux = [];
+
+    this.setState(
+      {
+        useStories: [],
+      },
+      () => {
+        if (this.state.checkBoxOne) {
+          userStoriesAux = this.filterByCondition("Aprobado", "estado");
+          this.state.useStories.push(...userStoriesAux);
+        }
+        if (this.state.checkBoxTwo) {
+          userStoriesAux = this.filterByCondition("Pendiente", "estado");
+          this.state.useStories.push(...userStoriesAux);
+          console.log("yeer");
+        }
+        if (this.state.rol != "") {
+          userStoriesAux = this.filterByCondition(this.state.rol, "tipo");
+          this.state.useStories.push(...userStoriesAux);
+        }
+        this.setState({
+          modalFilterOrder: !this.state.modalFilterOrder,
+          userStoriesShowed: this.state.useStories,
+        });
+      }
+    );
+  };
+
+  filterByCondition = (condition, type) => {
+    var filteredObjects = [];
+
+    if (type == "estado") {
+      for (const i in this.state.useStoriesNoFilter) {
+        if (this.state.useStoriesNoFilter[i].estado == condition) {
+          console.log(this.state.useStoriesNoFilter[i]);
+          filteredObjects.push(this.state.useStoriesNoFilter[i]);
+        }
+      }
+    }
+    if (type == "tipo") {
+      for (const i in this.state.useStoriesNoFilter) {
+        if (this.state.useStoriesNoFilter[i].rol.includes(condition)) {
+          console.log(this.state.useStoriesNoFilter[i]);
+          filteredObjects.push(this.state.useStoriesNoFilter[i]);
+        }
+      }
+    }
+
+    return filteredObjects;
+  };
+
   render() {
     return (
       <React.Fragment>
         <div>
           <div class="header-proyectos-analyst">
-            <div class="searchbar-div-userStories-analyst">
+            <div class="searchbar-div-userStories">
+              <Button
+                id="filtrar-ordenar-button-userStory"
+                onClick={this.handleFilterOrder}
+              >
+                Filtrar/Ordenar
+              </Button>
               <InputGroup id="input-userStories" className="mb-3">
                 <FaSearch id="seach-icon"></FaSearch>
                 <FormControl
@@ -347,6 +454,82 @@ class UserStoriesAnalyst extends Component {
               id="boton-guardar-modal"
             >
               Aprobar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal
+          show={this.state.modalFilterOrder}
+          onHide={this.handleFilterOrder}
+          id="settings-info-user"
+        >
+          <Modal.Header>
+            <Modal.Title>Filtrar/Ordenar</Modal.Title>
+            <AiFillCloseCircle
+              id="btn-close"
+              onClick={this.handleFilterOrder}
+            ></AiFillCloseCircle>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <b>Filtrar por</b>
+              <div className="check-line">
+                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                  <Form.Check
+                    type="checkbox"
+                    label="Aprobado"
+                    name="checkBoxOne"
+                    onClick={this.handleClick}
+                    checked={this.state.checkBoxOne}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicCheckbox2">
+                  <Form.Check
+                    type="checkbox"
+                    label="Pendiente"
+                    name="checkBoxTwo"
+                    onClick={this.handleClick}
+                    checked={this.state.checkBoxTwo}
+                  />
+                </Form.Group>
+              </div>
+              <div class="proyect-input-filter">
+                <p>Rol:</p>
+                <InputGroup className="mb-3 login-input">
+                  <FormControl
+                    type="text"
+                    name="rol"
+                    value={this.state.rol}
+                    onChange={this.handleChange}
+                  />
+                </InputGroup>
+              </div>
+            </div>
+            <div>
+              <b>Ordenar Por</b>
+              <Form.Select aria-label="Estado" id="proyect-info-select-filter">
+                <option></option>
+                <option value="1">Id</option>
+                <option value="1">Fecha de Modificación</option>
+                <option value="2">Nombre</option>
+              </Form.Select>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              id="boton-cerrar-modal"
+              onClick={this.deleteFilters}
+            >
+              Limpiar
+            </Button>
+            <Button
+              variant="primary"
+              id="boton-guardar-modal"
+              onClick={this.applyFilters}
+            >
+              Aplicar
             </Button>
           </Modal.Footer>
         </Modal>

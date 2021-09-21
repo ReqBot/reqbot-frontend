@@ -245,6 +245,9 @@ class UserStories extends Component {
         this.setPagination();
         this.setState({
           modalFilterOrder: !this.state.modalFilterOrder,
+          checkBoxOne: false,
+          checkBoxTwo: false,
+          rol: "",
         });
       }
     );
