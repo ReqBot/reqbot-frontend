@@ -133,3 +133,14 @@
   color: #545871;
   margin-top: 8px;
 }
+
+.proyect-input-filter {
+  width: 40%;
+  margin-left: auto;
+  margin-right: 34%;
+  display: flex;
+}
+
+.proyect-input-filter p {
+  margin-right: 10px;
+}

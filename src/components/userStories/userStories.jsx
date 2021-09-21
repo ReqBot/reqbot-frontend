@@ -10,12 +10,21 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Form from "react-bootstrap/Form";
+import Pagination from "react-bootstrap/Pagination";
+
 class UserStories extends Component {
   state = {
+    useStoriesNoFilter: [],
     useStories: [],
     userStoriesShowed: [],
     modalFilterOrder: false,
+
+    checkBoxOne: false,
+    checkBoxTwo: false,
+    rol: "",
   };
+
+  index = 0;
 
   componentDidMount() {
     this.getUserStories();
@@ -31,15 +40,40 @@ class UserStories extends Component {
         console.log(resonse);
         this.setState({
           useStories: resonse.data,
-          userStoriesShowed: resonse.data,
+          useStoriesNoFilter: resonse.data,
         });
+        this.setPagination();
       })
       .catch((error) => {
         this.setState({
-          userStoriesShowed: this.userStories,
+          useStories: this.userStories,
+          useStoriesNoFilter: this.userStories,
         });
+        this.setPagination();
         console.log(error);
       });
+  };
+
+  setPagination() {
+    if (this.state.useStories.length > 4) {
+      this.setState({
+        userStoriesShowed: this.state.useStories.slice(0, 4),
+      });
+    } else {
+      this.setState({
+        userStoriesShowed: this.state.useStories,
+      });
+    }
+  }
+
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
   };
 
   userStories = [
@@ -66,7 +100,7 @@ class UserStories extends Component {
       estado: "Aprobado",
     },
     {
-      idHistoriaUsuario: 2,
+      idHistoriaUsuario: 3,
       nombre: "Historia 2",
       rol: "Cliente",
       funcionalidad: "Loguearse con Apple",
@@ -75,6 +109,28 @@ class UserStories extends Component {
       modificadoPor: 1,
       idProyecto: 1,
       estado: "Aprobado",
+    },
+    {
+      idHistoriaUsuario: 5,
+      nombre: "Historia 2",
+      rol: "Admin",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Pendiente",
+    },
+    {
+      idHistoriaUsuario: 4,
+      nombre: "Historia 2",
+      rol: "Admin",
+      funcionalidad: "Loguearse con Apple",
+      resultado: "Para tener facilidad de loguearse",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      modificadoPor: 1,
+      idProyecto: 1,
+      estado: "Pendiente",
     },
   ];
 
@@ -124,10 +180,125 @@ class UserStories extends Component {
     </div>
   );
 
+  previosPage = () => {
+    if (this.index - 4 >= 0) {
+      this.index = this.index - 4;
+      console.log(this.index);
+      this.setState({
+        userStoriesShowed: this.state.useStories.slice(
+          this.index,
+          this.index + 4
+        ),
+      });
+    }
+  };
+
+  nextPage = () => {
+    if (this.index + 4 < this.state.useStories.length) {
+      this.index = this.index + 4;
+      if (this.index + 4 > this.state.useStories.length) {
+        this.setState({
+          userStoriesShowed: this.state.useStories.slice(
+            this.index,
+            this.state.useStories.length
+          ),
+        });
+      } else {
+        this.setState({
+          userStoriesShowed: this.state.useStories.slice(
+            this.index,
+            this.index + 4
+          ),
+        });
+      }
+    }
+  };
+
   handleFilterOrder = () => {
     this.setState({
       modalFilterOrder: !this.state.modalFilterOrder,
     });
+  };
+
+  handleClick = (event) => {
+    const target = event.target;
+    const name = target.name;
+
+    if (name == "checkBoxOne") {
+      this.setState({
+        checkBoxOne: !this.state.checkBoxOne,
+      });
+    }
+    if (name == "checkBoxTwo") {
+      this.setState({
+        checkBoxTwo: !this.state.checkBoxTwo,
+      });
+    }
+  };
+
+  deleteFilters = () => {
+    this.setState(
+      {
+        useStories: this.state.useStoriesNoFilter,
+      },
+      () => {
+        this.setPagination();
+        this.setState({
+          modalFilterOrder: !this.state.modalFilterOrder,
+        });
+      }
+    );
+  };
+
+  applyFilters = () => {
+    var userStoriesAux = [];
+
+    this.setState(
+      {
+        useStories: [],
+      },
+      () => {
+        if (this.state.checkBoxOne) {
+          userStoriesAux = this.filterByCondition("Aprobado", "estado");
+          this.state.useStories.push(...userStoriesAux);
+        }
+        if (this.state.checkBoxTwo) {
+          userStoriesAux = this.filterByCondition("Pendiente", "estado");
+          this.state.useStories.push(...userStoriesAux);
+        }
+        if (this.state.rol != "") {
+          userStoriesAux = this.filterByCondition(this.state.rol, "tipo");
+          this.state.useStories.push(...userStoriesAux);
+        }
+        this.setPagination();
+        this.setState({
+          modalFilterOrder: !this.state.modalFilterOrder,
+        });
+      }
+    );
+  };
+
+  filterByCondition = (condition, type) => {
+    var filteredObjects = [];
+
+    if (type == "estado") {
+      for (const i in this.state.useStoriesNoFilter) {
+        if (this.state.useStoriesNoFilter[i].estado == condition) {
+          console.log(this.state.useStoriesNoFilter[i]);
+          filteredObjects.push(this.state.useStoriesNoFilter[i]);
+        }
+      }
+    }
+    if (type == "tipo") {
+      for (const i in this.state.useStoriesNoFilter) {
+        if (this.state.useStoriesNoFilter[i].rol.includes(condition)) {
+          console.log(this.state.useStoriesNoFilter[i]);
+          filteredObjects.push(this.state.useStoriesNoFilter[i]);
+        }
+      }
+    }
+
+    return filteredObjects;
   };
 
   render() {
@@ -137,7 +308,7 @@ class UserStories extends Component {
           <div class="header-proyectos">
             <div class="searchbar-div-userStories">
               <Button
-                id="filtrar-ordenar-button"
+                id="filtrar-ordenar-button-userStory"
                 onClick={this.handleFilterOrder}
               >
                 Filtrar/Ordenar
@@ -152,6 +323,11 @@ class UserStories extends Component {
                   id="search-userStories"
                 />
               </InputGroup>
+
+              <Pagination>
+                <Pagination.Prev onClick={this.previosPage} />
+                <Pagination.Next onClick={this.nextPage} />
+              </Pagination>
             </div>
           </div>
           <this.HU HUS={this.state.userStoriesShowed}></this.HU>
@@ -176,22 +352,33 @@ class UserStories extends Component {
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                   <Form.Check
                     type="checkbox"
-                    label="Activo"
+                    label="Aprobado"
                     name="checkBoxOne"
                     onClick={this.handleClick}
                     checked={this.state.checkBoxOne}
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Group className="mb-3" controlId="formBasicCheckbox2">
                   <Form.Check
                     type="checkbox"
-                    label="Inactivo"
+                    label="Pendiente"
                     name="checkBoxTwo"
                     onClick={this.handleClick}
                     checked={this.state.checkBoxTwo}
                   />
                 </Form.Group>
+              </div>
+              <div class="proyect-input-filter">
+                <p>Rol:</p>
+                <InputGroup className="mb-3 login-input">
+                  <FormControl
+                    type="text"
+                    name="rol"
+                    value={this.state.rol}
+                    onChange={this.handleChange}
+                  />
+                </InputGroup>
               </div>
             </div>
             <div>

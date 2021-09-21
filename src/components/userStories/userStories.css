@@ -59,7 +59,7 @@
 
 #input-userStories {
   border-bottom: 1px solid #a6a9ad;
-  width: 40%;
+  width: 30%;
 }
 
 #seach-icon {
@@ -98,7 +98,7 @@
   font-size: 25px;
 }
 
-#filtrar-ordenar-button {
+#filtrar-ordenar-button-userStory {
   color: #545871;
   background-color: #f7eceb;
   border-color: #f7eceb;
@@ -106,5 +106,5 @@
   height: 35px;
   margin-left: 0px;
   font-weight: bolder;
-  width: 20%;
+  width: fit-content;
 }

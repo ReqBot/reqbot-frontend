@@ -23,6 +23,7 @@ class Proyects extends Component {
 
     checkBoxOne: false,
     checkBoxTwo: false,
+    tipo: "",
   };
 
   index = 0;
@@ -39,6 +40,16 @@ class Proyects extends Component {
     this.props.setClick(this.getAlert);
     this.getProyects();
   }
+
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
+  };
 
   getProyects = () => {
     axios
@@ -129,10 +140,40 @@ class Proyects extends Component {
       idOrganizacion: 1,
     },
     {
-      idProyecto: 1,
+      idProyecto: 2,
       nombre: "CarritOS3",
       fechaModificacion: "2021-07-09T05:00:00.000Z",
-      etiqueta: "Web",
+      etiqueta: "Movil",
+      estado: "Inactivo",
+      numeroDeHistorias: 0,
+      numeroUsuarios: 0,
+      idOrganizacion: 1,
+    },
+    {
+      idProyecto: 3,
+      nombre: "CarritOS3",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      etiqueta: "Movil",
+      estado: "Inactivo",
+      numeroDeHistorias: 0,
+      numeroUsuarios: 0,
+      idOrganizacion: 1,
+    },
+    {
+      idProyecto: 2,
+      nombre: "CarritOS3",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      etiqueta: "Movil",
+      estado: "Inactivo",
+      numeroDeHistorias: 0,
+      numeroUsuarios: 0,
+      idOrganizacion: 1,
+    },
+    {
+      idProyecto: 4,
+      nombre: "CarritOS3",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      etiqueta: "Movil",
       estado: "Inactivo",
       numeroDeHistorias: 0,
       numeroUsuarios: 0,
@@ -245,13 +286,11 @@ class Proyects extends Component {
     const name = target.name;
 
     if (name == "checkBoxOne") {
-      console.log(1);
       this.setState({
         checkBoxOne: !this.state.checkBoxOne,
       });
     }
     if (name == "checkBoxTwo") {
-      console.log(2);
       this.setState({
         checkBoxTwo: !this.state.checkBoxTwo,
       });
@@ -267,22 +306,32 @@ class Proyects extends Component {
         this.setPagination();
         this.setState({
           modalFilterOrder: !this.state.modalFilterOrder,
+          checkBoxOne: false,
+          checkBoxTwo: false,
+          tipo: "",
         });
       }
     );
   };
 
   applyFilters = () => {
+    var proyectsAux = [];
     this.setState(
       {
         proyectsReal: [],
       },
       () => {
         if (this.state.checkBoxOne) {
-          this.state.proyectsReal.push(this.filterByCondition("Activo"));
+          proyectsAux = this.filterByCondition("Activo", "estado");
+          this.state.proyectsReal.push(...proyectsAux);
         }
         if (this.state.checkBoxTwo) {
-          this.state.proyectsReal.push(this.filterByCondition("Inactivo"));
+          proyectsAux = this.filterByCondition("Inactivo", "estado");
+          this.state.proyectsReal.push(...proyectsAux);
+        }
+        if (this.state.tipo != "") {
+          proyectsAux = this.filterByCondition(this.state.tipo, "tipo");
+          this.state.proyectsReal.push(...proyectsAux);
         }
         this.setPagination();
         this.setState({
@@ -292,14 +341,26 @@ class Proyects extends Component {
     );
   };
 
-  filterByCondition = (condition) => {
+  filterByCondition = (condition, type) => {
     var filteredObjects = [];
 
-    for (const i in this.state.proyectsNoFilters) {
-      if (this.state.proyectsNoFilters[i].estado == condition) {
-        filteredObjects.push(this.state.proyectsNoFilters[i]);
+    if (type == "estado") {
+      for (const i in this.state.proyectsNoFilters) {
+        if (this.state.proyectsNoFilters[i].estado == condition) {
+          console.log(this.state.proyectsNoFilters[i]);
+          filteredObjects.push(this.state.proyectsNoFilters[i]);
+        }
       }
     }
+    if (type == "tipo") {
+      for (const i in this.state.proyectsNoFilters) {
+        if (this.state.proyectsNoFilters[i].etiqueta.includes(condition)) {
+          console.log(this.state.proyectsNoFilters[i]);
+          filteredObjects.push(this.state.proyectsNoFilters[i]);
+        }
+      }
+    }
+
     return filteredObjects;
   };
 
@@ -372,7 +433,7 @@ class Proyects extends Component {
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Group className="mb-3" controlId="formBasicCheckbox2">
                   <Form.Check
                     type="checkbox"
                     label="Inactivo"
@@ -381,6 +442,17 @@ class Proyects extends Component {
                     checked={this.state.checkBoxTwo}
                   />
                 </Form.Group>
+              </div>
+              <div class="proyect-input-filter">
+                <p>Tipo:</p>
+                <InputGroup className="mb-3 login-input">
+                  <FormControl
+                    type="text"
+                    name="tipo"
+                    value={this.state.tipo}
+                    onChange={this.handleChange}
+                  />
+                </InputGroup>
               </div>
             </div>
             <div>
