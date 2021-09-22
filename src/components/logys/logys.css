@@ -1,0 +1,130 @@
+.flex-div-logs {
+  padding: 0% 1% 0% 1%;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  overflow: auto;
+  max-height: 700px;
+}
+
+.div-logs {
+  padding: 1% 5% 2% 5%;
+}
+
+.logs-card {
+  width: 70% !important;
+  height: 100px !important;
+  text-align: center;
+  border-radius: 10px;
+  margin: 8px 0px 8px 0px;
+  color: #545871;
+}
+
+#logs-card-body {
+  padding: 12px 24px 8px 24px;
+  display: flex;
+}
+
+.top-search-div {
+  margin-top: 32px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+#input-logs {
+  border-bottom: 1px solid #a6a9ad;
+  width: 30%;
+}
+
+#crear-log {
+  width: 10%;
+  height: 30%;
+  border-radius: 15px;
+  background-color: #545871;
+  border-color: #545871;
+}
+
+.flex-div-logs {
+  display: flex;
+}
+
+.log-text-block-1 {
+  width: 30%;
+  text-align: left;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.log-text-block-2 {
+  width: 30%;
+  overflow: hidden;
+  text-align: left;
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: middle;
+}
+
+.log-text-block-3 {
+  width: 30%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.log-text-block-4 {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 100%;
+}
+
+.flex-div-logs-text {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  width: 70%;
+}
+
+#aprobar-log {
+  width: 40%;
+  height: 40%;
+  border-radius: 15px;
+  background-color: #545871;
+  border-color: #545871;
+  font-size: 14.5px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#rechazar-log {
+  width: 40%;
+  height: 40%;
+  border-radius: 15px;
+  color: #545871;
+  background-color: #dadbe6;
+  border-color: #dadbe6;
+  font-size: 14.5px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.flex-div-logs-text-2 {
+  height: 100%;
+  width: 20%;
+  margin-left: auto;
+}
+
+#download-log {
+  width: 80%;
+  height: 40%;
+  border-radius: 15px;
+  background-color: #545871;
+  border-color: #545871;
+  font-size: 14.5px;
+  margin-top: auto;
+  margin-bottom: auto;
+}

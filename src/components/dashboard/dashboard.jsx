@@ -45,7 +45,7 @@ class Dashboard extends Component {
       })
       .catch((error) => {
         this.setState({
-          proyectsReal: this.mockOrg,
+          org: this.mockOrg,
         });
       });
   };

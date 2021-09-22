@@ -8,6 +8,10 @@ class Organization extends Component {
     isHidden: false,
   };
 
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <React.Fragment>

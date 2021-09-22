@@ -54,77 +54,244 @@ class Logys extends Component {
 
   mockLogs = [
     {
+      id: "1",
+      nombre: "Logs 1",
       fecha: "2021-07-09",
-      tipo: "Entrenamiento",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Pendiente",
-      creadoPor: "Luis Doe",
+      idProyecto: "1",
+      archivo:
+        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+      nombreProyecto: "Proyecto 1",
     },
     {
+      id: "2",
+      nombre: "Logs 2",
       fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Pendiente",
-      creadoPor: "Cesar Lopez",
+      idProyecto: "1",
+      archivo:
+        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
     },
     {
+      id: "3",
+      nombre: "Logs 3",
       fecha: "2021-07-09",
-      tipo: "Entrenamiento",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Luis Doe",
+      idProyecto: "1",
+      archivo:
+        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+      nombreProyecto: "Proyecto 2",
     },
     {
+      id: "4",
+      nombre: "Logs 4",
       fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
+      idProyecto: "1",
+      archivo:
+        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+      nombreProyecto: "Proyecto 3",
     },
     {
+      id: "5",
+      nombre: "Logs 5",
       fecha: "2021-07-09",
-      creadoPor: "Luis Doe",
+      idProyecto: "1",
+      archivo:
+        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+      nombreProyecto: "Proyecto 4",
     },
+    {
+      id: "6",
+      nombre: "Logs 6",
+      fecha: "2021-07-09",
+      idProyecto: "1",
+      archivo:
+        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+      nombreProyecto: "Proyecto 5",
+    },
+    {
+      id: "7",
+      nombre: "Logs 7",
+      fecha: "2021-07-09",
+      idProyecto: "1",
+      archivo:
+        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+      nombreProyecto: "Proyecto6",
+    },
+
+    279356,
   ];
 
   logsRow = ({ HUS }) => (
-    <div class="flex-div-tickets">
+    <div class="flex-div-logs">
       {HUS.map((userstory) => (
-        <Card className="tickets-card">
-          <Card.Body id="tickets-card-body">
-            <div className="flex-div-tickets-text">
-              <div class="ticket-text-block-1">
-                <b>{userstory.titulo}</b>
-                <br></br>
-                <div className="bottom-text-tickets">
+        <Card className="logs-card">
+          <Card.Body id="logs-card-body">
+            <div className="flex-div-logs-text">
+              <div class="log-text-block-1">{userstory.nombre}</div>
+              <div class="log-text-block-2">
+                <div className="bottom-text-logs">
                   <b>Creación: </b>
+                  <br />
                   {userstory.fecha}
                 </div>
               </div>
-              <div class="ticket-text-block-2">{userstory.descripcion}</div>
 
-              <div class="ticket-text-block-3">
+              <div class="log-text-block-3">
                 {" "}
-                {userstory.tipo}
-                <br></br>
-                <div className="bottom-text-tickets">
-                  <b>Enviado por: </b>
-
-                  {userstory.creadoPor}
-                </div>
+                <b>Nombre Proyecto: &nbsp;</b>
+                <br />
+                {userstory.nombreProyecto}
               </div>
-
-              <div class="ticket-text-block-4">{userstory.estado}</div>
+            </div>
+            <div className="flex-div-logs-text-2">
+              <div class="log-text-block-4">
+                {" "}
+                <Button
+                  id="download-log"
+                  onClick={this.tryDownload.bind(this, userstory)}
+                >
+                  Descargar
+                </Button>
+              </div>
             </div>
           </Card.Body>
         </Card>
       ))}
     </div>
   );
+
+  tryDownload = (logIndex) => {
+    var sampleBytes = new Int8Array(4096);
+
+    var saveByteArray = (function () {
+      var a = document.createElement("a");
+      document.body.appendChild(a);
+      a.style = "display: none";
+      return function (data, name) {
+        var blob = new Blob(data, { type: "octet/stream" }),
+          url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = name;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      };
+    })();
+
+    var sampleBytes = this.base64ToArrayBuffer(logIndex.archivo);
+    saveByteArray([sampleBytes], "log.txt");
+  };
+
+  base64ToArrayBuffer = (base64) => {
+    var binaryString = window.atob(base64);
+    var binaryLen = binaryString.length;
+    var bytes = new Uint8Array(binaryLen);
+    for (var i = 0; i < binaryLen; i++) {
+      var ascii = binaryString.charCodeAt(i);
+      bytes[i] = ascii;
+    }
+    return bytes;
+  };
+
+  handleFilterOrder = () => {
+    this.setState({
+      modalFilterOrder: !this.state.modalFilterOrder,
+    });
+  };
+
+  handleClick = (event) => {
+    const target = event.target;
+    const name = target.name;
+
+    if (name == "checkBoxOne") {
+      this.setState({
+        checkBoxOne: !this.state.checkBoxOne,
+      });
+    }
+    if (name == "checkBoxTwo") {
+      this.setState({
+        checkBoxTwo: !this.state.checkBoxTwo,
+      });
+    }
+    if (name == "checkBoxThree") {
+      this.setState({
+        checkBoxThree: !this.state.checkBoxThree,
+      });
+    }
+    if (name == "checkBoxFour") {
+      this.setState({
+        checkBoxFour: !this.state.checkBoxFour,
+      });
+    }
+  };
+
+  deleteFilters = () => {
+    this.setState(
+      {
+        ticketsFilter: this.state.ticketsNoFilter,
+        ticketsShowed: this.state.ticketsNoFilter,
+      },
+      () => {
+        this.setState({
+          modalFilterOrder: !this.state.modalFilterOrder,
+          checkBoxOne: false,
+          checkBoxTwo: false,
+          checkBoxThree: false,
+          checkBoxFour: false,
+        });
+      }
+    );
+  };
+
+  applyFilters = () => {
+    var ticketsAux = [];
+
+    this.setState(
+      {
+        ticketsFilter: [],
+      },
+      () => {
+        if (this.state.checkBoxOne) {
+          ticketsAux = this.filterByCondition("Aprobado", "estado");
+          this.state.ticketsFilter.push(...ticketsAux);
+        }
+        if (this.state.checkBoxTwo) {
+          ticketsAux = this.filterByCondition("Pendiente", "estado");
+          this.state.ticketsFilter.push(...ticketsAux);
+        }
+        if (this.state.checkBoxThree) {
+          ticketsAux = this.filterByCondition("Tecnico", "tipo");
+          this.state.ticketsFilter.push(...ticketsAux);
+        }
+        if (this.state.checkBoxFour) {
+          ticketsAux = this.filterByCondition("Entrenamiento", "tipo");
+          this.state.ticketsFilter.push(...ticketsAux);
+        }
+        this.setState({
+          modalFilterOrder: !this.state.modalFilterOrder,
+          ticketsShowed: this.state.ticketsFilter,
+        });
+      }
+    );
+  };
+
+  filterByCondition = (condition, type) => {
+    var filteredObjects = [];
+
+    if (type == "estado") {
+      for (const i in this.state.ticketsNoFilter) {
+        if (this.state.ticketsNoFilter[i].estado == condition) {
+          filteredObjects.push(this.state.ticketsNoFilter[i]);
+        }
+      }
+    }
+    if (type == "tipo") {
+      for (const i in this.state.ticketsNoFilter) {
+        if (this.state.ticketsNoFilter[i].tipo == condition) {
+          filteredObjects.push(this.state.ticketsNoFilter[i]);
+        }
+      }
+    }
+
+    return filteredObjects;
+  };
 
   render() {
     return (
@@ -149,9 +316,6 @@ class Logys extends Component {
               id="search-userStories"
             />
           </InputGroup>
-          <Button id="crear-ticket" onClick={this.newTicket}>
-            Nuevo
-          </Button>
         </div>
         <div class="div-tickets">
           <this.logsRow HUS={this.state.logsShowed}></this.logsRow>

@@ -9,7 +9,6 @@ import OrganizationProfile from "./organizationProfile/organizationProfile";
 class TabsOrganization extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
   }
   componentDidMount() {}
 
