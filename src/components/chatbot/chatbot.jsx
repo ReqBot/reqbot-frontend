@@ -12,6 +12,7 @@ class Chatbot extends Component {
       id: 1,
       avatarUrl: "https://image.flaticon.com/icons/png/512/64/64572.png",
     };
+
     this.bot = { id: 0 };
 
     this.state = {
@@ -32,6 +33,15 @@ class Chatbot extends Component {
     };
   }
 
+  logMessage = "";
+  newLine = "\n";
+
+  componentDidMount() {}
+
+  componentWillUnmount = () => {
+    this.saveLog();
+  };
+
   addNewMessage = (event) => {
     console.log(event.message.text);
 
@@ -40,6 +50,28 @@ class Chatbot extends Component {
     } else {
       this.getSesionIdIBM(event);
     }
+  };
+
+  logger = (user, message) => {
+    this.logMessage =
+      this.logMessage + new Date().toLocaleString() + this.newLine;
+    this.logMessage =
+      this.logMessage +
+      " " +
+      user +
+      ": " +
+      message +
+      this.newLine +
+      this.newLine;
+
+    console.log(this.logMessage);
+    this.saveLog(this.logMessage);
+  };
+
+  saveLog = (message) => {
+    var encodedString64 = btoa(message);
+
+    console.log(encodedString64);
   };
 
   getMessage = (event) => {
@@ -57,6 +89,8 @@ class Chatbot extends Component {
       q: event.message.text.toString(),
     };
 
+    this.logger("User", jsonSent.q);
+
     axios
       .post("http://localhost:5000/api/watson/message", jsonSent, {
         headers: headers,
@@ -68,6 +102,8 @@ class Chatbot extends Component {
         this.setState((prevState) => ({
           messages: [...prevState.messages, botResponce],
         }));
+
+        this.logger("Chatbot", event.message.text.toString());
 
         if (this.state.interviewStarted) {
           if (response.data.data.entity != "") {
@@ -110,6 +146,8 @@ class Chatbot extends Component {
         this.setState((prevState) => ({
           messages: [...prevState.messages, botResponce],
         }));
+
+        this.logger("Chatbot", botResponce.text);
       });
   };
 

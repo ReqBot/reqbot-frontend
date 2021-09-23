@@ -128,3 +128,16 @@
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.input-line-logs {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 8px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-line-logs p {
+  margin-right: 8px;
+}

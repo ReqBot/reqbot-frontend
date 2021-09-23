@@ -18,10 +18,7 @@ class Logys extends Component {
     logsShowed: [],
 
     modalFilterOrder: false,
-    checkBoxOne: false,
-    checkBoxTwo: false,
-    checkBoxThree: false,
-    checkBoxFour: false,
+    nombreProyect: "",
   };
 
   constructor(props) {
@@ -59,7 +56,7 @@ class Logys extends Component {
       fecha: "2021-07-09",
       idProyecto: "1",
       archivo:
-        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
       nombreProyecto: "Proyecto 1",
     },
     {
@@ -68,7 +65,7 @@ class Logys extends Component {
       fecha: "2021-07-09",
       idProyecto: "1",
       archivo:
-        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
     },
     {
       id: "3",
@@ -76,7 +73,7 @@ class Logys extends Component {
       fecha: "2021-07-09",
       idProyecto: "1",
       archivo:
-        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
       nombreProyecto: "Proyecto 2",
     },
     {
@@ -85,7 +82,7 @@ class Logys extends Component {
       fecha: "2021-07-09",
       idProyecto: "1",
       archivo:
-        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
       nombreProyecto: "Proyecto 3",
     },
     {
@@ -103,7 +100,7 @@ class Logys extends Component {
       fecha: "2021-07-09",
       idProyecto: "1",
       archivo:
-        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
       nombreProyecto: "Proyecto 5",
     },
     {
@@ -112,7 +109,7 @@ class Logys extends Component {
       fecha: "2021-07-09",
       idProyecto: "1",
       archivo:
-        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
+        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
       nombreProyecto: "Proyecto6",
     },
 
@@ -176,7 +173,7 @@ class Logys extends Component {
     })();
 
     var sampleBytes = this.base64ToArrayBuffer(logIndex.archivo);
-    saveByteArray([sampleBytes], "log.txt");
+    saveByteArray([sampleBytes], logIndex.nombre + ".txt");
   };
 
   base64ToArrayBuffer = (base64) => {
@@ -190,83 +187,53 @@ class Logys extends Component {
     return bytes;
   };
 
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
+  };
+
   handleFilterOrder = () => {
     this.setState({
       modalFilterOrder: !this.state.modalFilterOrder,
     });
   };
 
-  handleClick = (event) => {
-    const target = event.target;
-    const name = target.name;
-
-    if (name == "checkBoxOne") {
-      this.setState({
-        checkBoxOne: !this.state.checkBoxOne,
-      });
-    }
-    if (name == "checkBoxTwo") {
-      this.setState({
-        checkBoxTwo: !this.state.checkBoxTwo,
-      });
-    }
-    if (name == "checkBoxThree") {
-      this.setState({
-        checkBoxThree: !this.state.checkBoxThree,
-      });
-    }
-    if (name == "checkBoxFour") {
-      this.setState({
-        checkBoxFour: !this.state.checkBoxFour,
-      });
-    }
-  };
-
   deleteFilters = () => {
     this.setState(
       {
-        ticketsFilter: this.state.ticketsNoFilter,
-        ticketsShowed: this.state.ticketsNoFilter,
+        logsFilter: this.state.logsNoFilter,
+        logsShowed: this.state.logsNoFilter,
       },
       () => {
         this.setState({
           modalFilterOrder: !this.state.modalFilterOrder,
-          checkBoxOne: false,
-          checkBoxTwo: false,
-          checkBoxThree: false,
-          checkBoxFour: false,
+          nombreProyect: "",
         });
       }
     );
   };
 
   applyFilters = () => {
-    var ticketsAux = [];
+    var logsAux = [];
 
     this.setState(
       {
-        ticketsFilter: [],
+        logsFilter: [],
       },
       () => {
-        if (this.state.checkBoxOne) {
-          ticketsAux = this.filterByCondition("Aprobado", "estado");
-          this.state.ticketsFilter.push(...ticketsAux);
+        if (this.state.nombreProyect != "") {
+          logsAux = this.filterByCondition(this.state.nombreProyect, "tipo");
+          this.state.logsFilter.push(...logsAux);
         }
-        if (this.state.checkBoxTwo) {
-          ticketsAux = this.filterByCondition("Pendiente", "estado");
-          this.state.ticketsFilter.push(...ticketsAux);
-        }
-        if (this.state.checkBoxThree) {
-          ticketsAux = this.filterByCondition("Tecnico", "tipo");
-          this.state.ticketsFilter.push(...ticketsAux);
-        }
-        if (this.state.checkBoxFour) {
-          ticketsAux = this.filterByCondition("Entrenamiento", "tipo");
-          this.state.ticketsFilter.push(...ticketsAux);
-        }
+
         this.setState({
           modalFilterOrder: !this.state.modalFilterOrder,
-          ticketsShowed: this.state.ticketsFilter,
+          logsShowed: this.state.logsFilter,
         });
       }
     );
@@ -276,16 +243,16 @@ class Logys extends Component {
     var filteredObjects = [];
 
     if (type == "estado") {
-      for (const i in this.state.ticketsNoFilter) {
-        if (this.state.ticketsNoFilter[i].estado == condition) {
-          filteredObjects.push(this.state.ticketsNoFilter[i]);
+      for (const i in this.state.logsNoFilter) {
+        if (this.state.logsNoFilter[i].estado == condition) {
+          filteredObjects.push(this.state.logsNoFilter[i]);
         }
       }
     }
     if (type == "tipo") {
-      for (const i in this.state.ticketsNoFilter) {
-        if (this.state.ticketsNoFilter[i].tipo == condition) {
-          filteredObjects.push(this.state.ticketsNoFilter[i]);
+      for (const i in this.state.logsNoFilter) {
+        if (this.state.logsNoFilter[i].nombreProyecto == condition) {
+          filteredObjects.push(this.state.logsNoFilter[i]);
         }
       }
     }
@@ -336,47 +303,16 @@ class Logys extends Component {
           <Modal.Body>
             <div>
               <b>Filtrar por</b>
-              <div className="check-line">
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                  <Form.Check
-                    type="checkbox"
-                    label="Aprobado"
-                    name="checkBoxOne"
-                    onClick={this.handleClick}
-                    checked={this.state.checkBoxOne}
+              <div className="input-line-logs">
+                <p>Nombre:</p>
+                <InputGroup className="mb-3 login-input">
+                  <FormControl
+                    type="text"
+                    name="nombreProyect"
+                    value={this.state.nombreProyect}
+                    onChange={this.handleChange}
                   />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicCheckbox2">
-                  <Form.Check
-                    type="checkbox"
-                    label="Pendiente"
-                    name="checkBoxTwo"
-                    onClick={this.handleClick}
-                    checked={this.state.checkBoxTwo}
-                  />
-                </Form.Group>
-              </div>
-              <div className="check-line">
-                <Form.Group className="mb-3" controlId="formBasicCheckbox3">
-                  <Form.Check
-                    type="checkbox"
-                    label="Tecnico"
-                    name="checkBoxThree"
-                    onClick={this.handleClick}
-                    checked={this.state.checkBoxThree}
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicCheckbox4">
-                  <Form.Check
-                    type="checkbox"
-                    label="Entrenamiento"
-                    name="checkBoxFour"
-                    onClick={this.handleClick}
-                    checked={this.state.checkBoxFour}
-                  />
-                </Form.Group>
+                </InputGroup>
               </div>
             </div>
             <div>
