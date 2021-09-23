@@ -205,7 +205,6 @@ class Logys extends Component {
         filteredObjects.push(objects[i]);
       }
     }
-    filteredObjects = filteredObjects.slice(0, 4);
     return filteredObjects;
   };
 
@@ -237,16 +236,14 @@ class Logys extends Component {
   };
 
   deleteFilters = () => {
+    this.flagFilter = false;
     this.setState(
       {
-        logsFilter: this.state.logsNoFilter,
-        logsShowed: this.state.logsNoFilter,
+        modalFilterOrder: !this.state.modalFilterOrder,
+        nombreProyect: "",
       },
       () => {
-        this.setState({
-          modalFilterOrder: !this.state.modalFilterOrder,
-          nombreProyect: "",
-        });
+        this.applyAllFilters();
       }
     );
   };
@@ -266,7 +263,7 @@ class Logys extends Component {
 
   applyFiltersFunc = (toGetFiltered) => {
     var proyectsAux = [];
-    var proyectsReturn = [];
+    var logsReturn = [];
 
     if (this.state.nombreProyect != "") {
       proyectsAux = this.filterByCondition(
@@ -274,10 +271,10 @@ class Logys extends Component {
         "tipo",
         toGetFiltered
       );
-      proyectsReturn.push(...proyectsAux);
+      logsReturn.push(...proyectsAux);
     }
 
-    return proyectsReturn;
+    return logsReturn;
   };
 
   applyAllFilters = () => {
@@ -305,7 +302,6 @@ class Logys extends Component {
     var auxLowerCase = "";
     if (type == "tipo") {
       for (const i in toGetFiltered) {
-        console.log(toGetFiltered[i]);
         auxLowerCase = toGetFiltered[i].nombreProyecto.toLowerCase();
         if (auxLowerCase.includes(condition.toLowerCase())) {
           filteredObjects.push(toGetFiltered[i]);

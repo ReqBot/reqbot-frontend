@@ -213,7 +213,6 @@ class Proyects extends Component {
         filteredObjects.push(objects[i]);
       }
     }
-    filteredObjects = filteredObjects.slice(0, 4);
     return filteredObjects;
   };
 
@@ -319,18 +318,16 @@ class Proyects extends Component {
   };
 
   deleteFilters = () => {
+    this.flagFilter = false;
     this.setState(
       {
-        proyectsReal: this.state.proyectsNoFilters,
+        modalFilterOrder: !this.state.modalFilterOrder,
+        checkBoxOne: false,
+        checkBoxTwo: false,
+        tipo: "",
       },
       () => {
-        this.setPagination();
-        this.setState({
-          modalFilterOrder: !this.state.modalFilterOrder,
-          checkBoxOne: false,
-          checkBoxTwo: false,
-          tipo: "",
-        });
+        this.applyAllFilters();
       }
     );
   };
@@ -400,7 +397,7 @@ class Proyects extends Component {
 
   filterByCondition = (condition, type, toGetFiltered) => {
     var filteredObjects = [];
-
+    var auxLowerCase = "";
     if (type == "estado") {
       for (const i in toGetFiltered) {
         if (toGetFiltered[i].estado == condition) {
@@ -410,7 +407,8 @@ class Proyects extends Component {
     }
     if (type == "tipo") {
       for (const i in toGetFiltered) {
-        if (toGetFiltered[i].etiqueta.includes(condition)) {
+        auxLowerCase = toGetFiltered[i].etiqueta.toLowerCase();
+        if (auxLowerCase.includes(condition)) {
           filteredObjects.push(toGetFiltered[i]);
         }
       }

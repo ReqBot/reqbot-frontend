@@ -24,6 +24,10 @@ class TicketsAdmin extends Component {
     checkBoxFour: false,
   };
 
+  searchBarInput = "";
+  flagSearchBar = false;
+  flagFilter = false;
+
   constructor(props) {
     super(props);
     console.log(props);
@@ -50,6 +54,13 @@ class TicketsAdmin extends Component {
         });
       });
   };
+
+  setPagination() {
+    this.setState({
+      ticketsShowed: this.state.ticketsFilter,
+    });
+  }
+
   mockTickets = [
     {
       titulo: "Ticket 1",
@@ -171,6 +182,29 @@ class TicketsAdmin extends Component {
       ))}
     </div>
   );
+  filterFunction = (objects, value) => {
+    var filteredObjects = [];
+    var lowerCaseName = "";
+    for (const i in objects) {
+      lowerCaseName = objects[i].titulo.toLowerCase();
+      if (lowerCaseName.includes(value.toLowerCase())) {
+        filteredObjects.push(objects[i]);
+      }
+    }
+    return filteredObjects;
+  };
+
+  editSearchTerm = (e) => {
+    console.log(222);
+    this.searchBarInput = e.target.value;
+    if (e.target.value != "") {
+      this.flagSearchBar = true;
+      this.applyAllFilters();
+    } else {
+      this.flagSearchBar = false;
+      this.applyAllFilters();
+    }
+  };
 
   handleChange = (event) => {
     const target = event.target;
@@ -186,6 +220,22 @@ class TicketsAdmin extends Component {
     this.setState({
       modalFilterOrder: !this.state.modalFilterOrder,
     });
+  };
+
+  deleteFilters = () => {
+    this.flagFilter = false;
+    this.setState(
+      {
+        modalFilterOrder: !this.state.modalFilterOrder,
+        checkBoxOne: false,
+        checkBoxTwo: false,
+        checkBoxThree: false,
+        checkBoxFour: false,
+      },
+      () => {
+        this.applyAllFilters();
+      }
+    );
   };
 
   handleClick = (event) => {
@@ -214,77 +264,90 @@ class TicketsAdmin extends Component {
     }
   };
 
-  deleteFilters = () => {
-    this.setState(
-      {
-        ticketsFilter: this.state.ticketsNoFilter,
-        ticketsShowed: this.state.ticketsNoFilter,
-      },
-      () => {
-        this.setState({
-          modalFilterOrder: !this.state.modalFilterOrder,
-          checkBoxOne: false,
-          checkBoxTwo: false,
-          checkBoxThree: false,
-          checkBoxFour: false,
-        });
-      }
-    );
-  };
-
   applyFilters = () => {
+    if (
+      this.state.checkBoxOne ||
+      this.state.checkBoxTwo ||
+      this.state.checkBoxThree ||
+      this.state.checkBoxFour
+    ) {
+      this.flagFilter = true;
+    } else {
+      this.flagFilter = false;
+    }
+
+    this.applyAllFilters();
+    this.setState({
+      modalFilterOrder: !this.state.modalFilterOrder,
+    });
+  };
+
+  applyFiltersFunc = (toGetFiltered) => {
     var ticketsAux = [];
+    var ticketsReturn = [];
+    if (this.state.checkBoxOne) {
+      ticketsAux = this.filterByCondition("Aprobado", "estado", toGetFiltered);
+      ticketsReturn.push(...ticketsAux);
+    }
+    if (this.state.checkBoxTwo) {
+      ticketsAux = this.filterByCondition("Pendiente", "estado", toGetFiltered);
+      ticketsReturn.push(...ticketsAux);
+    }
+    if (this.state.checkBoxThree) {
+      ticketsAux = this.filterByCondition("Tecnico", "tipo", toGetFiltered);
+      ticketsReturn.push(...ticketsAux);
+    }
+    if (this.state.checkBoxFour) {
+      ticketsAux = this.filterByCondition(
+        "Entrenamiento",
+        "tipo",
+        toGetFiltered
+      );
+      ticketsReturn.push(...ticketsAux);
+    }
+
+    return ticketsReturn;
+  };
+
+  applyAllFilters = () => {
+    var toGetFiltered = this.state.ticketsNoFilter;
+
+    if (this.flagSearchBar) {
+      toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);
+    }
+    if (this.flagFilter) {
+      toGetFiltered = this.applyFiltersFunc(toGetFiltered);
+    }
 
     this.setState(
       {
-        ticketsFilter: [],
+        ticketsFilter: toGetFiltered,
       },
       () => {
-        if (this.state.checkBoxOne) {
-          ticketsAux = this.filterByCondition("Aprobado", "estado");
-          this.state.ticketsFilter.push(...ticketsAux);
-        }
-        if (this.state.checkBoxTwo) {
-          ticketsAux = this.filterByCondition("Pendiente", "estado");
-          this.state.ticketsFilter.push(...ticketsAux);
-        }
-        if (this.state.checkBoxThree) {
-          ticketsAux = this.filterByCondition("Tecnico", "tipo");
-          this.state.ticketsFilter.push(...ticketsAux);
-        }
-        if (this.state.checkBoxFour) {
-          ticketsAux = this.filterByCondition("Entrenamiento", "tipo");
-          this.state.ticketsFilter.push(...ticketsAux);
-        }
-        this.setState({
-          modalFilterOrder: !this.state.modalFilterOrder,
-          ticketsShowed: this.state.ticketsFilter,
-        });
+        this.setPagination();
       }
     );
   };
 
-  filterByCondition = (condition, type) => {
+  filterByCondition = (condition, type, toGetFiltered) => {
     var filteredObjects = [];
-
     if (type == "estado") {
-      for (const i in this.state.ticketsNoFilter) {
-        if (this.state.ticketsNoFilter[i].estado == condition) {
-          filteredObjects.push(this.state.ticketsNoFilter[i]);
+      for (const i in toGetFiltered) {
+        if (toGetFiltered[i].estado == condition) {
+          filteredObjects.push(toGetFiltered[i]);
         }
       }
     }
     if (type == "tipo") {
-      for (const i in this.state.ticketsNoFilter) {
-        if (this.state.ticketsNoFilter[i].tipo == condition) {
-          filteredObjects.push(this.state.ticketsNoFilter[i]);
+      for (const i in toGetFiltered) {
+        if (toGetFiltered[i].tipo == condition) {
+          filteredObjects.push(toGetFiltered[i]);
         }
       }
     }
 
     return filteredObjects;
   };
-
   render() {
     return (
       <React.Fragment>
@@ -306,6 +369,7 @@ class TicketsAdmin extends Component {
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               id="search-userStories"
+              onChange={this.editSearchTerm}
             />
           </InputGroup>
         </div>

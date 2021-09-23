@@ -31,6 +31,10 @@ class UserStoriesAnalyst extends Component {
     rol: "",
   };
 
+  searchBarInput = "";
+  flagSearchBar = false;
+  flagFilter = false;
+
   constructor(props) {
     super(props);
     this.openAndSetApprove = this.openAndSetApprove.bind(this);
@@ -38,6 +42,12 @@ class UserStoriesAnalyst extends Component {
 
   componentDidMount() {
     this.getUserStories();
+  }
+
+  setPagination() {
+    this.setState({
+      userStoriesShowed: this.state.useStories,
+    });
   }
 
   getUserStories = () => {
@@ -130,32 +140,6 @@ class UserStoriesAnalyst extends Component {
       estado: "Aprobado",
     },
   ];
-
-  filterFunction = (objects, value) => {
-    var filteredObjects = [];
-    for (const i in objects) {
-      if (objects[i].call.includes(value)) {
-        filteredObjects.push(objects[i]);
-      }
-    }
-
-    return filteredObjects;
-  };
-
-  editSearchTerm = (e) => {
-    if (e.target.value != null) {
-      this.setState({
-        userStoriesShowed: this.filterFunction(
-          this.userStories,
-          e.target.value
-        ),
-      });
-    } else {
-      this.setState({
-        userStoriesShowed: this.userStories,
-      });
-    }
-  };
 
   openAndSetApprove = (HUIndexed) => {
     this.setState({
@@ -270,6 +254,29 @@ class UserStoriesAnalyst extends Component {
     });
   };
 
+  filterFunction = (objects, value) => {
+    var filteredObjects = [];
+    var lowerCaseName = "";
+    for (const i in objects) {
+      lowerCaseName = objects[i].nombre.toLowerCase();
+      if (lowerCaseName.includes(value.toLowerCase())) {
+        filteredObjects.push(objects[i]);
+      }
+    }
+    return filteredObjects;
+  };
+
+  editSearchTerm = (e) => {
+    this.searchBarInput = e.target.value;
+    if (e.target.value != "") {
+      this.flagSearchBar = true;
+      this.applyAllFilters();
+    } else {
+      this.flagSearchBar = false;
+      this.applyAllFilters();
+    }
+  };
+
   handleFilterOrder = () => {
     this.setState({
       modalFilterOrder: !this.state.modalFilterOrder,
@@ -296,9 +303,9 @@ class UserStoriesAnalyst extends Component {
     this.setState(
       {
         useStories: this.state.useStoriesNoFilter,
-        userStoriesShowed: this.state.useStoriesNoFilter,
       },
       () => {
+        this.setPagination();
         this.setState({
           modalFilterOrder: !this.state.modalFilterOrder,
           checkBoxOne: false,
@@ -309,51 +316,106 @@ class UserStoriesAnalyst extends Component {
     );
   };
 
-  applyFilters = () => {
-    var userStoriesAux = [];
-
+  deleteFilters = () => {
+    this.flagFilter = false;
     this.setState(
       {
-        useStories: [],
+        modalFilterOrder: !this.state.modalFilterOrder,
+        checkBoxOne: false,
+        checkBoxTwo: false,
+        rol: "",
       },
       () => {
-        if (this.state.checkBoxOne) {
-          userStoriesAux = this.filterByCondition("Aprobado", "estado");
-          this.state.useStories.push(...userStoriesAux);
-        }
-        if (this.state.checkBoxTwo) {
-          userStoriesAux = this.filterByCondition("Pendiente", "estado");
-          this.state.useStories.push(...userStoriesAux);
-          console.log("yeer");
-        }
-        if (this.state.rol != "") {
-          userStoriesAux = this.filterByCondition(this.state.rol, "tipo");
-          this.state.useStories.push(...userStoriesAux);
-        }
-        this.setState({
-          modalFilterOrder: !this.state.modalFilterOrder,
-          userStoriesShowed: this.state.useStories,
-        });
+        this.applyAllFilters();
       }
     );
   };
 
-  filterByCondition = (condition, type) => {
-    var filteredObjects = [];
+  applyFilters = () => {
+    if (
+      this.state.checkBoxOne ||
+      this.state.checkBoxTwo ||
+      this.state.rol != ""
+    ) {
+      this.flagFilter = true;
+    } else {
+      this.flagFilter = false;
+    }
 
+    this.applyAllFilters();
+    this.setState({
+      modalFilterOrder: !this.state.modalFilterOrder,
+    });
+  };
+
+  applyFiltersFunc = (toGetFiltered) => {
+    var userStoriesAux = [];
+    var userStoriesReturn = [];
+
+    if (this.state.checkBoxOne) {
+      userStoriesAux = this.filterByCondition(
+        "Aprobado",
+        "estado",
+        toGetFiltered
+      );
+      userStoriesReturn.push(...userStoriesAux);
+    }
+    if (this.state.checkBoxTwo) {
+      userStoriesAux = this.filterByCondition(
+        "Pendiente",
+        "estado",
+        toGetFiltered
+      );
+      userStoriesReturn.push(...userStoriesAux);
+    }
+    if (this.state.rol != "") {
+      userStoriesAux = this.filterByCondition(
+        this.state.rol,
+        "tipo",
+        toGetFiltered
+      );
+      userStoriesReturn.push(...userStoriesAux);
+    }
+    return userStoriesReturn;
+  };
+
+  applyAllFilters = () => {
+    var toGetFiltered = this.state.useStoriesNoFilter;
+
+    if (this.flagSearchBar) {
+      toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);
+      console.log(toGetFiltered);
+    }
+    if (this.flagFilter) {
+      toGetFiltered = this.applyFiltersFunc(toGetFiltered);
+      console.log(toGetFiltered);
+    }
+
+    this.setState(
+      {
+        useStories: toGetFiltered,
+      },
+      () => {
+        this.setPagination();
+      }
+    );
+  };
+
+  filterByCondition = (condition, type, toGetFiltered) => {
+    var filteredObjects = [];
+    var auxLowerCase = "";
     if (type == "estado") {
-      for (const i in this.state.useStoriesNoFilter) {
-        if (this.state.useStoriesNoFilter[i].estado == condition) {
-          console.log(this.state.useStoriesNoFilter[i]);
-          filteredObjects.push(this.state.useStoriesNoFilter[i]);
+      for (const i in toGetFiltered) {
+        if (toGetFiltered[i].estado == condition) {
+          filteredObjects.push(toGetFiltered[i]);
         }
       }
     }
     if (type == "tipo") {
-      for (const i in this.state.useStoriesNoFilter) {
-        if (this.state.useStoriesNoFilter[i].rol.includes(condition)) {
-          console.log(this.state.useStoriesNoFilter[i]);
-          filteredObjects.push(this.state.useStoriesNoFilter[i]);
+      for (const i in toGetFiltered) {
+        auxLowerCase = toGetFiltered[i].rol.toLowerCase();
+        if (auxLowerCase.includes(condition)) {
+          filteredObjects.push(toGetFiltered[i]);
         }
       }
     }
