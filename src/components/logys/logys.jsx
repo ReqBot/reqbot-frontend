@@ -21,6 +21,10 @@ class Logys extends Component {
     nombreProyect: "",
   };
 
+  searchBarInput = "";
+  flagSearchBar = false;
+  flagFilter = false;
+
   constructor(props) {
     super(props);
     console.log(props);
@@ -49,6 +53,12 @@ class Logys extends Component {
       });
   };
 
+  setPagination() {
+    this.setState({
+      logsShowed: this.state.logsFilter,
+    });
+  }
+
   mockLogs = [
     {
       id: "1",
@@ -66,6 +76,7 @@ class Logys extends Component {
       idProyecto: "1",
       archivo:
         "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
+      nombreProyecto: "Proyecto 1",
     },
     {
       id: "3",
@@ -112,8 +123,6 @@ class Logys extends Component {
         "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
       nombreProyecto: "Proyecto6",
     },
-
-    279356,
   ];
 
   logsRow = ({ HUS }) => (
@@ -187,6 +196,30 @@ class Logys extends Component {
     return bytes;
   };
 
+  filterFunction = (objects, value) => {
+    var filteredObjects = [];
+    var lowerCaseName = "";
+    for (const i in objects) {
+      lowerCaseName = objects[i].nombre.toLowerCase();
+      if (lowerCaseName.includes(value.toLowerCase())) {
+        filteredObjects.push(objects[i]);
+      }
+    }
+    filteredObjects = filteredObjects.slice(0, 4);
+    return filteredObjects;
+  };
+
+  editSearchTerm = (e) => {
+    this.searchBarInput = e.target.value;
+    if (e.target.value != "") {
+      this.flagSearchBar = true;
+      this.applyAllFilters();
+    } else {
+      this.flagSearchBar = false;
+      this.applyAllFilters();
+    }
+  };
+
   handleChange = (event) => {
     const target = event.target;
     const value = target.value;
@@ -219,40 +252,63 @@ class Logys extends Component {
   };
 
   applyFilters = () => {
-    var logsAux = [];
+    if (this.state.nombreProyect != "") {
+      this.flagFilter = true;
+    } else {
+      this.flagFilter = false;
+    }
+
+    this.applyAllFilters();
+    this.setState({
+      modalFilterOrder: !this.state.modalFilterOrder,
+    });
+  };
+
+  applyFiltersFunc = (toGetFiltered) => {
+    var proyectsAux = [];
+    var proyectsReturn = [];
+
+    if (this.state.nombreProyect != "") {
+      proyectsAux = this.filterByCondition(
+        this.state.nombreProyect,
+        "tipo",
+        toGetFiltered
+      );
+      proyectsReturn.push(...proyectsAux);
+    }
+
+    return proyectsReturn;
+  };
+
+  applyAllFilters = () => {
+    var toGetFiltered = this.state.logsNoFilter;
+
+    if (this.flagSearchBar) {
+      toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);
+    }
+    if (this.flagFilter) {
+      toGetFiltered = this.applyFiltersFunc(toGetFiltered);
+    }
 
     this.setState(
       {
-        logsFilter: [],
+        logsFilter: toGetFiltered,
       },
       () => {
-        if (this.state.nombreProyect != "") {
-          logsAux = this.filterByCondition(this.state.nombreProyect, "tipo");
-          this.state.logsFilter.push(...logsAux);
-        }
-
-        this.setState({
-          modalFilterOrder: !this.state.modalFilterOrder,
-          logsShowed: this.state.logsFilter,
-        });
+        this.setPagination();
       }
     );
   };
 
-  filterByCondition = (condition, type) => {
+  filterByCondition = (condition, type, toGetFiltered) => {
     var filteredObjects = [];
-
-    if (type == "estado") {
-      for (const i in this.state.logsNoFilter) {
-        if (this.state.logsNoFilter[i].estado == condition) {
-          filteredObjects.push(this.state.logsNoFilter[i]);
-        }
-      }
-    }
+    var auxLowerCase = "";
     if (type == "tipo") {
-      for (const i in this.state.logsNoFilter) {
-        if (this.state.logsNoFilter[i].nombreProyecto == condition) {
-          filteredObjects.push(this.state.logsNoFilter[i]);
+      for (const i in toGetFiltered) {
+        console.log(toGetFiltered[i]);
+        auxLowerCase = toGetFiltered[i].nombreProyecto.toLowerCase();
+        if (auxLowerCase.includes(condition.toLowerCase())) {
+          filteredObjects.push(toGetFiltered[i]);
         }
       }
     }
@@ -281,6 +337,7 @@ class Logys extends Component {
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               id="search-userStories"
+              onChange={this.editSearchTerm}
             />
           </InputGroup>
         </div>

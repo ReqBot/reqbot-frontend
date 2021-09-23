@@ -140,8 +140,11 @@ class EditProyect extends Component {
 
   filterFunction = (objects, value) => {
     var filteredObjects = [];
+    var lowerCaseName = "";
     for (const i in objects) {
-      if (objects[i].nombre.includes(value)) {
+      lowerCaseName =
+        objects[i].nombre.toLowerCase() + objects[i].apellido.toLowerCase();
+      if (lowerCaseName.includes(value.toLowerCase())) {
         filteredObjects.push(objects[i]);
       }
     }

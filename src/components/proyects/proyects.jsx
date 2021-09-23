@@ -26,6 +26,9 @@ class Proyects extends Component {
     tipo: "",
   };
 
+  searchBarInput = "";
+  flagSearchBar = false;
+  flagFilter = false;
   index = 0;
 
   dummyText =
@@ -141,7 +144,7 @@ class Proyects extends Component {
     },
     {
       idProyecto: 2,
-      nombre: "CarritOS3",
+      nombre: "CarritOS2",
       fechaModificacion: "2021-07-09T05:00:00.000Z",
       etiqueta: "Movil",
       estado: "Inactivo",
@@ -151,7 +154,7 @@ class Proyects extends Component {
     },
     {
       idProyecto: 3,
-      nombre: "CarritOS3",
+      nombre: "CarritOS4",
       fechaModificacion: "2021-07-09T05:00:00.000Z",
       etiqueta: "Movil",
       estado: "Inactivo",
@@ -162,6 +165,26 @@ class Proyects extends Component {
     {
       idProyecto: 2,
       nombre: "CarritOS3",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      etiqueta: "Movil",
+      estado: "Inactivo",
+      numeroDeHistorias: 0,
+      numeroUsuarios: 0,
+      idOrganizacion: 1,
+    },
+    {
+      idProyecto: 4,
+      nombre: "CarritOS8",
+      fechaModificacion: "2021-07-09T05:00:00.000Z",
+      etiqueta: "Movil",
+      estado: "Inactivo",
+      numeroDeHistorias: 0,
+      numeroUsuarios: 0,
+      idOrganizacion: 1,
+    },
+    {
+      idProyecto: 4,
+      nombre: "CarritOS9",
       fechaModificacion: "2021-07-09T05:00:00.000Z",
       etiqueta: "Movil",
       estado: "Inactivo",
@@ -183,8 +206,10 @@ class Proyects extends Component {
 
   filterFunction = (objects, value) => {
     var filteredObjects = [];
+    var lowerCaseName = "";
     for (const i in objects) {
-      if (objects[i].nombre.includes(value)) {
+      lowerCaseName = objects[i].nombre.toLowerCase();
+      if (lowerCaseName.includes(value.toLowerCase())) {
         filteredObjects.push(objects[i]);
       }
     }
@@ -193,17 +218,13 @@ class Proyects extends Component {
   };
 
   editSearchTerm = (e) => {
-    if (e.target.value != null) {
-      this.setState({
-        proyectsShowed: this.filterFunction(
-          this.state.proyectsReal,
-          e.target.value
-        ),
-      });
+    this.searchBarInput = e.target.value;
+    if (e.target.value != "") {
+      this.flagSearchBar = true;
+      this.applyAllFilters();
     } else {
-      this.setState({
-        proyectsShowed: this.state.proyectsReal,
-      });
+      this.flagSearchBar = false;
+      this.applyAllFilters();
     }
   };
 
@@ -315,48 +336,82 @@ class Proyects extends Component {
   };
 
   applyFilters = () => {
+    if (
+      this.state.checkBoxOne ||
+      this.state.checkBoxTwo ||
+      this.state.tipo != ""
+    ) {
+      this.flagFilter = true;
+    } else {
+      this.flagFilter = false;
+    }
+
+    this.applyAllFilters();
+    this.setState({
+      modalFilterOrder: !this.state.modalFilterOrder,
+    });
+  };
+
+  applyFiltersFunc = (toGetFiltered) => {
     var proyectsAux = [];
+    var proyectsReturn = [];
+
+    if (this.state.checkBoxOne) {
+      proyectsAux = this.filterByCondition("Activo", "estado", toGetFiltered);
+      proyectsReturn.push(...proyectsAux);
+    }
+    if (this.state.checkBoxTwo) {
+      proyectsAux = this.filterByCondition("Inactivo", "estado", toGetFiltered);
+      proyectsReturn.push(...proyectsAux);
+    }
+    if (this.state.tipo != "") {
+      proyectsAux = this.filterByCondition(
+        this.state.tipo,
+        "tipo",
+        toGetFiltered
+      );
+      proyectsReturn.push(...proyectsAux);
+    }
+
+    return proyectsReturn;
+  };
+
+  applyAllFilters = () => {
+    var toGetFiltered = this.state.proyectsNoFilters;
+
+    if (this.flagSearchBar) {
+      console.log("Ysd");
+
+      toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);
+    }
+    if (this.flagFilter) {
+      toGetFiltered = this.applyFiltersFunc(toGetFiltered);
+    }
+
     this.setState(
       {
-        proyectsReal: [],
+        proyectsReal: toGetFiltered,
       },
       () => {
-        if (this.state.checkBoxOne) {
-          proyectsAux = this.filterByCondition("Activo", "estado");
-          this.state.proyectsReal.push(...proyectsAux);
-        }
-        if (this.state.checkBoxTwo) {
-          proyectsAux = this.filterByCondition("Inactivo", "estado");
-          this.state.proyectsReal.push(...proyectsAux);
-        }
-        if (this.state.tipo != "") {
-          proyectsAux = this.filterByCondition(this.state.tipo, "tipo");
-          this.state.proyectsReal.push(...proyectsAux);
-        }
         this.setPagination();
-        this.setState({
-          modalFilterOrder: !this.state.modalFilterOrder,
-        });
       }
     );
   };
 
-  filterByCondition = (condition, type) => {
+  filterByCondition = (condition, type, toGetFiltered) => {
     var filteredObjects = [];
 
     if (type == "estado") {
-      for (const i in this.state.proyectsNoFilters) {
-        if (this.state.proyectsNoFilters[i].estado == condition) {
-          console.log(this.state.proyectsNoFilters[i]);
-          filteredObjects.push(this.state.proyectsNoFilters[i]);
+      for (const i in toGetFiltered) {
+        if (toGetFiltered[i].estado == condition) {
+          filteredObjects.push(toGetFiltered[i]);
         }
       }
     }
     if (type == "tipo") {
-      for (const i in this.state.proyectsNoFilters) {
-        if (this.state.proyectsNoFilters[i].etiqueta.includes(condition)) {
-          console.log(this.state.proyectsNoFilters[i]);
-          filteredObjects.push(this.state.proyectsNoFilters[i]);
+      for (const i in toGetFiltered) {
+        if (toGetFiltered[i].etiqueta.includes(condition)) {
+          filteredObjects.push(toGetFiltered[i]);
         }
       }
     }
