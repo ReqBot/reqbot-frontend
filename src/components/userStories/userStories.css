@@ -108,3 +108,9 @@
   font-weight: bolder;
   width: fit-content;
 }
+
+.user-story-detail-modal {
+  margin: auto;
+  height: 650px !important;
+  width: 1200px !important;
+}

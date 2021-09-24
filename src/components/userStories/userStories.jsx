@@ -22,6 +22,9 @@ class UserStories extends Component {
     checkBoxOne: false,
     checkBoxTwo: false,
     rol: "",
+
+    modalDetail: false,
+    userStorySelected: [],
   };
 
   searchBarInput = "";
@@ -141,7 +144,10 @@ class UserStories extends Component {
     <div class="flex-div-userStories">
       {HUS.map((userstory) => (
         <div>
-          <Card className="userCard">
+          <Card
+            className="userCard"
+            onClick={this.handleDetailSendUserStory.bind(this, userstory)}
+          >
             <Card.Body>
               <div className="card-top-div">
                 <div className="card-top-div-left">
@@ -243,6 +249,20 @@ class UserStories extends Component {
   handleFilterOrder = () => {
     this.setState({
       modalFilterOrder: !this.state.modalFilterOrder,
+    });
+  };
+
+  handleDetailSendUserStory = (UserStoryIndex) => {
+    console.log(333);
+    this.setState({
+      modalDetail: !this.state.modalDetail,
+      userStorySelected: UserStoryIndex,
+    });
+  };
+
+  handleDetail = () => {
+    this.setState({
+      modalDetail: !this.state.modalDetail,
     });
   };
 
@@ -492,6 +512,17 @@ class UserStories extends Component {
               Aplicar
             </Button>
           </Modal.Footer>
+        </Modal>
+
+        <Modal
+          show={this.state.modalDetail}
+          onHide={this.handleDetail}
+          contentClassName="user-story-detail-modal"
+          keyboard={true}
+          centered={true}
+          size="xl"
+        >
+          <div class="user-story-detail-div"></div>
         </Modal>
       </React.Fragment>
     );
