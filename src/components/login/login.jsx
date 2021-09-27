@@ -86,13 +86,9 @@ class Login extends Component {
           };
 
           axios
-            .post(
-              "https://reqbot-backend.herokuapp.com/api/usuario/login",
-              body,
-              {
-                headers: headers,
-              }
-            )
+            .post("http://localhost:5000/api/usuario/login", body, {
+              headers: headers,
+            })
             .then((response) => {
               console.log(response);
               if (response.data == "Not allowed, invalid credentials") {

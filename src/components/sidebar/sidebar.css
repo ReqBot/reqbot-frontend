@@ -17,9 +17,21 @@
   padding: 42px 0 0 0 !important;
 }
 
-.kfARSm.active {
+.eJDRKz {
+  position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 8px 2px 8px 15px;
+  height: 45px;
+  cursor: pointer;
+  outline: none;
   border-radius: 10px;
-  padding: 0px;
+}
+
+.kfARSm.active {
+  border-radius: 10px !important;
+  padding: 0px !important;
 }
 
 button:focus {
