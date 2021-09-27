@@ -18,7 +18,10 @@ class Sidebar extends Component {
   }
 
   showAlert = () => {
-    if (window.location.href != "http://localhost:3000/dashboard/proyects") {
+    if (
+      window.location.href !=
+      window.location.origin + "/dashboard/proyects"
+    ) {
       this.props.history.push({
         pathname: "/dashboard/proyects",
       });
