@@ -1,0 +1,19 @@
+.registar-tab {
+  border-bottom: 1px red;
+}
+
+.ind-tab-register {
+  margin-bottom: -1px !important;
+  background: 0 0 !important;
+  border: 1px solid transparent !important;
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+}
+
+.ind-tab-register.active {
+  background-color: #545871 !important;
+  color: #f7eceb;
+  border-color: #f7eceb #f7eceb #545871 !important;
+  border-top-left-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+}

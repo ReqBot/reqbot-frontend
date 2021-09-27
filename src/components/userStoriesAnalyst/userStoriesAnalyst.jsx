@@ -53,7 +53,7 @@ class UserStoriesAnalyst extends Component {
   getUserStories = () => {
     axios
       .get(
-        "http://localhost:5000/api/historiausuario/organizacion/" +
+        "https://reqbot-backend.herokuapp.com/api/historiausuario/organizacion/" +
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {
@@ -152,7 +152,7 @@ class UserStoriesAnalyst extends Component {
 
     axios
       .put(
-        "http://localhost:5000/api/historiausuario/" +
+        "https://reqbot-backend.herokuapp.com/api/historiausuario/" +
           this.state.selectedUserStoryId,
         jsonSent,
         {

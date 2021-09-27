@@ -41,7 +41,7 @@ class Logys extends Component {
   getLogs = () => {
     axios
       .get(
-        "http://localhost:5000/api/logs/organizacion/" +
+        "https://reqbot-backend.herokuapp.com/api/logs/organizacion/" +
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {

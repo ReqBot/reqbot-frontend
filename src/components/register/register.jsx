@@ -5,6 +5,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
+import { Tab, Tabs } from "react-bootstrap";
 
 class Register extends Component {
   state = {
@@ -27,6 +28,22 @@ class Register extends Component {
           <h1>ReqBot</h1>
           <div class="input-parts">
             {" "}
+            <Tabs defaultActiveKey="chatbot">
+              <Tab
+                eventKey="chatbot"
+                title="Pago"
+                tabClassName="ind-tab-register"
+              >
+                <h4>Hello 1</h4>
+              </Tab>
+              <Tab
+                eventKey="historias"
+                title="Información"
+                tabClassName="ind-tab-register"
+              >
+                <h4>Hello 2</h4>
+              </Tab>
+            </Tabs>
             <InputGroup className="mb-3 login-input">
               <FormControl
                 placeholder="Correo"

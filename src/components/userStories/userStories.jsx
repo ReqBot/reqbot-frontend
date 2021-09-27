@@ -70,7 +70,7 @@ class UserStories extends Component {
   getUserStories = () => {
     axios
       .get(
-        "http://localhost:5000/api/historiausuario/organizacion/" +
+        "https://reqbot-backend.herokuapp.com/api/historiausuario/organizacion/" +
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {
@@ -299,7 +299,7 @@ class UserStories extends Component {
     if (!this.state.modalDetail) {
       axios
         .get(
-          "http://localhost:5000/api/historiausuario/identificador/" +
+          "https://reqbot-backend.herokuapp.com/api/historiausuario/identificador/" +
             this.state.userStorySelected.identificador
         )
         .then((resonse) => {

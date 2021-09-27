@@ -42,7 +42,7 @@ class Tickets extends Component {
   getTickets = () => {
     axios
       .get(
-        "http://localhost:5000/api/ticket/organizacion/" +
+        "https://reqbot-backend.herokuapp.com/api/ticket/organizacion/" +
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {

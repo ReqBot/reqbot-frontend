@@ -92,7 +92,7 @@ class Chatbot extends Component {
     };
 
     axios
-      .post("http://localhost:5000/api/logs/", jsonSent, {
+      .post("https://reqbot-backend.herokuapp.com/api/logs/", jsonSent, {
         headers: headers,
       })
       .then((response) => {
@@ -123,9 +123,13 @@ class Chatbot extends Component {
     this.logger("User", jsonSent.q);
 
     axios
-      .post("http://localhost:5000/api/watson/message", jsonSent, {
-        headers: headers,
-      })
+      .post(
+        "https://reqbot-backend.herokuapp.com/api/watson/message",
+        jsonSent,
+        {
+          headers: headers,
+        }
+      )
       .then((response) => {
         botResponce.text = response.data.data.message;
         botResponce.author = this.bot;
@@ -183,7 +187,9 @@ class Chatbot extends Component {
 
   getIdentificadorUH = () => {
     axios
-      .get("http://localhost:5000/api/historiausuario/ultimoidentificador")
+      .get(
+        "https://reqbot-backend.herokuapp.com/api/historiausuario/ultimoidentificador"
+      )
       .then((resonse) => {
         console.log(resonse);
         this.identificadorHU = parseInt(resonse.data[0].identificador);
@@ -214,9 +220,13 @@ class Chatbot extends Component {
     };
 
     axios
-      .post("http://localhost:5000/api/historiausuario", jsonSent, {
-        headers: headers,
-      })
+      .post(
+        "https://reqbot-backend.herokuapp.com/api/historiausuario",
+        jsonSent,
+        {
+          headers: headers,
+        }
+      )
       .then((response) => {
         this.setState({
           interviewStarted: false,
@@ -232,7 +242,7 @@ class Chatbot extends Component {
 
   getSesionIdIBM = (event) => {
     axios
-      .get("http://localhost:5000/api/watson/session")
+      .get("https://reqbot-backend.herokuapp.com/api/watson/session")
       .then((resonse) => {
         this.setState({
           sesionIDIBM: resonse.data.session_id,
