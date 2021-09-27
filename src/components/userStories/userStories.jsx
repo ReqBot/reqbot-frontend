@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import "./userStories.css";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaSearchMinus } from "react-icons/fa";
 import axios from "axios";
 import { FiMoreVertical } from "react-icons/fi";
 import Button from "react-bootstrap/Button";
@@ -11,7 +11,7 @@ import Modal from "react-bootstrap/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Form from "react-bootstrap/Form";
 import Pagination from "react-bootstrap/Pagination";
-
+import { BiMessageAltError } from "react-icons/bi";
 class UserStories extends Component {
   state = {
     useStoriesNoFilter: [],
@@ -19,12 +19,43 @@ class UserStories extends Component {
     userStoriesShowed: [],
     modalFilterOrder: false,
 
-    checkBoxOne: false,
+    checkBoxOne: true,
     checkBoxTwo: false,
     rol: "",
 
     modalDetail: false,
     userStorySelected: [],
+
+    emptyUserStories: false,
+    emptyUserStoriesSearch: false,
+
+    evos: [
+      {
+        idHistoriaUsuario: 4,
+        nombre: "Historia 4",
+        rol: "Cliente",
+      },
+      {
+        idHistoriaUsuario: 5,
+        nombre: "Historia 4",
+        rol: "Cliente",
+      },
+      {
+        idHistoriaUsuario: 5,
+        nombre: "Historia 4",
+        rol: "Cliente",
+      },
+      {
+        idHistoriaUsuario: 5,
+        nombre: "Historia 4",
+        rol: "Cliente",
+      },
+      {
+        idHistoriaUsuario: 5,
+        nombre: "Historia 4",
+        rol: "Cliente",
+      },
+    ],
   };
 
   searchBarInput = "";
@@ -39,36 +70,77 @@ class UserStories extends Component {
   getUserStories = () => {
     axios
       .get(
-        "http://localhost:5000/api/historiausuario/aprobados/" +
-          this.props.proyect.idProyecto
+        "http://localhost:5000/api/historiausuario/organizacion/" +
+          sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {
-        console.log(resonse);
-        this.setState({
-          useStories: resonse.data,
-          useStoriesNoFilter: resonse.data,
-        });
-        this.setPagination();
+        console.log("HISTORIAS");
+        console.log(resonse.data);
+        this.setState(
+          {
+            useStories: resonse.data,
+            useStoriesNoFilter: resonse.data,
+          },
+          () => {
+            if (this.state.useStories.length == 0) {
+              this.setState({
+                emptyUserStories: true,
+              });
+            } else {
+              this.flagFilter = true;
+              this.applyAllFilters();
+            }
+          }
+        );
       })
       .catch((error) => {
-        this.setState({
-          useStories: this.userStories,
-          useStoriesNoFilter: this.userStories,
-        });
-        this.setPagination();
+        this.setState(
+          {
+            useStories: this.userStories,
+            useStoriesNoFilter: this.userStories,
+          },
+          () => {
+            if (this.state.useStories.length == 0) {
+              this.setState({
+                emptyUserStories: true,
+              });
+            } else {
+              this.flagFilter = true;
+              this.applyAllFilters();
+            }
+          }
+        );
         console.log(error);
       });
   };
 
   setPagination() {
-    if (this.state.useStories.length > 4) {
+    if (this.state.useStories.length > 0) {
       this.setState({
-        userStoriesShowed: this.state.useStories.slice(0, 4),
+        emptyUserStories: false,
+        emptyUserStoriesSearch: false,
       });
+      if (this.state.useStories.length > 4) {
+        this.setState({
+          userStoriesShowed: this.state.useStories.slice(0, 4),
+        });
+      } else {
+        this.setState({
+          userStoriesShowed: this.state.useStories,
+        });
+      }
     } else {
-      this.setState({
-        userStoriesShowed: this.state.useStories,
-      });
+      if (this.flagFilter || this.flagSearchBar) {
+        this.setState({
+          emptyUserStories: false,
+          emptyUserStoriesSearch: true,
+        });
+      } else {
+        this.setState({
+          emptyUserStories: true,
+          emptyUserStoriesSearch: false,
+        });
+      }
     }
   }
 
@@ -82,63 +154,7 @@ class UserStories extends Component {
     });
   };
 
-  userStories = [
-    {
-      idHistoriaUsuario: 2,
-      nombre: "Historia 2",
-      rol: "Cliente",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Aprobado",
-    },
-    {
-      idHistoriaUsuario: 2,
-      nombre: "Historia 2",
-      rol: "Cliente",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Aprobado",
-    },
-    {
-      idHistoriaUsuario: 3,
-      nombre: "Historia 2",
-      rol: "Cliente",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Aprobado",
-    },
-    {
-      idHistoriaUsuario: 5,
-      nombre: "Historia 2",
-      rol: "Admin",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Pendiente",
-    },
-    {
-      idHistoriaUsuario: 4,
-      nombre: "Historia 2",
-      rol: "Admin",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Pendiente",
-    },
-  ];
+  userStories = [];
 
   HU = ({ HUS }) => (
     <div class="flex-div-userStories">
@@ -192,7 +208,6 @@ class UserStories extends Component {
   previosPage = () => {
     if (this.index - 4 >= 0) {
       this.index = this.index - 4;
-      console.log(this.index);
       this.setState({
         userStoriesShowed: this.state.useStories.slice(
           this.index,
@@ -253,17 +268,59 @@ class UserStories extends Component {
   };
 
   handleDetailSendUserStory = (UserStoryIndex) => {
-    console.log(333);
-    this.setState({
-      modalDetail: !this.state.modalDetail,
-      userStorySelected: UserStoryIndex,
-    });
+    this.setState(
+      {
+        userStorySelected: UserStoryIndex,
+      },
+      () => {
+        this.handleDetail();
+      }
+    );
   };
 
+  evolutionRows = ({ evolutions }) => (
+    <div class="evolution-div">
+      {evolutions.map((evo) => (
+        <div class="version">
+          <div class="version-element-1">
+            <b>Como&nbsp; </b> {evo.rol} <b>quiero &nbsp;</b>
+            {evo.funcionalidad} <b>para que&nbsp;</b> {evo.resultado}{" "}
+          </div>
+          <div class="version-element-2">{evo.puntaje}</div>
+          <div class="version-element-3">{evo.prioridad}</div>
+          <div class="version-element-4">{evo.version}</div>
+        </div>
+      ))}
+    </div>
+  );
+
   handleDetail = () => {
-    this.setState({
-      modalDetail: !this.state.modalDetail,
-    });
+    console.log(this.state.userStorySelected);
+    if (!this.state.modalDetail) {
+      axios
+        .get(
+          "http://localhost:5000/api/historiausuario/identificador/" +
+            this.state.userStorySelected.identificador
+        )
+        .then((resonse) => {
+          console.log("REEE");
+          console.log(resonse);
+          this.setState({
+            evos: resonse.data,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      this.setState({
+        modalDetail: !this.state.modalDetail,
+      });
+    } else {
+      this.setState({
+        modalDetail: !this.state.modalDetail,
+      });
+    }
   };
 
   handleClick = (event) => {
@@ -435,7 +492,31 @@ class UserStories extends Component {
               </Pagination>
             </div>
           </div>
-          <this.HU HUS={this.state.userStoriesShowed}></this.HU>
+
+          {this.state.emptyUserStoriesSearch && !this.state.emptyUserStories ? (
+            <div class="no-proyects">
+              <div class="inner-message-no-proyects">
+                {" "}
+                <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
+                <p>No existe ninguna historia de usuario con esos parámetros</p>
+              </div>
+            </div>
+          ) : null}
+
+          {this.state.emptyUserStories && !this.state.emptyUserStoriesSearch ? (
+            <div class="no-proyects">
+              <div class="inner-message-no-proyects">
+                {" "}
+                <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
+                <p>Todavía no existen Historias de Usuario</p>
+              </div>
+            </div>
+          ) : null}
+
+          {!this.state.emptyUserStories &&
+          !this.state.emptyUserStoriesSearch ? (
+            <this.HU HUS={this.state.userStoriesShowed}></this.HU>
+          ) : null}
         </div>
 
         <Modal
@@ -522,7 +603,39 @@ class UserStories extends Component {
           centered={true}
           size="xl"
         >
-          <div class="user-story-detail-div"></div>
+          <div class="user-story-detail-div">
+            <div class="header-modal-us-detail">
+              <h3>{this.state.userStorySelected.nombre}</h3>
+              <h4>{this.state.userStorySelected.version} &nbsp;v</h4>
+            </div>
+            <div class="body-modal-us-detail-1">
+              <p>
+                <b>Como</b> {this.state.userStorySelected.rol} <b>quiero</b>{" "}
+                {this.state.userStorySelected.funcionalidad} <br />
+                <b>para</b> {this.state.userStorySelected.resultado}
+              </p>
+            </div>
+            <div class="body-modal-us-detail-2">
+              <p>
+                <b>Ultima Modificación: </b>
+                <br /> {this.state.userStorySelected.fechaModificacion}
+                <br />
+                Por {this.state.userStorySelected.modificadoPor}
+              </p>
+            </div>
+
+            <div class="body-modal-us-detail-middle">
+              <Button id="edit-delete-detail">Editar</Button>
+              <Button id="edit-delete-detail">Eliminar</Button>
+            </div>
+
+            <div class="footer-modal-us-detail">
+              <h3>Evolucion</h3>
+              <this.evolutionRows
+                evolutions={this.state.evos}
+              ></this.evolutionRows>
+            </div>
+          </div>
         </Modal>
       </React.Fragment>
     );

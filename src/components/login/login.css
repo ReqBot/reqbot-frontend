@@ -55,3 +55,8 @@
 .login-link:hover {
   cursor: pointer;
 }
+
+.error-login-message {
+  color: #f7eceb;
+  font-weight: 600;
+}

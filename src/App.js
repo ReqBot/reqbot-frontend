@@ -21,10 +21,13 @@ class App extends Component {
     super(props);
   }
 
-  loggin = (loggedIn, userName, rol) => {
+  loggin = (loggedIn, userName, rol, token, idOrganizacion, idUsuario) => {
     sessionStorage.setItem("loggedIn", loggedIn);
     sessionStorage.setItem("userName", userName);
     sessionStorage.setItem("rol", rol);
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("idOrganizacion", idOrganizacion);
+    sessionStorage.setItem("idUsuario", idUsuario);
   };
 
   render() {

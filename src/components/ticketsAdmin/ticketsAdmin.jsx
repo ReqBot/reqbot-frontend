@@ -5,11 +5,12 @@ import "./ticketsAdmin.css";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaSearchMinus } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { BiMessageAltError } from "react-icons/bi";
 
 class TicketsAdmin extends Component {
   state = {
@@ -19,9 +20,12 @@ class TicketsAdmin extends Component {
 
     modalFilterOrder: false,
     checkBoxOne: false,
-    checkBoxTwo: false,
+    checkBoxTwo: true,
     checkBoxThree: false,
     checkBoxFour: false,
+
+    emptyTickets: false,
+    emptyTicketsSearch: false,
   };
 
   searchBarInput = "";
@@ -38,121 +42,78 @@ class TicketsAdmin extends Component {
 
   getTickets = () => {
     axios
-      .get("http://localhost:5000/api/historiausuario/pendientes/" + "1")
+      .get(
+        "http://localhost:5000/api/ticket/organizacion/" +
+          sessionStorage.getItem("idOrganizacion")
+      )
       .then((resonse) => {
-        this.setState({
-          ticketsShowed: resonse.data,
-          ticketsFilter: resonse.data,
-          ticketsNoFilter: resonse.data,
-        });
+        this.setState(
+          {
+            ticketsShowed: resonse.data,
+            ticketsFilter: resonse.data,
+            ticketsNoFilter: resonse.data,
+          },
+          () => {
+            if (this.state.ticketsFilter.length == 0) {
+              this.setState({
+                emptyTickets: true,
+              });
+            } else {
+              this.flagFilter = true;
+              this.applyAllFilters();
+            }
+          }
+        );
       })
       .catch((error) => {
-        this.setState({
-          ticketsShowed: this.mockTickets,
-          ticketsFilter: this.mockTickets,
-          ticketsNoFilter: this.mockTickets,
-        });
+        this.setState(
+          {
+            ticketsShowed: this.mockTickets,
+            ticketsFilter: this.mockTickets,
+            ticketsNoFilter: this.mockTickets,
+          },
+          () => {
+            if (this.state.ticketsFilter.length == 0) {
+              this.setState({
+                emptyTickets: true,
+              });
+            } else {
+              this.flagFilter = true;
+              this.applyAllFilters();
+            }
+          }
+        );
       });
   };
-
   setPagination() {
-    this.setState({
-      ticketsShowed: this.state.ticketsFilter,
-    });
+    if (this.state.ticketsFilter.length > 0) {
+      this.setState(
+        {
+          emptyTickets: false,
+          emptyTicketsSearch: false,
+        },
+        () => {
+          this.setState({
+            ticketsShowed: this.state.ticketsFilter,
+          });
+        }
+      );
+    } else {
+      if (this.flagFilter || this.flagSearchBar) {
+        this.setState({
+          emptyTickets: false,
+          emptyTicketsSearch: true,
+        });
+      } else {
+        this.setState({
+          emptyTickets: true,
+          emptyTicketsSearch: false,
+        });
+      }
+    }
   }
 
-  mockTickets = [
-    {
-      titulo: "Ticket 1",
-      fecha: "2021-07-09",
-      tipo: "Entrenamiento",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Pendiente",
-      creadoPor: "Luis Doe",
-    },
-    {
-      titulo: "Ticket 2",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Pendiente",
-      creadoPor: "Cesar Lopez",
-    },
-    {
-      titulo: "Ticket 3",
-      fecha: "2021-07-09",
-      tipo: "Entrenamiento",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Luis Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
-    },
-    {
-      titulo: "Ticket 3",
-      fecha: "2021-07-09",
-      tipo: "Entrenamiento",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Luis Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Aprobado",
-      creadoPor: "Cesar Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Pendiente",
-      creadoPor: "Cesar Doe",
-    },
-    {
-      titulo: "Ticket 4",
-      fecha: "2021-07-09",
-      tipo: "Tecnico",
-      descripcion:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem.",
-      estado: "Pendiente",
-      creadoPor: "Cesar Doe",
-    },
-  ];
+  mockTickets = [];
 
   ticketsRow = ({ HUS }) => (
     <div class="flex-div-tickets">
@@ -168,7 +129,9 @@ class TicketsAdmin extends Component {
                   {userstory.fecha}
                 </div>
               </div>
-              <div class="ticket-text-block-2">{userstory.descripcion}</div>
+              <div class="ticket-text-block-2-admin">
+                <p>{userstory.descripcion}</p>
+              </div>
 
               <div class="ticket-text-block-3-admin">{userstory.tipo}</div>
 
@@ -373,9 +336,32 @@ class TicketsAdmin extends Component {
             />
           </InputGroup>
         </div>
-        <div class="div-tickets">
-          <this.ticketsRow HUS={this.state.ticketsShowed}></this.ticketsRow>
-        </div>
+
+        {this.state.emptyTicketsSearch && !this.state.emptyTickets ? (
+          <div class="no-proyects">
+            <div class="inner-message-no-proyects">
+              {" "}
+              <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
+              <p>No existe ningún ticket con esos parámetros</p>
+            </div>
+          </div>
+        ) : null}
+
+        {this.state.emptyTickets && !this.state.emptyTicketsSearch ? (
+          <div class="no-proyects">
+            <div class="inner-message-no-proyects">
+              {" "}
+              <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
+              <p>No se ha creado ningún ticket todavía</p>
+            </div>
+          </div>
+        ) : null}
+
+        {!this.state.emptyTickets && !this.state.emptyTicketsSearch ? (
+          <div class="div-tickets">
+            <this.ticketsRow HUS={this.state.ticketsShowed}></this.ticketsRow>
+          </div>
+        ) : null}
 
         <Modal
           show={this.state.modalFilterOrder}

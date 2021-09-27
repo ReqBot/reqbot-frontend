@@ -6,11 +6,13 @@ import Button from "react-bootstrap/Button";
 import Pagination from "react-bootstrap/Pagination";
 import "./proyects.css";
 import Alert from "react-bootstrap/Alert";
-import { FaHandsHelping } from "react-icons/fa";
+import { FaHandsHelping, FaSearchMinus, FaUserAlt } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { BiMessageAltError } from "react-icons/bi";
+import { RiFileHistoryFill } from "react-icons/ri";
 import Form from "react-bootstrap/Form";
 
 class Proyects extends Component {
@@ -24,6 +26,9 @@ class Proyects extends Component {
     checkBoxOne: false,
     checkBoxTwo: false,
     tipo: "",
+
+    emptyProyects: false,
+    emptyProyectsSearch: false,
   };
 
   searchBarInput = "";
@@ -56,33 +61,77 @@ class Proyects extends Component {
 
   getProyects = () => {
     axios
-      .get("http://localhost:5000/api/proyecto/organizacion/" + "1")
+      .get(
+        "http://localhost:5000/api/proyecto/organizacion/" +
+          sessionStorage.getItem("idOrganizacion")
+      )
       .then((resonse) => {
-        this.setState({
-          proyectsReal: resonse.data,
-          proyectsNoFilters: resonse.data,
-        });
+        console.log(resonse);
+        this.setState(
+          {
+            proyectsReal: resonse.data,
+            proyectsNoFilters: resonse.data,
+          },
+          () => {
+            if (this.state.proyectsReal != null) {
+              if (this.state.proyectsReal.length == 0) {
+                this.setState({
+                  emptyProyects: true,
+                });
+              }
+            }
+          }
+        );
 
         this.setPagination();
       })
       .catch((error) => {
-        this.setState({
-          proyectsReal: this.proyects,
-          proyectsNoFilters: this.proyects,
-        });
+        this.setState(
+          {
+            proyectsReal: this.proyects,
+            proyectsNoFilters: this.proyects,
+          },
+          () => {
+            if (this.state.proyectsReal != null) {
+              if (this.state.proyectsReal.length == 0) {
+                this.setState({
+                  emptyProyects: true,
+                });
+              }
+            }
+          }
+        );
         this.setPagination();
       });
   };
 
   setPagination() {
-    if (this.state.proyectsReal.length > 4) {
+    if (this.state.proyectsReal.length > 0) {
       this.setState({
-        proyectsShowed: this.state.proyectsReal.slice(0, 4),
+        emptyProyects: false,
+        emptyProyectsSearch: false,
       });
+      if (this.state.proyectsReal.length > 4) {
+        this.setState({
+          proyectsShowed: this.state.proyectsReal.slice(0, 4),
+        });
+      } else {
+        this.setState({
+          proyectsShowed: this.state.proyectsReal,
+        });
+      }
     } else {
-      this.setState({
-        proyectsShowed: this.state.proyectsReal,
-      });
+      if (this.flagFilter || this.flagSearchBar) {
+        this.setState({
+          emptyProyects: false,
+          emptyProyectsSearch: true,
+        });
+      } else {
+        this.setState({
+          emptyProyects: true,
+          emptyProyectsSearch: false,
+        });
+      }
     }
   }
 
@@ -108,7 +157,7 @@ class Proyects extends Component {
   }
 
   goDetailProject = (proyectIndex) => {
-    if (sessionStorage.getItem("rol") == "client") {
+    if (sessionStorage.getItem("rol") == "Cliente") {
       this.props.history.push({
         pathname: "/dashboard/redactar",
         megastate: { proyect: proyectIndex },
@@ -121,88 +170,7 @@ class Proyects extends Component {
     }
   };
 
-  proyects = [
-    {
-      idProyecto: 1,
-      nombre: "CarritOS",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      etiqueta: "Web",
-      estado: "Activo",
-      numeroDeHistorias: 0,
-      numeroUsuarios: 0,
-      idOrganizacion: 1,
-    },
-    {
-      idProyecto: 1,
-      nombre: "CarritOS2",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      etiqueta: "Web",
-      estado: "Activo",
-      numeroDeHistorias: 0,
-      numeroUsuarios: 0,
-      idOrganizacion: 1,
-    },
-    {
-      idProyecto: 2,
-      nombre: "CarritOS2",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      etiqueta: "Movil",
-      estado: "Inactivo",
-      numeroDeHistorias: 0,
-      numeroUsuarios: 0,
-      idOrganizacion: 1,
-    },
-    {
-      idProyecto: 3,
-      nombre: "CarritOS4",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      etiqueta: "Movil",
-      estado: "Inactivo",
-      numeroDeHistorias: 0,
-      numeroUsuarios: 0,
-      idOrganizacion: 1,
-    },
-    {
-      idProyecto: 2,
-      nombre: "CarritOS3",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      etiqueta: "Movil",
-      estado: "Inactivo",
-      numeroDeHistorias: 0,
-      numeroUsuarios: 0,
-      idOrganizacion: 1,
-    },
-    {
-      idProyecto: 4,
-      nombre: "CarritOS8",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      etiqueta: "Movil",
-      estado: "Inactivo",
-      numeroDeHistorias: 0,
-      numeroUsuarios: 0,
-      idOrganizacion: 1,
-    },
-    {
-      idProyecto: 4,
-      nombre: "CarritOS9",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      etiqueta: "Movil",
-      estado: "Inactivo",
-      numeroDeHistorias: 0,
-      numeroUsuarios: 0,
-      idOrganizacion: 1,
-    },
-    {
-      idProyecto: 4,
-      nombre: "CarritOS3",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      etiqueta: "Movil",
-      estado: "Inactivo",
-      numeroDeHistorias: 0,
-      numeroUsuarios: 0,
-      idOrganizacion: 1,
-    },
-  ];
+  proyects = [];
 
   filterFunction = (objects, value) => {
     var filteredObjects = [];
@@ -267,6 +235,14 @@ class Proyects extends Component {
     });
   };
 
+  etiquetasCols = ({ etiquetas }) => (
+    <div class="etiqueta-div">
+      {etiquetas.map((etiqueta) => (
+        <p>etiqueta</p>
+      ))}
+    </div>
+  );
+
   CardProyect = ({ proyectsEntry }) => (
     <div class="flex-div">
       {proyectsEntry.map((proyect) => (
@@ -281,19 +257,39 @@ class Proyects extends Component {
                 Ultima Modificacion:
               </Card.Subtitle>
               <Card.Subtitle className="subtitle">
-                {proyect.fechaModificacion}
+                {proyect.fechaModificacion.slice(0, 10)}
               </Card.Subtitle>
               <Card.Text>
-                <div>
-                  <b>eti1</b>
-                  <b>eti2</b>
+                <div className="tag-proyects">
+                  <p>
+                    <b>
+                      {" "}
+                      Tipo: <br />
+                    </b>
+                    {proyect.etiqueta}
+                  </p>
                 </div>
               </Card.Text>
             </Card.Body>
             <Card.Body>
-              <Card.Link href="#">Historias</Card.Link>
-              <Card.Link href="#">Usuarios</Card.Link>
-              <Card.Link href="#">Estado</Card.Link>
+              <div class="pi-div">
+                <div class="pi-div-element">
+                  {" "}
+                  <RiFileHistoryFill class="pi-div-icon"></RiFileHistoryFill>
+                  <p>
+                    <b> Historias de usuario: &nbsp;</b>
+                    {proyect.numeroDeHistorias}
+                  </p>
+                </div>
+                <div class="pi-div-element">
+                  {" "}
+                  <FaUserAlt class="pi-div-icon"></FaUserAlt>
+                  <p>
+                    <b> Usuarios: &nbsp;</b>
+                    {proyect.numeroUsuarios}
+                  </p>
+                </div>
+              </div>
             </Card.Body>
           </Card>
         </div>
@@ -453,11 +449,32 @@ class Proyects extends Component {
               <Pagination.Next onClick={this.nextPage} />
             </Pagination>
           </div>
-          <div>
+
+          {this.state.emptyProyectsSearch && !this.state.emptyProyects ? (
+            <div class="no-proyects">
+              <div class="inner-message-no-proyects">
+                {" "}
+                <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
+                <p>No existe ningún proyecto con esos parámetros</p>
+              </div>
+            </div>
+          ) : null}
+
+          {this.state.emptyProyects && !this.state.emptyProyectsSearch ? (
+            <div class="no-proyects">
+              <div class="inner-message-no-proyects">
+                {" "}
+                <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
+                <p>No se ha creado ningún proyecto todavía</p>
+              </div>
+            </div>
+          ) : null}
+
+          {!this.state.emptyProyects && !this.state.emptyProyectsSearch ? (
             <this.CardProyect
               proyectsEntry={this.state.proyectsShowed}
             ></this.CardProyect>
-          </div>
+          ) : null}
         </div>
 
         <Modal

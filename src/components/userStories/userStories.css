@@ -113,4 +113,96 @@
   margin: auto;
   height: 650px !important;
   width: 1200px !important;
+  background-color: #f0f1f7;
+  color: #545871;
+}
+
+.user-story-detail-div {
+  padding: 32px;
+}
+
+.header-modal-us-detail {
+  display: flex;
+}
+
+.header-modal-us-detail {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.body-modal-us-detail-1 {
+  margin-top: 32px;
+  font-size: 18px;
+}
+
+.body-modal-us-detail-2 {
+  margin-top: 32px;
+  font-size: 16px;
+}
+
+.body-modal-us-detail-middle {
+  margin-top: 24px;
+  font-size: 16px;
+  width: 25%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#edit-delete-detail {
+  margin: auto 0px auto auto;
+  width: 40%;
+  height: 35%;
+  border-radius: 10px;
+  background-color: #545871;
+  border-color: #545871;
+}
+
+.footer-modal-us-detail {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.evolution-div {
+  display: flex;
+  flex-flow: wrap;
+  max-height: 235px;
+  width: 100%;
+  overflow: auto;
+}
+
+.version {
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-radius: 10px;
+  color: #545871;
+  background-color: white;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.version-element-1 {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 40%;
+}
+
+.version-element-2 {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 15%;
+}
+
+.version-element-3 {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 15%;
+}
+
+.version-element-4 {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 15%;
 }

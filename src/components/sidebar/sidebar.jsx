@@ -10,7 +10,6 @@ import {
 import { NavLink } from "react-router-dom";
 import "./sidebar.css";
 import logo from "../../img/logo.png";
-import { createPortal } from "react-dom/cjs/react-dom.development";
 import { withRouter } from "react-router-dom";
 
 class Sidebar extends Component {
@@ -81,7 +80,7 @@ class Sidebar extends Component {
                   </CDBSidebarMenuItem>
                 </NavLink>
 
-                {sessionStorage.getItem("rol") == "owner" ? (
+                {sessionStorage.getItem("rol") == "Administrador" ? (
                   <NavLink exact to="/dashboard/organization">
                     <CDBSidebarMenuItem className="titleSide">
                       Organización
@@ -102,7 +101,7 @@ class Sidebar extends Component {
                   </CDBSidebarMenuItem>
                 </NavLink>
 
-                {sessionStorage.getItem("rol") == "client" ? (
+                {sessionStorage.getItem("rol") == "Cliente" ? (
                   <CDBSidebarMenuItem
                     active="true"
                     className="buttonSideBar"

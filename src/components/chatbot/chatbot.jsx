@@ -5,7 +5,6 @@ import axios from "axios";
 
 class Chatbot extends Component {
   constructor(props) {
-    console.log(new Date());
     super(props);
 
     this.user = {
@@ -33,18 +32,21 @@ class Chatbot extends Component {
     };
   }
 
+  identificadorHU = 0;
   logMessage = "";
   newLine = "\n";
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getIdentificadorUH();
+  }
 
   componentWillUnmount = () => {
-    this.saveLog();
+    if (this.logMessage != "") {
+      this.saveLog(this.logMessage);
+    }
   };
 
   addNewMessage = (event) => {
-    console.log(event.message.text);
-
     if (this.state.flagSesionIdIBM) {
       this.getMessage(event);
     } else {
@@ -63,15 +65,44 @@ class Chatbot extends Component {
       message +
       this.newLine +
       this.newLine;
-
-    console.log(this.logMessage);
-    this.saveLog(this.logMessage);
   };
 
   saveLog = (message) => {
     var encodedString64 = btoa(message);
 
-    console.log(encodedString64);
+    const headers = {
+      session_id: this.state.sesionIDIBM,
+    };
+
+    let jsonSent = {
+      nombre:
+        "Log " +
+        new Date().getDate().toLocaleString() +
+        "/" +
+        new Date().getMonth().toLocaleString() +
+        " " +
+        +new Date().getHours().toLocaleString() +
+        ":" +
+        new Date().getMinutes().toLocaleString(),
+      archivo: encodedString64,
+      idProyecto: this.props.proyect.idProyecto,
+      estado: "-",
+      fecha: new Date().toLocaleString(),
+      nombreProyecto: this.props.proyect.nombre,
+    };
+
+    axios
+      .post("http://localhost:5000/api/logs/", jsonSent, {
+        headers: headers,
+      })
+      .then((response) => {
+        console.log(response);
+        console.log("Se guardo el log con exito");
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("Hubo un error al guardar el log");
+      });
   };
 
   getMessage = (event) => {
@@ -96,14 +127,13 @@ class Chatbot extends Component {
         headers: headers,
       })
       .then((response) => {
-        console.log(response.data);
         botResponce.text = response.data.data.message;
         botResponce.author = this.bot;
         this.setState((prevState) => ({
           messages: [...prevState.messages, botResponce],
         }));
 
-        this.logger("Chatbot", event.message.text.toString());
+        this.logger("Chatbot", response.data.data.message.toString());
 
         if (this.state.interviewStarted) {
           if (response.data.data.entity != "") {
@@ -151,26 +181,43 @@ class Chatbot extends Component {
       });
   };
 
+  getIdentificadorUH = () => {
+    axios
+      .get("http://localhost:5000/api/historiausuario/ultimoidentificador")
+      .then((resonse) => {
+        console.log(resonse);
+        this.identificadorHU = parseInt(resonse.data[0].identificador);
+        console.log(this.identificadorHU);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   saveUserStory = () => {
     const headers = {};
-    console.log(this.state.rol);
+
+    let identiMasUno = this.identificadorHU + 1;
     let jsonSent = {
-      nombre: "Historia X",
+      nombre: "Historia " + this.identificadorHU.toString(),
       rol: this.state.rol,
       funcionalidad: this.state.attribute,
       resultado: this.state.consequence,
-      fechaModificacion: "07-09-2021",
-      modificadoPor: "1",
+      fechaModificacion: new Date().toLocaleString(),
+      modificadoPor: sessionStorage.getItem("idUsuario"),
       idProyecto: this.props.proyect.idProyecto,
       estado: "Pendiente",
+      identificador: identiMasUno.toString(),
+      version: "1.0",
+      prioridad: "Media",
+      puntaje: "0",
     };
-    console.log(jsonSent);
+
     axios
       .post("http://localhost:5000/api/historiausuario", jsonSent, {
         headers: headers,
       })
       .then((response) => {
-        console.log(response.data);
         this.setState({
           interviewStarted: false,
           rol: undefined,
@@ -191,11 +238,9 @@ class Chatbot extends Component {
           sesionIDIBM: resonse.data.session_id,
           flagSesionIdIBM: true,
         });
-        console.log(this.state.sesionIDIBM);
         this.getMessage(event);
       })
       .catch((error) => {
-        console.log(error);
         alert("No se pudo conectar con el servidor.");
       });
   };

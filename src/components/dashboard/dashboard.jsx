@@ -37,7 +37,10 @@ class Dashboard extends Component {
 
   getOrganization = () => {
     axios
-      .get("http://localhost:5000/api/organizacion/" + this.state.idOrg)
+      .get(
+        "http://localhost:5000/api/organizacion/" +
+          sessionStorage.getItem("idOrganizacion")
+      )
       .then((response) => {
         this.setState({
           org: response.data[0],
@@ -89,7 +92,7 @@ class Dashboard extends Component {
               <Route
                 path={this.props.match.url + "/tickets"}
                 render={(props) => {
-                  if (sessionStorage.getItem("rol") == "owner") {
+                  if (sessionStorage.getItem("rol") == "Administrador") {
                     return <TicketsAdmin org={this.state.org}></TicketsAdmin>;
                   } else {
                     return <Tickets org={this.state.org}></Tickets>;

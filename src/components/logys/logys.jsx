@@ -10,7 +10,8 @@ import FormControl from "react-bootstrap/FormControl";
 import { FaSearch } from "react-icons/fa";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-
+import { FaSearchMinus } from "react-icons/fa";
+import { BiMessageAltError } from "react-icons/bi";
 class Logys extends Component {
   state = {
     logsNoFilter: [],
@@ -19,6 +20,9 @@ class Logys extends Component {
 
     modalFilterOrder: false,
     nombreProyect: "",
+
+    emptyLogs: false,
+    emptyLogsSearch: false,
   };
 
   searchBarInput = "";
@@ -36,94 +40,73 @@ class Logys extends Component {
 
   getLogs = () => {
     axios
-      .get("http://localhost:5000/api/historiausuario/pendientes/" + "1")
+      .get(
+        "http://localhost:5000/api/logs/organizacion/" +
+          sessionStorage.getItem("idOrganizacion")
+      )
       .then((resonse) => {
-        this.setState({
-          logsShowed: resonse.data,
-          logsFilter: resonse.data,
-          logsNoFilter: resonse.data,
-        });
+        this.setState(
+          {
+            logsShowed: resonse.data,
+            logsFilter: resonse.data,
+            logsNoFilter: resonse.data,
+          },
+          () => {
+            if (this.state.logsFilter.length == 0) {
+              this.setState({
+                emptyLogs: true,
+              });
+            }
+          }
+        );
       })
       .catch((error) => {
-        this.setState({
-          logsShowed: this.mockLogs,
-          logsFilter: this.mockLogs,
-          logsNoFilter: this.mockLogs,
-        });
+        this.setState(
+          {
+            logsShowed: this.mockLogs,
+            logsFilter: this.mockLogs,
+            logsNoFilter: this.mockLogs,
+          },
+          () => {
+            if (this.state.logsFilter.length == 0) {
+              this.setState({
+                emptyLogs: true,
+              });
+            }
+          }
+        );
       });
   };
 
   setPagination() {
-    this.setState({
-      logsShowed: this.state.logsFilter,
-    });
+    if (this.state.logsFilter.length > 0) {
+      this.setState(
+        {
+          emptyLogs: false,
+          emptyLogsSearch: false,
+        },
+        () => {
+          this.setState({
+            logsShowed: this.state.logsFilter,
+          });
+        }
+      );
+    } else {
+      if (this.flagFilter || this.flagSearchBar) {
+        this.setState({
+          emptyLogs: false,
+          emptyLogsSearch: true,
+        });
+      } else {
+        this.setState({
+          emptyLogs: true,
+          emptyLogsSearch: false,
+        });
+      }
+    }
   }
 
-  mockLogs = [
-    {
-      id: "1",
-      nombre: "Logs 1",
-      fecha: "2021-07-09",
-      idProyecto: "1",
-      archivo:
-        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
-      nombreProyecto: "Proyecto 1",
-    },
-    {
-      id: "2",
-      nombre: "Logs 2",
-      fecha: "2021-07-09",
-      idProyecto: "1",
-      archivo:
-        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
-      nombreProyecto: "Proyecto 1",
-    },
-    {
-      id: "3",
-      nombre: "Logs 3",
-      fecha: "2021-07-09",
-      idProyecto: "1",
-      archivo:
-        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
-      nombreProyecto: "Proyecto 2",
-    },
-    {
-      id: "4",
-      nombre: "Logs 4",
-      fecha: "2021-07-09",
-      idProyecto: "1",
-      archivo:
-        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
-      nombreProyecto: "Proyecto 3",
-    },
-    {
-      id: "5",
-      nombre: "Logs 5",
-      fecha: "2021-07-09",
-      idProyecto: "1",
-      archivo:
-        "SG93IHRvIGNvbnZlcnQgc3RyaW5nIHRvIEJhc2U2NCBvbmxpbmUNClR5cGUgb3IgcGFzdGUgeW91ciB0ZXh0IGluIHRoZSDigJxUZXh04oCdIGZpZWxkLg0KUHJlc3MgdGhlIOKAnEVuY29kZSBUZXh0IHRvIEJhc2U2NOKAnSBidXR0b24uDQpDb3B5IG9yIGRvd25sb2FkIHRoZSByZXN1bHQgZnJvbSB0aGUg4oCcQmFzZTY04oCdIGZpZWxkLg0KSG93IGNhbiBJIGNvbnZlcnQgdGV4dCB0byBCYXNlNjQgZnJvbSBhIERPQyBmaWxlPw0KWW91IGNhbiBjb3B5LXBhc3RlIHRleHQgZnJvbSB5b3VyIERPQyBmaWxlLCBidXQgc2luY2UgdGhpcyB0ZXh0IHRvIEJhc2U2NCBjb252ZXJ0ZXIgYWNjZXB0cyBvbmx5IHBsYWluIHRleHQgeW91IHdpbGwgbG9zZSBhbnkgdGV4dCBmb3JtYXR0aW5nLiBNb3Jlb3ZlciwgYXQgZGVjb2RpbmcgeW91IHdpbGwgZ2V0IGEgVFhUIGZpbGUgaW5zdGVhZCBvZiBET0MgZmlsZS4gSWYgdGhpcyBpcyBvayBmb3IgeW91LCBqdXN0IHBhc3RlIHlvdXIgdGV4dCBpbnRvIHRoZSDigJxUZXh04oCdIGZpZWxkIGFuZCBwcmVzcyB0aGUg4oCcbWFnaWPigJ0gYnV0dG9uLiBPdGhlcndpc2UsIGlmIHlvdSB3YW50IHRvIGtlZXAgdGhlIG9yaWdpbmFsIERPQyBmaWxlLCBlbmNvZGUgaXQgdG8gQmFzZTY0IHVzaW5nIHRoZSBGaWxlIHRvIEJhc2U2NCBjb252ZXRlci4NCg0K",
-      nombreProyecto: "Proyecto 4",
-    },
-    {
-      id: "6",
-      nombre: "Logs 6",
-      fecha: "2021-07-09",
-      idProyecto: "1",
-      archivo:
-        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
-      nombreProyecto: "Proyecto 5",
-    },
-    {
-      id: "7",
-      nombre: "Logs 7",
-      fecha: "2021-07-09",
-      idProyecto: "1",
-      archivo:
-        "OS8yMi8yMDIxLCA2OjE2OjQ0IFBNCiBVc2VyOiAxMjM0Cgo5LzIyLzIwMjEsIDY6MTY6NDkgUE0KIENoYXRib3Q6IFBlcmRvbiwgdHV2ZSB1biBwcm9ibGVtYQoK",
-      nombreProyecto: "Proyecto6",
-    },
-  ];
+  mockLogs = [];
 
   logsRow = ({ HUS }) => (
     <div class="flex-div-logs">
@@ -337,9 +320,32 @@ class Logys extends Component {
             />
           </InputGroup>
         </div>
-        <div class="div-tickets">
-          <this.logsRow HUS={this.state.logsShowed}></this.logsRow>
-        </div>
+
+        {this.state.emptyLogsSearch && !this.state.emptyLogs ? (
+          <div class="no-proyects">
+            <div class="inner-message-no-proyects">
+              {" "}
+              <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
+              <p>No existe ningún log de chat con esos parámetros</p>
+            </div>
+          </div>
+        ) : null}
+
+        {this.state.emptyLogs && !this.state.emptyLogsSearch ? (
+          <div class="no-proyects">
+            <div class="inner-message-no-proyects">
+              {" "}
+              <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
+              <p>No se ha creado un log de chat todavía</p>
+            </div>
+          </div>
+        ) : null}
+
+        {!this.state.emptyLogs && !this.state.emptyLogsSearch ? (
+          <div class="div-tickets">
+            <this.logsRow HUS={this.state.logsShowed}></this.logsRow>
+          </div>
+        ) : null}
 
         <Modal
           show={this.state.modalFilterOrder}

@@ -27,7 +27,7 @@ class UserStoriesAnalyst extends Component {
 
     modalFilterOrder: false,
     checkBoxOne: false,
-    checkBoxTwo: false,
+    checkBoxTwo: true,
     rol: "",
   };
 
@@ -53,93 +53,50 @@ class UserStoriesAnalyst extends Component {
   getUserStories = () => {
     axios
       .get(
-        "http://localhost:5000/api/historiausuario/pendientes/" +
-          this.props.proyect.idProyecto
+        "http://localhost:5000/api/historiausuario/organizacion/" +
+          sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {
-        this.setState({
-          useStories: resonse.data,
-          userStoriesShowed: resonse.data,
-          useStoriesNoFilter: resonse.data,
-        });
+        console.log(resonse);
+        this.setState(
+          {
+            useStories: resonse.data,
+            useStoriesNoFilter: resonse.data,
+          },
+          () => {
+            if (this.state.useStories.length == 0) {
+              this.setState({
+                emptyUserStories: true,
+              });
+            } else {
+              this.flagFilter = true;
+              this.applyAllFilters();
+            }
+          }
+        );
       })
       .catch((error) => {
-        this.setState({
-          userStoriesShowed: this.userStories,
-          useStories: this.userStories,
-          useStoriesNoFilter: this.userStories,
-        });
+        this.setState(
+          {
+            useStories: this.userStories,
+            useStoriesNoFilter: this.userStories,
+          },
+          () => {
+            if (this.state.useStories.length == 0) {
+              this.setState({
+                emptyUserStories: true,
+              });
+            } else {
+              this.flagFilter = true;
+              this.applyAllFilters();
+            }
+          }
+        );
+        console.log(error);
       });
   };
 
-  userStories = [
-    {
-      idHistoriaUsuario: 2,
-      nombre: "Historia 2",
-      rol: "Cliente",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Pendiente",
-    },
-    {
-      idHistoriaUsuario: 3,
-      nombre: "Historia 3",
-      rol: "Cliente",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Pendiente",
-    },
-    {
-      idHistoriaUsuario: 2,
-      nombre: "Historia 2",
-      rol: "Cliente",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Pendiente",
-    },
-    {
-      idHistoriaUsuario: 3,
-      nombre: "Historia 3",
-      rol: "Cliente",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Pendiente",
-    },
-    {
-      idHistoriaUsuario: 2,
-      nombre: "Historia 2",
-      rol: "Cliente",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Pendiente",
-    },
-    {
-      idHistoriaUsuario: 3,
-      nombre: "Historia 3",
-      rol: "Admin",
-      funcionalidad: "Loguearse con Apple",
-      resultado: "Para tener facilidad de loguearse",
-      fechaModificacion: "2021-07-09T05:00:00.000Z",
-      modificadoPor: 1,
-      idProyecto: 1,
-      estado: "Aprobado",
-    },
-  ];
+  userStories = [];
 
   openAndSetApprove = (HUIndexed) => {
     this.setState({
