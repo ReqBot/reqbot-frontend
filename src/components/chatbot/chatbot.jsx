@@ -19,7 +19,7 @@ class Chatbot extends Component {
         {
           author: this.bot,
           timestamp: new Date(),
-          text: "Hi, I'm reqbot. I can help you with the elicitation of requirements!",
+          text: "Hola! Soy Reqbot. Como te llamas?",
         },
       ],
       sesionIDIBM: false,

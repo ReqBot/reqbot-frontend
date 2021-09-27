@@ -373,8 +373,6 @@ class Proyects extends Component {
     var toGetFiltered = this.state.proyectsNoFilters;
 
     if (this.flagSearchBar) {
-      console.log("Ysd");
-
       toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);
     }
     if (this.flagFilter) {
