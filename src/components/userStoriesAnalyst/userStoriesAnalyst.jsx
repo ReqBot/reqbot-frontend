@@ -4,11 +4,13 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import "./userStoriesAnalyst.css";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaSearchMinus } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
+import { BiMessageAltError } from "react-icons/bi";
+
 class UserStoriesAnalyst extends Component {
   state = {
     useStoriesNoFilter: [],
@@ -29,6 +31,9 @@ class UserStoriesAnalyst extends Component {
     checkBoxOne: false,
     checkBoxTwo: true,
     rol: "",
+
+    emptyUserStories: false,
+    emptyUserStoriesSearch: false,
   };
 
   searchBarInput = "";
@@ -45,11 +50,34 @@ class UserStoriesAnalyst extends Component {
   }
 
   setPagination() {
-    this.setState({
-      userStoriesShowed: this.state.useStories,
-    });
+    if (this.state.useStories.length > 0) {
+      this.setState({
+        emptyUserStories: false,
+        emptyUserStoriesSearch: false,
+      });
+      if (this.state.useStories.length > 4) {
+        this.setState({
+          userStoriesShowed: this.state.useStories.slice(0, 4),
+        });
+      } else {
+        this.setState({
+          userStoriesShowed: this.state.useStories,
+        });
+      }
+    } else {
+      if (this.flagFilter || this.flagSearchBar) {
+        this.setState({
+          emptyUserStories: false,
+          emptyUserStoriesSearch: true,
+        });
+      } else {
+        this.setState({
+          emptyUserStories: true,
+          emptyUserStoriesSearch: false,
+        });
+      }
+    }
   }
-
   getUserStories = () => {
     axios
       .get(
@@ -406,9 +434,33 @@ class UserStoriesAnalyst extends Component {
               </InputGroup>
             </div>
           </div>
-          <div class="overflow-analyst">
-            <this.Test UserStories={this.state.userStoriesShowed}></this.Test>
-          </div>
+
+          {this.state.emptyUserStoriesSearch && !this.state.emptyUserStories ? (
+            <div class="no-proyects">
+              <div class="inner-message-no-proyects">
+                {" "}
+                <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
+                <p>No existe ninguna historia de usuario con esos parámetros</p>
+              </div>
+            </div>
+          ) : null}
+
+          {this.state.emptyUserStories && !this.state.emptyUserStoriesSearch ? (
+            <div class="no-proyects">
+              <div class="inner-message-no-proyects">
+                {" "}
+                <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
+                <p>Todavía no existen Historias de Usuario</p>
+              </div>
+            </div>
+          ) : null}
+
+          {!this.state.emptyUserStories &&
+          !this.state.emptyUserStoriesSearch ? (
+            <div class="overflow-analyst">
+              <this.Test UserStories={this.state.userStoriesShowed}></this.Test>
+            </div>
+          ) : null}
         </div>
 
         <Modal

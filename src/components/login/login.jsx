@@ -54,14 +54,8 @@ class Login extends Component {
   };
 
   goForgotPassword = () => {
-    /*
     this.props.history.push({
-      pathname: "/forgot-password",
-    });*/
-
-    this.props.changeParentLogin(true, "Owner", "owner");
-    this.props.history.push({
-      pathname: "/dashboard/proyects",
+      pathname: "/forgotPassword",
     });
   };
 

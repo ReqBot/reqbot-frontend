@@ -51,7 +51,7 @@
 }
 
 .plan-card {
-  width: 30%;
+  width: 31%;
   height: 90%;
   background-color: #ffff;
   border-radius: 10px;
@@ -78,4 +78,92 @@
 .plan-card Button {
   margin-top: auto;
   margin-bottom: 32px;
+}
+
+.register-info {
+  width: 100%;
+  height: 100%;
+  background-color: #ffff;
+  border-radius: 10px;
+  color: #545871;
+  padding: 24px;
+}
+
+.register-info h4 {
+  display: flex;
+  font-size: 19px;
+}
+
+.register-seccions {
+  display: flex;
+  height: 80%;
+  width: 100%;
+}
+
+.buttons-register-info {
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+#boton-guardar-modal-2 {
+  background-color: #545871;
+  border-color: #545871;
+  color: white;
+  width: 40%;
+}
+.register-seccions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.col-register {
+  width: 45%;
+  text-align: start;
+}
+.col-register h5 {
+  text-align: left;
+  margin-top: 24px;
+  margin-bottom: 20px;
+  font-size: 17px;
+}
+.col-register p {
+  width: 50%;
+  font-weight: 500;
+  margin-top: 24px;
+  font-size: 17px;
+}
+
+.color-picker-div-register h5 {
+  text-align: left;
+  margin-top: 64px;
+  margin-bottom: 32px;
+  font-size: 17px;
+}
+
+#register-color-select {
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  border: none;
+  padding-left: 8px;
+  border: 1px solid #ced4da;
+  color: #545871;
+  border-radius: 5px;
+}
+
+.card-field {
+  border: 1px solid #545871;
+  height: calc(1.5em + 0.75rem + 2px);
+  width: 100%;
+  color: #545871;
+  border: 1px solid #ced4da;
+}
+
+.bsHInR .credit-card-input {
+  color: #545871;
+}
+
+.line-flex-color-register {
 }

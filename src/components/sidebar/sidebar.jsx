@@ -32,6 +32,7 @@ class Sidebar extends Component {
 
   logout = () => {
     sessionStorage.clear();
+    sessionStorage.setItem("api", "http://localhost:5000/");
     this.props.history.push({
       pathname: "/",
     });

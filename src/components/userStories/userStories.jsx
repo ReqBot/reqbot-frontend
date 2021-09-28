@@ -12,6 +12,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import Form from "react-bootstrap/Form";
 import Pagination from "react-bootstrap/Pagination";
 import { BiMessageAltError } from "react-icons/bi";
+
 class UserStories extends Component {
   state = {
     useStoriesNoFilter: [],
@@ -70,12 +71,11 @@ class UserStories extends Component {
   getUserStories = () => {
     axios
       .get(
-        "https://reqbot-backend.herokuapp.com/api/historiausuario/organizacion/" +
+        sessionStorage.getItem("api") +
+          "api/proyecto/organizacion/" +
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {
-        console.log("HISTORIAS");
-        console.log(resonse.data);
         this.setState(
           {
             useStories: resonse.data,
@@ -299,7 +299,8 @@ class UserStories extends Component {
     if (!this.state.modalDetail) {
       axios
         .get(
-          "https://reqbot-backend.herokuapp.com/api/historiausuario/identificador/" +
+          sessionStorage.getItem("api") +
+            "api/historiausuario/identificador/" +
             this.state.userStorySelected.identificador
         )
         .then((resonse) => {
@@ -475,6 +476,7 @@ class UserStories extends Component {
               >
                 Filtrar/Ordenar
               </Button>
+              <Button id="filtrar-ordenar-button-userStory">Exportar</Button>
               <InputGroup id="input-userStories" className="mb-3">
                 <FaSearch id="seach-icon"></FaSearch>
                 <FormControl

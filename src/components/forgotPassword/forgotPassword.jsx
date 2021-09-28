@@ -12,7 +12,9 @@ class ForgotPassword extends Component {
     loggedIn: false,
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log(4444);
+  }
 
   goLogin = () => {
     console.log("Se mando correo");
