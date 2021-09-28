@@ -43,7 +43,8 @@ class TicketsAdmin extends Component {
   getTickets = () => {
     axios
       .get(
-        "https://reqbot-backend.herokuapp.com/api/ticket/organizacion/" +
+        sessionStorage.getItem("api") +
+          "api/ticket/organizacion/" +
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {

@@ -12,6 +12,30 @@ class Register extends Component {
     loggedIn: false,
   };
 
+  planes = [
+    {
+      idProyecto: 1,
+      nombre: "Plan 1",
+      descripcion:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet.",
+      costo: "0",
+    },
+    {
+      idProyecto: 2,
+      nombre: "Plan 2",
+      descripcion:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet.",
+      costo: "20",
+    },
+    {
+      idProyecto: 3,
+      nombre: "Plan 3",
+      descripcion:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet.",
+      costo: "40",
+    },
+  ];
+
   componentDidMount() {}
 
   goToRegister = () => {
@@ -20,70 +44,31 @@ class Register extends Component {
     });
   };
 
+  plansCols = ({ planes }) => (
+    <div class="plan-flex-div">
+      {planes.map((plan) => (
+        <div class="plan-card">
+          <h5>{plan.nombre}</h5>
+          <p>{plan.descripcion}</p>
+          <p>
+            <b>S/.{plan.costo}</b>
+          </p>
+          <p>
+            <i>Mensual</i>
+          </p>
+          <Button id="boton-guardar-modal">Elegir</Button>
+        </div>
+      ))}
+    </div>
+  );
+
   render() {
     return (
       <React.Fragment>
-        <div class="login-container">
-          <img class="login-image" src={logo}></img>
+        <div class="register-container">
           <h1>ReqBot</h1>
-          <div class="input-parts">
-            {" "}
-            <Tabs defaultActiveKey="chatbot">
-              <Tab
-                eventKey="chatbot"
-                title="Pago"
-                tabClassName="ind-tab-register"
-              >
-                <h4>Hello 1</h4>
-              </Tab>
-              <Tab
-                eventKey="historias"
-                title="Información"
-                tabClassName="ind-tab-register"
-              >
-                <h4>Hello 2</h4>
-              </Tab>
-            </Tabs>
-            <InputGroup className="mb-3 login-input">
-              <FormControl
-                placeholder="Correo"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </InputGroup>
-            <InputGroup className="mb-3 login-input">
-              <FormControl
-                placeholder="Contraseña"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </InputGroup>
-            <InputGroup className="mb-3 login-input">
-              <FormControl
-                placeholder="Contraseña"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </InputGroup>
-            <InputGroup className="mb-3 login-input">
-              <FormControl
-                placeholder="Contraseña"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </InputGroup>
-            <InputGroup className="mb-3 login-input">
-              <FormControl
-                placeholder="Contraseña"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </InputGroup>
-            <div class="login-buttons-div">
-              <Button id="login-button" onClick={this.goToRegister}>
-                Registrarme
-              </Button>
-            </div>
+          <div class="register-parts">
+            <this.plansCols planes={this.planes}></this.plansCols>
           </div>
         </div>
       </React.Fragment>

@@ -1,5 +1,20 @@
+.register-container {
+  background-color: #f7eceb;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  padding: 4rem 2rem 2rem 2rem;
+}
+
+.register-container h1 {
+  text-align: center;
+  margin: auto;
+  margin-bottom: 2rem;
+  color: #545871;
+  font-weight: bolder;
+}
+
 .registar-tab {
-  border-bottom: 1px red;
 }
 
 .ind-tab-register {
@@ -12,9 +27,55 @@
 }
 
 .ind-tab-register.active {
-  background-color: #545871 !important;
-  color: #f7eceb;
-  border-color: #f7eceb #f7eceb #545871 !important;
+  background-color: #dadbe6 !important;
+  color: #545871 !important;
+  border-color: #545871 #545871 #545871 !important;
   border-top-left-radius: 0.25rem !important;
   border-top-right-radius: 0.25rem !important;
+  border-radius: 5px !important;
+}
+
+.register-parts {
+  width: 60%;
+  height: 80%;
+  margin: auto;
+  background-color: #545871;
+  padding: 32px;
+  border-radius: 10px;
+}
+
+.plan-flex-div {
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.plan-card {
+  width: 30%;
+  height: 90%;
+  background-color: #ffff;
+  border-radius: 10px;
+  color: #545871;
+  padding: 32px;
+  transition: all 0.2s ease-in-out;
+}
+
+.plan-card:hover {
+  cursor: pointer;
+  transform: scale(1.025);
+}
+
+.plan-card h5 {
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+.plan-card p {
+  margin-top: 25%;
+  margin-bottom: 25%;
+}
+
+.plan-card Button {
+  margin-top: auto;
+  margin-bottom: 32px;
 }

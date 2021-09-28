@@ -38,7 +38,8 @@ class Dashboard extends Component {
   getOrganization = () => {
     axios
       .get(
-        "https://reqbot-backend.herokuapp.com/api/organizacion/" +
+        sessionStorage.getItem("api") +
+          "api/organizacion/" +
           sessionStorage.getItem("idOrganizacion")
       )
       .then((response) => {

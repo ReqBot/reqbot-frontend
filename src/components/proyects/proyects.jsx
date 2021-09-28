@@ -62,7 +62,8 @@ class Proyects extends Component {
   getProyects = () => {
     axios
       .get(
-        "https://reqbot-backend.herokuapp.com/api/proyecto/organizacion/" +
+        sessionStorage.getItem("api") +
+          "api/proyecto/organizacion/" +
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {
