@@ -47,10 +47,8 @@ class Tickets extends Component {
   };
 
   useEffect() {
-    console.log("º1");
     const timeId = setTimeout(() => {
       this.handleAlert();
-      console.log("º2");
     }, 3000);
 
     return () => {

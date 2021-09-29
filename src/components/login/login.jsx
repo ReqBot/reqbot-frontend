@@ -102,7 +102,7 @@ class Login extends Component {
                   response.data.data.rol,
                   response.data.accessToken,
                   response.data.data.idOrganizacion,
-                  response.data.data.idUsuario
+                  response.data.data.id
                 );
                 this.props.history.push({
                   pathname: "/dashboard/proyects",

@@ -10,7 +10,24 @@ class OrganizationManagement extends Component {
     super(props);
     console.log(props);
   }
-  componentDidMount() {}
+  componentDidMount() {
+    if (this.props.location.megastate) {
+      if (this.props.location.megastate.alert == "createProyect") {
+        this.props.applyTime("Se creo el proyecto exitosamente");
+      }
+      if (this.props.location.megastate.alert == "createUser") {
+        this.props.applyTime("Se creo el usuario exitosamente");
+      }
+      if (this.props.location.megastate.alert == "editProyect") {
+        this.props.applyTime("Se edito el proyecto exitosamente");
+      }
+      if (this.props.location.megastate.alert == "editUser") {
+        this.props.applyTime("Se edito el proyecto exitosamente");
+      }
+    } else {
+      console.log("Entro acacc");
+    }
+  }
 
   dummyText =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem. Sed facilisis vulputate massa, quis elementum leo sagittis non. Aliquam  facilisis mollis dolor id ullamcorper. Phasellus cursus nunc ut eros rutrum vulputate. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum libero justo, ornare quis cursus ut, luctus sed diam.";

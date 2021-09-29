@@ -5,12 +5,21 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
-import { GrAdd } from "react-icons/gr";
+import axios from "axios";
 
 class CreateTicket extends Component {
+  state = {
+    titulo: "",
+    tipo: "",
+    descripcion: "",
+
+    incompleteFields: false,
+  };
+
   constructor(props) {
     super(props);
-    console.log(props);
+
+    console.log(sessionStorage.getItem("idUsuario"));
   }
 
   componentDidMount() {}
@@ -32,9 +41,50 @@ class CreateTicket extends Component {
   };
 
   saveTicket = () => {
-    this.props.history.push({
-      pathname: "/dashboard/tickets",
-      megastate: { alert: true },
+    if (
+      this.state.titulo == "" ||
+      this.state.tipo == "" ||
+      this.state.descripcion == ""
+    ) {
+      console.log("YEER");
+      this.setState({
+        incompleteFields: true,
+      });
+    } else {
+      const headers = {};
+
+      let jsonSent = {
+        titulo: this.state.titulo,
+        fecha: new Date().toLocaleString(),
+        tipo: this.state.tipo,
+        descripcion: this.state.descripcion,
+        estado: "Pendiente",
+        creadoPor: sessionStorage.getItem("idUsuario"),
+      };
+
+      axios
+        .post(sessionStorage.getItem("api") + "api/ticket/", jsonSent, {
+          headers: headers,
+        })
+        .then((response) => {
+          this.props.history.push({
+            pathname: "/dashboard/tickets",
+            megastate: { alert: true },
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
     });
   };
 
@@ -52,14 +102,21 @@ class CreateTicket extends Component {
                 placeholder="Nombre"
                 aria-label="Nombre"
                 aria-describedby="basic-addon1"
+                onChange={this.handleChange}
+                name="titulo"
               />
             </InputGroup>
 
             <h5>Tipo:</h5>
-            <Form.Select aria-label="Tipo" id="proyect-info-select">
+            <Form.Select
+              aria-label="Tipo"
+              id="proyect-info-select"
+              onClick={this.handleChange}
+              name="tipo"
+            >
               <option>Eliga un tipo</option>
-              <option value="1">Tecnico</option>
-              <option value="2">Entrenamiento</option>
+              <option value="Tecnico">Tecnico</option>
+              <option value="Entrenamiento">Entrenamiento</option>
             </Form.Select>
 
             <h5>Descripción:</h5>
@@ -67,9 +124,15 @@ class CreateTicket extends Component {
               as="textarea"
               aria-label="Descripcion"
               placeholder="Leave a comment here"
-              style={{ height: "19%" }}
+              style={{ height: "100px" }}
+              name="descripcion"
+              onChange={this.handleChange}
             />
-
+            {this.state.incompleteFields ? (
+              <div class="empty-fields-create">
+                *Por favor, complete todos los campos
+              </div>
+            ) : null}
             <div class="login-buttons-div">
               <Button id="save-button" onClick={this.saveTicket}>
                 Crear

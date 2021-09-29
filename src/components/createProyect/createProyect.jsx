@@ -31,6 +31,13 @@ class CreateProyect extends Component {
     });
   };
 
+  saveProyect = () => {
+    this.props.history.push({
+      pathname: "/dashboard/organization/",
+      megastate: { alert: "createProyect" },
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -76,7 +83,7 @@ class CreateProyect extends Component {
             </Form.Select>
 
             <div class="login-buttons-div">
-              <Button id="save-button" onClick={this.goLogin}>
+              <Button id="save-button" onClick={this.saveProyect}>
                 Crear
               </Button>
 
