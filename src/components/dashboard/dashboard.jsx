@@ -43,14 +43,19 @@ class Dashboard extends Component {
           sessionStorage.getItem("idOrganizacion")
       )
       .then((response) => {
+        console.log("entro aca");
+
         this.setState({
           org: response.data[0],
         });
+        console.log(this.state.org);
       })
       .catch((error) => {
         this.setState({
           org: this.mockOrg,
         });
+        console.log("error");
+        console.log(this.state.org);
       });
   };
 

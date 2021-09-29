@@ -31,6 +31,13 @@ class CreateTicket extends Component {
     });
   };
 
+  saveTicket = () => {
+    this.props.history.push({
+      pathname: "/dashboard/tickets",
+      megastate: { alert: true },
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -64,7 +71,7 @@ class CreateTicket extends Component {
             />
 
             <div class="login-buttons-div">
-              <Button id="save-button" onClick={this.goLogin}>
+              <Button id="save-button" onClick={this.saveTicket}>
                 Crear
               </Button>
 

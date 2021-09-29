@@ -11,6 +11,7 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import { BiMessageAltError } from "react-icons/bi";
+import Alert from "react-bootstrap/Alert";
 class Tickets extends Component {
   state = {
     ticketsNoFilter: [],
@@ -25,6 +26,7 @@ class Tickets extends Component {
 
     emptyTickets: false,
     emptyTicketsSearch: false,
+    isHidden: false,
   };
 
   searchBarInput = "";
@@ -35,8 +37,43 @@ class Tickets extends Component {
     super(props);
     console.log(props);
   }
+
+  applyTme = () => {
+    this.setState({
+      isHidden: true,
+    });
+
+    this.useEffect();
+  };
+
+  useEffect() {
+    console.log("º1");
+    const timeId = setTimeout(() => {
+      this.handleAlert();
+      console.log("º2");
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }
+
+  handleAlert = () => {
+    this.setState({
+      isHidden: false,
+    });
+  };
+
   componentDidMount() {
     this.getTickets();
+
+    if (this.props.location.megastate) {
+      if (this.props.location.megastate.alert) {
+        this.applyTme();
+      }
+    } else {
+      console.log("Entro acacc");
+    }
   }
 
   getTickets = () => {
@@ -322,6 +359,10 @@ class Tickets extends Component {
   render() {
     return (
       <React.Fragment>
+        <Alert variant={"success"} show={this.state.isHidden}>
+          {" "}
+          Se aprobó la historia de usuario exitosamente.{" "}
+        </Alert>
         <div class="organization-titleDiv">
           <h1>Tickets</h1>
         </div>
