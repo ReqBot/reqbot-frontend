@@ -5,9 +5,20 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
-import { GrAdd } from "react-icons/gr";
+import { BsPlusSquareFill } from "react-icons/bs";
+import { MdRemoveCircle } from "react-icons/md";
+import axios from "axios";
 
 class CreateProyect extends Component {
+  state = {
+    nombre: "",
+    etiquetas: [],
+    descripcion: "",
+    etiquetaIndi: "",
+
+    incompleteFields: false,
+  };
+
   constructor(props) {
     super(props);
     console.log(props);
@@ -15,12 +26,21 @@ class CreateProyect extends Component {
 
   componentDidMount() {}
 
-  etiquetas = ["Movil", "Perro", "Carro", "Carro"];
-
   etiquetasRows = ({ etiquetas }) => (
-    <div class="etiqueta-list">
+    <div class="etiquetas-list">
       {etiquetas.map((etiqueta) => (
-        <div class="etiqueta-row">{etiqueta} </div>
+        <div class="etiquetas-row">
+          <p>{etiqueta} </p>
+          <MdRemoveCircle
+            class="etiqueta-delete"
+            onClick={this.removeEtiqueta.bind(
+              this,
+              etiquetas.indexOf(etiqueta)
+            )}
+          >
+            {" "}
+          </MdRemoveCircle>
+        </div>
       ))}
     </div>
   );
@@ -32,10 +52,85 @@ class CreateProyect extends Component {
   };
 
   saveProyect = () => {
-    this.props.history.push({
-      pathname: "/dashboard/organization/",
-      megastate: { alert: "createProyect" },
+    if (
+      this.state.nombre == "" ||
+      this.state.descripcion == "" ||
+      this.state.etiquetas.length <= 0
+    ) {
+      this.setState({
+        incompleteFields: true,
+      });
+    } else {
+      const headers = {};
+
+      let jsonSent = {
+        nombre: this.state.nombre,
+        fechaModificacion: new Date().toLocaleString(),
+        etiqueta: this.transformSemiColonsToArray(this.state.etiquetas),
+        //descripcion: this.state.descripcion,
+        estado: "Activo",
+        numeroHistorias: "0",
+        numeroUsuarios: "0",
+        idOrganizacion: sessionStorage.getItem("idOrganizacion"),
+      };
+
+      axios
+        .post(sessionStorage.getItem("api") + "api/proyecto/", jsonSent, {
+          headers: headers,
+        })
+        .then((response) => {
+          this.props.history.push({
+            pathname: "/dashboard/organization/",
+            megastate: { alert: "createProyect" },
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
     });
+  };
+
+  addEtiqueta = () => {
+    if (this.state.etiquetaIndi != "") {
+      let newArr = this.state.etiquetas;
+      newArr.push(this.state.etiquetaIndi);
+      this.setState(
+        {
+          etiquetas: newArr,
+        },
+        () => {
+          this.setState({
+            etiquetaIndi: "",
+          });
+        }
+      );
+    }
+  };
+
+  removeEtiqueta = (index) => {
+    let newArr = this.state.etiquetas;
+    newArr.splice(index, 1);
+    this.setState({
+      etiquetas: newArr,
+    });
+  };
+
+  transformSemiColonsToArray = (input) => {
+    var stringOfEtiquetas = "";
+    for (const i in input) {
+      stringOfEtiquetas = stringOfEtiquetas + input[i] + ";";
+    }
+    return stringOfEtiquetas;
   };
 
   render() {
@@ -50,8 +145,9 @@ class CreateProyect extends Component {
             <InputGroup className="mb-3 login-input">
               <FormControl
                 placeholder="Nombre"
-                aria-label="Nombre"
                 aria-describedby="basic-addon1"
+                name="nombre"
+                onChange={this.handleChange}
               />
             </InputGroup>
 
@@ -61,11 +157,17 @@ class CreateProyect extends Component {
                 <FormControl
                   aria-label="Etiqueta"
                   aria-describedby="basic-addon1"
+                  value={this.state.etiquetaIndi}
+                  name="etiquetaIndi"
+                  onChange={this.handleChange}
                 />
               </InputGroup>
-              <GrAdd class="etiqueta-add"></GrAdd>
+              <BsPlusSquareFill
+                class="etiqueta-add"
+                onClick={this.addEtiqueta}
+              ></BsPlusSquareFill>
             </div>
-            <this.etiquetasRows etiquetas={this.etiquetas}>
+            <this.etiquetasRows etiquetas={this.state.etiquetas}>
               {" "}
             </this.etiquetasRows>
 
@@ -73,14 +175,22 @@ class CreateProyect extends Component {
             <Form.Control
               as="textarea"
               aria-label="Descripcion"
-              placeholder="Leave a comment here"
-              style={{ height: "19%" }}
+              placeholder="Redactar descripción aquí"
+              style={{ height: "100px" }}
+              name="descripcion"
+              onChange={this.handleChange}
             />
 
             <h5>Estado:</h5>
             <Form.Select aria-label="Estado" id="proyect-info-select" disabled>
               <option>Activo</option>
             </Form.Select>
+
+            {this.state.incompleteFields ? (
+              <div class="empty-fields-create">
+                *Por favor, complete todos los campos
+              </div>
+            ) : null}
 
             <div class="login-buttons-div">
               <Button id="save-button" onClick={this.saveProyect}>

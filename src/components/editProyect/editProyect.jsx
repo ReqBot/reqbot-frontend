@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
-import { GrAdd } from "react-icons/gr";
+import { BsPlusSquareFill } from "react-icons/bs";
 import Modal from "react-bootstrap/Modal";
 import { AiFillSetting, AiFillCloseCircle } from "react-icons/ai";
 
@@ -198,6 +198,13 @@ class EditProyect extends Component {
     </div>
   );
 
+  editProyect = () => {
+    this.props.history.push({
+      pathname: "/dashboard/organization/",
+      megastate: { alert: "editProyect" },
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -224,7 +231,7 @@ class EditProyect extends Component {
                   aria-describedby="basic-addon1"
                 />
               </InputGroup>
-              <GrAdd class="etiqueta-add"></GrAdd>
+              <BsPlusSquareFill class="etiqueta-add"></BsPlusSquareFill>
             </div>
             <this.etiquetasRows etiquetas={this.etiquetas}>
               {" "}
@@ -246,7 +253,7 @@ class EditProyect extends Component {
               style={{ height: "19%" }}
               defaultValue={this.props.location.megastate.proyect.descripcion}
             />
-            <Button id="edit-button" onClick={this.goLogin}>
+            <Button id="edit-button" onClick={this.editProyect}>
               Guardar
             </Button>
           </div>

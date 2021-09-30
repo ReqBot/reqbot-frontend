@@ -123,7 +123,7 @@ class CreateTicket extends Component {
             <Form.Control
               as="textarea"
               aria-label="Descripcion"
-              placeholder="Leave a comment here"
+              placeholder="Redactar descripción aquí"
               style={{ height: "100px" }}
               name="descripcion"
               onChange={this.handleChange}

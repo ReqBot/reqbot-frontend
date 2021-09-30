@@ -31,6 +31,13 @@ class EditUser extends Component {
     });
   };
 
+  editUser = () => {
+    this.props.history.push({
+      pathname: "/dashboard/organization/",
+      megastate: { alert: "editUser" },
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -104,7 +111,7 @@ class EditUser extends Component {
             </Form.Select>
 
             <div class="login-buttons-div">
-              <Button id="save-button" onClick={this.goLogin}>
+              <Button id="save-button" onClick={this.editUser}>
                 Crear
               </Button>
 
