@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Tab, Tabs } from "react-bootstrap";
 import "./organizationManagement.css";
 import Button from "react-bootstrap/Button";
-import { AiFillSetting, AiFillCloseCircle } from "react-icons/ai";
+import axios from "axios";
 
 class OrganizationManagement extends Component {
+  state = {
+    proyects: [],
+    users: [],
+  };
   constructor(props) {
     super(props);
     console.log(props);
   }
+
   componentDidMount() {
     if (this.props.location.megastate) {
       if (this.props.location.megastate.alert == "createProyect") {
@@ -22,12 +26,55 @@ class OrganizationManagement extends Component {
         this.props.applyTime("Se edito el proyecto exitosamente");
       }
       if (this.props.location.megastate.alert == "editUser") {
-        this.props.applyTime("Se edito el proyecto exitosamente");
+        this.props.applyTime("Se edito el usuario exitosamente");
       }
     } else {
       console.log("Entro acacc");
     }
+    this.getProyects();
+    this.getUsers();
   }
+
+  getProyects = () => {
+    axios
+      .get(
+        sessionStorage.getItem("api") +
+          "api/proyecto/organizacion/" +
+          sessionStorage.getItem("idOrganizacion")
+      )
+      .then((resonse) => {
+        this.setState({
+          proyects: resonse.data,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          proyects: this.proyects,
+        });
+      });
+  };
+
+  getUsers = () => {
+    axios
+      .get(
+        sessionStorage.getItem("api") +
+          "api/usuario/organizacion/" +
+          sessionStorage.getItem("idOrganizacion")
+      )
+      .then((resonse) => {
+        console.log("yersd");
+        console.log(resonse);
+        console.log(sessionStorage.getItem("idOrganizacion"));
+        this.setState({
+          users: resonse.data,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          users: this.usuarios,
+        });
+      });
+  };
 
   dummyText =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem. Sed facilisis vulputate massa, quis elementum leo sagittis non. Aliquam  facilisis mollis dolor id ullamcorper. Phasellus cursus nunc ut eros rutrum vulputate. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum libero justo, ornare quis cursus ut, luctus sed diam.";
@@ -217,6 +264,11 @@ class OrganizationManagement extends Component {
           <div class="organization-proyect-text-description">
             {proyect.descripcion}
           </div>
+          <div class="organization-proyect-text-state">
+            <b>Estado: </b>
+            <br />
+            <p>{proyect.estado}</p>
+          </div>
           <div class="organization-proyect-text-date-2">
             <b>Ultima Modificación:</b> {proyect.fechaModificacion}
           </div>
@@ -241,7 +293,9 @@ class OrganizationManagement extends Component {
                   Crear
                 </Button>
               </div>{" "}
-              <this.projectRows proyects={this.proyects}></this.projectRows>
+              <this.projectRows
+                proyects={this.state.proyects}
+              ></this.projectRows>
             </div>
           </div>
           <div class="organizacion-contenedor-tabla-bottom">
@@ -256,7 +310,7 @@ class OrganizationManagement extends Component {
                   Crear
                 </Button>
               </div>{" "}
-              <this.userRows users={this.usuarios}></this.userRows>
+              <this.userRows users={this.state.users}></this.userRows>
             </div>
           </div>
         </div>

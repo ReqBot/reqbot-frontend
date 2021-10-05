@@ -42,6 +42,7 @@ class Proyects extends Component {
   constructor(props) {
     super(props);
     this.getAlert = this.getAlert.bind(this);
+    console.log(sessionStorage.getItem("idOrganizacion"));
   }
 
   componentDidMount() {
@@ -60,50 +61,97 @@ class Proyects extends Component {
   };
 
   getProyects = () => {
-    axios
-      .get(
-        sessionStorage.getItem("api") +
-          "api/proyecto/organizacion/" +
-          sessionStorage.getItem("idOrganizacion")
-      )
-      .then((resonse) => {
-        console.log(resonse);
-        this.setState(
-          {
-            proyectsReal: resonse.data,
-            proyectsNoFilters: resonse.data,
-          },
-          () => {
-            if (this.state.proyectsReal != null) {
-              if (this.state.proyectsReal.length == 0) {
-                this.setState({
-                  emptyProyects: true,
-                });
+    if (sessionStorage.getItem("rol") == "Administrador") {
+      axios
+        .get(
+          sessionStorage.getItem("api") +
+            "api/proyecto/organizacion/" +
+            sessionStorage.getItem("idOrganizacion")
+        )
+        .then((resonse) => {
+          console.log(resonse);
+          this.setState(
+            {
+              proyectsReal: resonse.data,
+              proyectsNoFilters: resonse.data,
+            },
+            () => {
+              if (this.state.proyectsReal != null) {
+                if (this.state.proyectsReal.length == 0) {
+                  this.setState({
+                    emptyProyects: true,
+                  });
+                }
               }
             }
-          }
-        );
+          );
 
-        this.setPagination();
-      })
-      .catch((error) => {
-        this.setState(
-          {
-            proyectsReal: this.proyects,
-            proyectsNoFilters: this.proyects,
-          },
-          () => {
-            if (this.state.proyectsReal != null) {
-              if (this.state.proyectsReal.length == 0) {
-                this.setState({
-                  emptyProyects: true,
-                });
+          this.setPagination();
+        })
+        .catch((error) => {
+          this.setState(
+            {
+              proyectsReal: this.proyects,
+              proyectsNoFilters: this.proyects,
+            },
+            () => {
+              if (this.state.proyectsReal != null) {
+                if (this.state.proyectsReal.length == 0) {
+                  this.setState({
+                    emptyProyects: true,
+                  });
+                }
               }
             }
-          }
-        );
-        this.setPagination();
-      });
+          );
+          this.setPagination();
+        });
+    } else {
+      axios
+        .get(
+          sessionStorage.getItem("api") +
+            "api/proyecto/usuarios/" +
+            sessionStorage.getItem("idUsuario")
+        )
+        .then((resonse) => {
+          console.log(resonse);
+          this.setState(
+            {
+              proyectsReal: resonse.data,
+              proyectsNoFilters: resonse.data,
+            },
+            () => {
+              if (this.state.proyectsReal != null) {
+                if (this.state.proyectsReal.length == 0) {
+                  this.setState({
+                    emptyProyects: true,
+                  });
+                }
+              }
+            }
+          );
+
+          this.setPagination();
+        })
+        .catch((error) => {
+          this.setState(
+            {
+              proyectsReal: this.proyects,
+              proyectsNoFilters: this.proyects,
+            },
+            () => {
+              if (this.state.proyectsReal != null) {
+                if (this.state.proyectsReal.length == 0) {
+                  this.setState({
+                    emptyProyects: true,
+                  });
+                }
+              }
+            }
+          );
+          this.setPagination();
+        });
+    }
   };
 
   setPagination() {
@@ -401,9 +449,12 @@ class Proyects extends Component {
       }
     }
     if (type == "tipo") {
+      console.log(this.state.tipo);
+      console.log(toGetFiltered);
       for (const i in toGetFiltered) {
         auxLowerCase = toGetFiltered[i].etiqueta.toLowerCase();
-        if (auxLowerCase.includes(condition)) {
+        console.log(auxLowerCase);
+        if (auxLowerCase.includes(condition.toLowerCase())) {
           filteredObjects.push(toGetFiltered[i]);
         }
       }

@@ -29,7 +29,7 @@ class UserStoriesAnalyst extends Component {
 
     modalFilterOrder: false,
     checkBoxOne: false,
-    checkBoxTwo: true,
+    checkBoxTwo: false,
     rol: "",
 
     emptyUserStories: false,
@@ -98,7 +98,7 @@ class UserStoriesAnalyst extends Component {
                 emptyUserStories: true,
               });
             } else {
-              this.flagFilter = true;
+              //this.flagFilter = true;
               this.applyAllFilters();
             }
           }
@@ -116,7 +116,7 @@ class UserStoriesAnalyst extends Component {
                 emptyUserStories: true,
               });
             } else {
-              this.flagFilter = true;
+              //this.flagFilter = true;
               this.applyAllFilters();
             }
           }

@@ -35,10 +35,11 @@ class CreateUser extends Component {
 
   saveUser = () => {
     if (
-      (this.state.nombre == "" ||
-        this.state.apellido == "" ||
-        this.state.contrasenia == "",
-      this.state.concontrasenia == "")
+      this.state.nombre == "" ||
+      this.state.apellido == "" ||
+      this.state.contrasenia == "" ||
+      this.state.concontrasenia == "" ||
+      this.state.rol == ""
     ) {
       this.setState({
         incompleteFields: true,
