@@ -399,23 +399,27 @@ class Proyects extends Component {
     var proyectsReturn = [];
 
     if (this.state.checkBoxOne) {
-      proyectsAux = this.filterByCondition("Activo", "estado", toGetFiltered);
-      proyectsReturn.push(...proyectsAux);
+      toGetFiltered = this.filterByCondition("Activo", "estado", toGetFiltered);
+      //proyectsReturn.push(...proyectsAux);
     }
     if (this.state.checkBoxTwo) {
-      proyectsAux = this.filterByCondition("Inactivo", "estado", toGetFiltered);
-      proyectsReturn.push(...proyectsAux);
+      toGetFiltered = this.filterByCondition(
+        "Inactivo",
+        "estado",
+        toGetFiltered
+      );
+      //proyectsReturn.push(...proyectsAux);
     }
     if (this.state.tipo != "") {
-      proyectsAux = this.filterByCondition(
+      toGetFiltered = this.filterByCondition(
         this.state.tipo,
         "tipo",
         toGetFiltered
       );
-      proyectsReturn.push(...proyectsAux);
+      //proyectsReturn.push(...proyectsAux);
     }
 
-    return proyectsReturn;
+    return toGetFiltered;
   };
 
   applyAllFilters = () => {
