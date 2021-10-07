@@ -62,9 +62,6 @@ class OrganizationManagement extends Component {
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {
-        console.log("yersd");
-        console.log(resonse);
-        console.log(sessionStorage.getItem("idOrganizacion"));
         this.setState({
           users: resonse.data,
         });

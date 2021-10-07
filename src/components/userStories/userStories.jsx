@@ -12,6 +12,10 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import Form from "react-bootstrap/Form";
 import Pagination from "react-bootstrap/Pagination";
 import { BiMessageAltError } from "react-icons/bi";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { saveAs } from "file-saver";
+import JSZip from "jszip";
 
 class UserStories extends Component {
   state = {
@@ -66,14 +70,15 @@ class UserStories extends Component {
 
   componentDidMount() {
     this.getUserStories();
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
   }
 
   getUserStories = () => {
     axios
       .get(
         sessionStorage.getItem("api") +
-          "api/proyecto/organizacion/" +
-          sessionStorage.getItem("idOrganizacion")
+          "api/historiausuario/project/" +
+          this.props.proyect.idProyecto
       )
       .then((resonse) => {
         this.setState(
@@ -464,6 +469,48 @@ class UserStories extends Component {
     return filteredObjects;
   };
 
+  getBase64ForOne = (data) => {
+    var pdf = pdfMake.createPdf(data);
+
+    return new Promise(async (resolve, reject) => {
+      pdf.getBase64((content) => {
+        resolve(content);
+      });
+    });
+  };
+
+  exportStories = () => {
+    axios
+      .get(
+        sessionStorage.getItem("api") +
+          "api/historiausuario/download/project/" +
+          this.props.proyect.idProyecto
+      )
+      .then((response) => {
+        console.log(response.data);
+        var zip = new JSZip();
+        var pdf = pdfMake.createPdf(response.data);
+        var dataFormat64 = [];
+        //Create folder
+        var folderUh = zip.folder("pdfHistories");
+        for (let uh in response.data) {
+          let pdffile = this.getBase64ForOne(response.data[uh]);
+          dataFormat64.push(pdffile);
+          folderUh.file(`pdf0${uh}.pdf`, pdffile, { base64: true });
+        }
+        var nombreArchivo = "HU-" + this.props.proyect.nombre;
+        //Zip generate the file comprim
+        zip.generateAsync({ type: "blob" }).then(function (data) {
+          saveAs(data, nombreArchivo + "zip");
+        });
+
+        console.log(dataFormat64);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -476,7 +523,12 @@ class UserStories extends Component {
               >
                 Filtrar/Ordenar
               </Button>
-              <Button id="filtrar-ordenar-button-userStory">Exportar</Button>
+              <Button
+                id="filtrar-ordenar-button-userStory"
+                onClick={this.exportStories}
+              >
+                Exportar
+              </Button>
               <InputGroup id="input-userStories" className="mb-3">
                 <FaSearch id="seach-icon"></FaSearch>
                 <FormControl

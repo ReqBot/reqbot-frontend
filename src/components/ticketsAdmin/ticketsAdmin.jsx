@@ -11,6 +11,7 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BiMessageAltError } from "react-icons/bi";
+import Alert from "react-bootstrap/Alert";
 
 class TicketsAdmin extends Component {
   state = {
@@ -26,6 +27,17 @@ class TicketsAdmin extends Component {
 
     emptyTickets: false,
     emptyTicketsSearch: false,
+
+    modalApprove: false,
+    modalReject: false,
+
+    topModalMessage: "",
+    botModalMessage: "",
+    buttonModalMessage: "",
+    selectedTicket: undefined,
+    newTicketState: "",
+
+    alertHidden: false,
   };
 
   searchBarInput = "";
@@ -86,6 +98,7 @@ class TicketsAdmin extends Component {
         );
       });
   };
+
   setPagination() {
     if (this.state.ticketsFilter.length > 0) {
       this.setState(
@@ -137,8 +150,16 @@ class TicketsAdmin extends Component {
               <div class="ticket-text-block-3-admin">{userstory.tipo}</div>
 
               <div class="ticket-text-block-4-buttons">
-                <Button id="rechazar-ticket">Rechazar</Button>
-                <Button id="aprobar-ticket">Aprobar</Button>
+                <Button
+                  id="aprobar-ticket"
+                  onClick={this.openAndSetApprove.bind(
+                    this,
+                    userstory,
+                    "resolver"
+                  )}
+                >
+                  Resolver
+                </Button>
               </div>
             </div>
           </Card.Body>
@@ -146,6 +167,7 @@ class TicketsAdmin extends Component {
       ))}
     </div>
   );
+
   filterFunction = (objects, value) => {
     var filteredObjects = [];
     var lowerCaseName = "";
@@ -159,7 +181,6 @@ class TicketsAdmin extends Component {
   };
 
   editSearchTerm = (e) => {
-    console.log(222);
     this.searchBarInput = e.target.value;
     if (e.target.value != "") {
       this.flagSearchBar = true;
@@ -250,7 +271,7 @@ class TicketsAdmin extends Component {
     var ticketsAux = [];
     var ticketsReturn = [];
     if (this.state.checkBoxOne) {
-      ticketsAux = this.filterByCondition("Aprobado", "estado", toGetFiltered);
+      ticketsAux = this.filterByCondition("Resuelto", "estado", toGetFiltered);
       ticketsReturn.push(...ticketsAux);
     }
     if (this.state.checkBoxTwo) {
@@ -312,9 +333,84 @@ class TicketsAdmin extends Component {
 
     return filteredObjects;
   };
+
+  hanldeApprove = () => {
+    this.setState({
+      modalApprove: !this.state.modalApprove,
+    });
+  };
+
+  openAndSetApprove = (ticketIndex, type) => {
+    this.setState({
+      selectedTicket: ticketIndex,
+      modalApprove: !this.state.modalApprove,
+      topModalMessage: "Resolver ticket",
+      botModalMessage: "¿Estas seguro que deseas resolver este ticket?",
+      buttonModalMessage: "Resolver",
+    });
+  };
+
+  editTicket = () => {
+    const headers = {};
+
+    let jsonSent = {
+      titulo: this.state.selectedTicket.titulo,
+      fecha: new Date().toLocaleString(),
+      tipo: this.state.selectedTicket.tipo,
+      descripcion: this.state.selectedTicket.descripcion,
+      estado: "Resuelto",
+      creadoPor: this.state.selectedTicket.creadoPor,
+    };
+    console.log(jsonSent);
+    axios
+      .put(
+        sessionStorage.getItem("api") +
+          "api/ticket/" +
+          this.state.selectedTicket.idTicket,
+        jsonSent,
+        {
+          headers: headers,
+        }
+      )
+      .then((response) => {
+        console.log(response);
+
+        this.hanldeApprove();
+        this.getAlert();
+        this.getUserStories();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  getAlert() {
+    this.setState({
+      alertHidden: !this.state.alertHidden,
+    });
+
+    this.useEffect();
+  }
+
+  useEffect() {
+    const timeId = setTimeout(() => {
+      this.setState({
+        alertHidden: !this.state.alertHidden,
+      });
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }
+
   render() {
     return (
       <React.Fragment>
+        <Alert variant={"success"} show={this.state.alertHidden}>
+          {" "}
+          Se aprobó la historia de usuario exitosamente.{" "}
+        </Alert>
         <div class="organization-titleDiv">
           <h1>Tickets</h1>
         </div>
@@ -383,7 +479,7 @@ class TicketsAdmin extends Component {
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                   <Form.Check
                     type="checkbox"
-                    label="Aprobado"
+                    label="Resuelto"
                     name="checkBoxOne"
                     onClick={this.handleClick}
                     checked={this.state.checkBoxOne}
@@ -446,6 +542,39 @@ class TicketsAdmin extends Component {
               onClick={this.applyFilters}
             >
               Aplicar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal
+          show={this.state.modalApprove}
+          onHide={this.hanldeApprove}
+          id="settings-info-user"
+        >
+          <Modal.Header>
+            <Modal.Title>{this.state.topModalMessage}</Modal.Title>
+            <AiFillCloseCircle
+              id="btn-close"
+              onClick={this.hanldeApprove}
+            ></AiFillCloseCircle>
+          </Modal.Header>
+          <Modal.Body>
+            <div class="modal-t-body">{this.state.botModalMessage}</div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={this.hanldeApprove}
+              id="boton-cerrar-modal"
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="primary"
+              onClick={this.editTicket}
+              id="boton-guardar-modal"
+            >
+              {this.state.buttonModalMessage}
             </Button>
           </Modal.Footer>
         </Modal>

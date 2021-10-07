@@ -292,7 +292,7 @@ class Tickets extends Component {
     var ticketsAux = [];
     var ticketsReturn = [];
     if (this.state.checkBoxOne) {
-      ticketsAux = this.filterByCondition("Aprobado", "estado", toGetFiltered);
+      ticketsAux = this.filterByCondition("Resuelto", "estado", toGetFiltered);
       ticketsReturn.push(...ticketsAux);
     }
     if (this.state.checkBoxTwo) {
@@ -432,7 +432,7 @@ class Tickets extends Component {
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                   <Form.Check
                     type="checkbox"
-                    label="Aprobado"
+                    label="Resuelto"
                     name="checkBoxOne"
                     onClick={this.handleClick}
                     checked={this.state.checkBoxOne}

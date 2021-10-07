@@ -67,7 +67,7 @@ class CreateProyect extends Component {
         nombre: this.state.nombre,
         fechaModificacion: new Date().toLocaleString(),
         etiqueta: this.transformSemiColonsToArray(this.state.etiquetas),
-        //descripcion: this.state.descripcion,
+        descripcion: this.state.descripcion,
         estado: "Activo",
         numeroHistorias: "0",
         numeroUsuarios: "0",

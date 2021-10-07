@@ -83,8 +83,9 @@ class EditUser extends Component {
         console.log(jsonSent);
         axios
           .put(
-            sessionStorage.getItem("api") + "api/usuario/" + "33",
-            // this.props.location.megastate.user.id,
+            sessionStorage.getItem("api") +
+              "api/usuario/" +
+              this.props.location.megastate.user.idUsuario,
             jsonSent,
             {
               headers: headers,

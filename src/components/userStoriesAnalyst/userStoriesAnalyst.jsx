@@ -82,8 +82,8 @@ class UserStoriesAnalyst extends Component {
     axios
       .get(
         sessionStorage.getItem("api") +
-          "api/historiausuario/organizacion/" +
-          sessionStorage.getItem("idOrganizacion")
+          "api/historiausuario/project/" +
+          this.props.proyect.idProyecto
       )
       .then((resonse) => {
         console.log(resonse);
