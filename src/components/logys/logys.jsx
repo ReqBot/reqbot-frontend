@@ -250,15 +250,15 @@ class Logys extends Component {
     var logsReturn = [];
 
     if (this.state.nombreProyect != "") {
-      proyectsAux = this.filterByCondition(
+      toGetFiltered = this.filterByCondition(
         this.state.nombreProyect,
         "tipo",
         toGetFiltered
       );
-      logsReturn.push(...proyectsAux);
+      //logsReturn.push(...proyectsAux);
     }
 
-    return logsReturn;
+    return toGetFiltered;
   };
 
   applyAllFilters = () => {

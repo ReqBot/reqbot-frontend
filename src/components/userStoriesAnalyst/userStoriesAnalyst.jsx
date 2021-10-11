@@ -340,30 +340,30 @@ class UserStoriesAnalyst extends Component {
     var userStoriesReturn = [];
 
     if (this.state.checkBoxOne) {
-      userStoriesAux = this.filterByCondition(
+      toGetFiltered = this.filterByCondition(
         "Aprobado",
         "estado",
         toGetFiltered
       );
-      userStoriesReturn.push(...userStoriesAux);
+      //userStoriesReturn.push(...userStoriesAux);
     }
     if (this.state.checkBoxTwo) {
-      userStoriesAux = this.filterByCondition(
+      toGetFiltered = this.filterByCondition(
         "Pendiente",
         "estado",
         toGetFiltered
       );
-      userStoriesReturn.push(...userStoriesAux);
+      //userStoriesReturn.push(...userStoriesAux);
     }
     if (this.state.rol != "") {
-      userStoriesAux = this.filterByCondition(
+      toGetFiltered = this.filterByCondition(
         this.state.rol,
         "tipo",
         toGetFiltered
       );
-      userStoriesReturn.push(...userStoriesAux);
+      //userStoriesReturn.push(...userStoriesAux);
     }
-    return userStoriesReturn;
+    return toGetFiltered;
   };
 
   applyAllFilters = () => {

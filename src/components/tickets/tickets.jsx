@@ -292,27 +292,35 @@ class Tickets extends Component {
     var ticketsAux = [];
     var ticketsReturn = [];
     if (this.state.checkBoxOne) {
-      ticketsAux = this.filterByCondition("Resuelto", "estado", toGetFiltered);
-      ticketsReturn.push(...ticketsAux);
+      toGetFiltered = this.filterByCondition(
+        "Resuelto",
+        "estado",
+        toGetFiltered
+      );
+      //ticketsReturn.push(...ticketsAux);
     }
     if (this.state.checkBoxTwo) {
-      ticketsAux = this.filterByCondition("Pendiente", "estado", toGetFiltered);
-      ticketsReturn.push(...ticketsAux);
+      toGetFiltered = this.filterByCondition(
+        "Pendiente",
+        "estado",
+        toGetFiltered
+      );
+      //ticketsReturn.push(...ticketsAux);
     }
     if (this.state.checkBoxThree) {
-      ticketsAux = this.filterByCondition("Tecnico", "tipo", toGetFiltered);
-      ticketsReturn.push(...ticketsAux);
+      toGetFiltered = this.filterByCondition("Tecnico", "tipo", toGetFiltered);
+      //ticketsReturn.push(...ticketsAux);
     }
     if (this.state.checkBoxFour) {
-      ticketsAux = this.filterByCondition(
+      toGetFiltered = this.filterByCondition(
         "Entrenamiento",
         "tipo",
         toGetFiltered
       );
-      ticketsReturn.push(...ticketsAux);
+      //ticketsReturn.push(...ticketsAux);
     }
 
-    return ticketsReturn;
+    return toGetFiltered;
   };
 
   applyAllFilters = () => {

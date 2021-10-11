@@ -19,8 +19,8 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    //https://reqbot-backend.herokuapp.com/
-    sessionStorage.setItem("api", "https://reqbot-backend.herokuapp.com/");
+    //http://localhost:5000/
+    sessionStorage.setItem("api", "http://localhost:5000/");
   }
 
   loggin = (loggedIn, userName, rol, token, idOrganizacion, idUsuario) => {
