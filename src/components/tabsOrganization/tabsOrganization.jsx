@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { Tab, Tabs } from "react-bootstrap";
 import "./tabsOrganization.css";
-import Chatbot from "../chatbot/chatbot";
 import OrganizationManagement from "./organizationManagement/organizationManagement";
 import OrganizationProfile from "./organizationProfile/organizationProfile";
 import Alert from "react-bootstrap/Alert";

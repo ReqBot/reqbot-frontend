@@ -23,12 +23,15 @@ class Proyects extends Component {
     isHidden: false,
     modalFilterOrder: false,
 
+    ordernarPor: "",
     checkBoxOne: false,
     checkBoxTwo: false,
     tipo: "",
 
     emptyProyects: false,
     emptyProyectsSearch: false,
+
+    proyectsOrdered: [],
   };
 
   searchBarInput = "";
@@ -370,6 +373,8 @@ class Proyects extends Component {
         checkBoxOne: false,
         checkBoxTwo: false,
         tipo: "",
+        ordernarPor: "",
+        proyectsOrdered: [],
       },
       () => {
         this.applyAllFilters();
@@ -388,10 +393,59 @@ class Proyects extends Component {
       this.flagFilter = false;
     }
 
-    this.applyAllFilters();
-    this.setState({
-      modalFilterOrder: !this.state.modalFilterOrder,
-    });
+    if (this.state.ordernarPor != "") {
+      if (this.state.ordernarPor == "nombre-a") {
+        axios
+          .get(
+            sessionStorage.getItem("api") + "api/proyecto/ascendente"
+            //sessionStorage.getItem("idOrganizacion"))
+          )
+          .then((response) => {
+            this.setState(
+              {
+                proyectsOrdered: response.data,
+              },
+              () => {
+                this.applyAllFilters();
+                this.setState({
+                  modalFilterOrder: !this.state.modalFilterOrder,
+                });
+              }
+            );
+          })
+          .catch((error) => {
+            console.log("Error en obtener Proyectos ordenados");
+          });
+      }
+      if (this.state.ordernarPor == "nombre-d") {
+        axios
+          .get(
+            sessionStorage.getItem("api") + "api/proyecto/descendente"
+            //sessionStorage.getItem("idOrganizacion"))
+          )
+          .then((response) => {
+            this.setState(
+              {
+                proyectsOrdered: response.data,
+              },
+              () => {
+                this.applyAllFilters();
+                this.setState({
+                  modalFilterOrder: !this.state.modalFilterOrder,
+                });
+              }
+            );
+          })
+          .catch((error) => {
+            console.log("Error en obtener Proyectos ordenados");
+          });
+      }
+    } else {
+      this.applyAllFilters();
+      this.setState({
+        modalFilterOrder: !this.state.modalFilterOrder,
+      });
+    }
   };
 
   applyFiltersFunc = (toGetFiltered) => {
@@ -423,7 +477,11 @@ class Proyects extends Component {
   };
 
   applyAllFilters = () => {
-    var toGetFiltered = this.state.proyectsNoFilters;
+    if (this.state.proyectsOrdered.length == 0) {
+      var toGetFiltered = this.state.proyectsNoFilters;
+    } else {
+      var toGetFiltered = this.state.proyectsOrdered;
+    }
 
     if (this.flagSearchBar) {
       toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);
@@ -581,11 +639,15 @@ class Proyects extends Component {
             </div>
             <div>
               <b>Ordenar Por</b>
-              <Form.Select aria-label="Estado" id="proyect-info-select-filter">
-                <option></option>
-                <option value="1">Id</option>
-                <option value="1">Fecha de Modificación</option>
-                <option value="2">Nombre</option>
+              <Form.Select
+                aria-label="Estado"
+                id="proyect-info-select-filter"
+                onClick={this.handleChange}
+                name="ordernarPor"
+              >
+                <option>Eliga</option>
+                <option value="nombre-a">Nombre ascendente</option>
+                <option value="nombre-d">Nombre descendente</option>
               </Form.Select>
             </div>
           </Modal.Body>

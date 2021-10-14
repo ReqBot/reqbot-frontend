@@ -24,6 +24,7 @@ class UserStories extends Component {
     userStoriesShowed: [],
     modalFilterOrder: false,
 
+    ordernarPor: "",
     checkBoxOne: false,
     checkBoxTwo: false,
     rol: "",
@@ -34,24 +35,11 @@ class UserStories extends Component {
     emptyUserStories: false,
     emptyUserStoriesSearch: false,
 
+    userStoriesOrdered: [],
+
     evos: [
       {
         idHistoriaUsuario: 4,
-        nombre: "Historia 4",
-        rol: "Cliente",
-      },
-      {
-        idHistoriaUsuario: 5,
-        nombre: "Historia 4",
-        rol: "Cliente",
-      },
-      {
-        idHistoriaUsuario: 5,
-        nombre: "Historia 4",
-        rol: "Cliente",
-      },
-      {
-        idHistoriaUsuario: 5,
         nombre: "Historia 4",
         rol: "Cliente",
       },
@@ -346,23 +334,6 @@ class UserStories extends Component {
   };
 
   deleteFilters = () => {
-    this.setState(
-      {
-        useStories: this.state.useStoriesNoFilter,
-      },
-      () => {
-        this.setPagination();
-        this.setState({
-          modalFilterOrder: !this.state.modalFilterOrder,
-          checkBoxOne: false,
-          checkBoxTwo: false,
-          rol: "",
-        });
-      }
-    );
-  };
-
-  deleteFilters = () => {
     this.flagFilter = false;
     this.setState(
       {
@@ -370,6 +341,8 @@ class UserStories extends Component {
         checkBoxOne: false,
         checkBoxTwo: false,
         rol: "",
+        ordernarPor: "",
+        userStoriesOrdered: [],
       },
       () => {
         this.applyAllFilters();
@@ -388,10 +361,59 @@ class UserStories extends Component {
       this.flagFilter = false;
     }
 
-    this.applyAllFilters();
-    this.setState({
-      modalFilterOrder: !this.state.modalFilterOrder,
-    });
+    if (this.state.ordernarPor != "") {
+      if (this.state.ordernarPor == "nombre-a") {
+        axios
+          .get(
+            sessionStorage.getItem("api") + "api/historiausuario/ascendente"
+            //sessionStorage.getItem("idOrganizacion"))
+          )
+          .then((response) => {
+            this.setState(
+              {
+                userStoriesOrdered: response.data,
+              },
+              () => {
+                this.applyAllFilters();
+                this.setState({
+                  modalFilterOrder: !this.state.modalFilterOrder,
+                });
+              }
+            );
+          })
+          .catch((error) => {
+            console.log("Error en obtener Logs ordenados");
+          });
+      }
+      if (this.state.ordernarPor == "nombre-d") {
+        axios
+          .get(
+            sessionStorage.getItem("api") + "api/historiausuario/descendente"
+            //sessionStorage.getItem("idOrganizacion"))
+          )
+          .then((response) => {
+            this.setState(
+              {
+                userStoriesOrdered: response.data,
+              },
+              () => {
+                this.applyAllFilters();
+                this.setState({
+                  modalFilterOrder: !this.state.modalFilterOrder,
+                });
+              }
+            );
+          })
+          .catch((error) => {
+            console.log("Error en obtener Logs ordenados");
+          });
+      }
+    } else {
+      this.applyAllFilters();
+      this.setState({
+        modalFilterOrder: !this.state.modalFilterOrder,
+      });
+    }
   };
 
   applyFiltersFunc = (toGetFiltered) => {
@@ -623,11 +645,15 @@ class UserStories extends Component {
             </div>
             <div>
               <b>Ordenar Por</b>
-              <Form.Select aria-label="Estado" id="proyect-info-select-filter">
-                <option></option>
-                <option value="1">Id</option>
-                <option value="1">Fecha de Modificación</option>
-                <option value="2">Nombre</option>
+              <Form.Select
+                aria-label="Estado"
+                id="proyect-info-select-filter"
+                onClick={this.handleChange}
+                name="ordernarPor"
+              >
+                <option>Eliga</option>
+                <option value="nombre-a">Nombre ascendente</option>
+                <option value="nombre-d">Nombre descendente</option>
               </Form.Select>
             </div>
           </Modal.Body>

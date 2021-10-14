@@ -28,12 +28,16 @@ class UserStoriesAnalyst extends Component {
     selectedUserStoryEstado: "",
 
     modalFilterOrder: false,
+
+    ordernarPor: "",
     checkBoxOne: false,
     checkBoxTwo: false,
     rol: "",
 
     emptyUserStories: false,
     emptyUserStoriesSearch: false,
+
+    userStoriesOrdered: [],
   };
 
   searchBarInput = "";
@@ -287,23 +291,6 @@ class UserStoriesAnalyst extends Component {
   };
 
   deleteFilters = () => {
-    this.setState(
-      {
-        useStories: this.state.useStoriesNoFilter,
-      },
-      () => {
-        this.setPagination();
-        this.setState({
-          modalFilterOrder: !this.state.modalFilterOrder,
-          checkBoxOne: false,
-          checkBoxTwo: false,
-          rol: "",
-        });
-      }
-    );
-  };
-
-  deleteFilters = () => {
     this.flagFilter = false;
     this.setState(
       {
@@ -311,6 +298,8 @@ class UserStoriesAnalyst extends Component {
         checkBoxOne: false,
         checkBoxTwo: false,
         rol: "",
+        ordernarPor: "",
+        userStoriesOrdered: [],
       },
       () => {
         this.applyAllFilters();
@@ -329,10 +318,59 @@ class UserStoriesAnalyst extends Component {
       this.flagFilter = false;
     }
 
-    this.applyAllFilters();
-    this.setState({
-      modalFilterOrder: !this.state.modalFilterOrder,
-    });
+    if (this.state.ordernarPor != "") {
+      if (this.state.ordernarPor == "nombre-a") {
+        axios
+          .get(
+            sessionStorage.getItem("api") + "api/historiausuario/ascendente"
+            //sessionStorage.getItem("idOrganizacion"))
+          )
+          .then((response) => {
+            this.setState(
+              {
+                userStoriesOrdered: response.data,
+              },
+              () => {
+                this.applyAllFilters();
+                this.setState({
+                  modalFilterOrder: !this.state.modalFilterOrder,
+                });
+              }
+            );
+          })
+          .catch((error) => {
+            console.log("Error en obtener Logs ordenados");
+          });
+      }
+      if (this.state.ordernarPor == "nombre-d") {
+        axios
+          .get(
+            sessionStorage.getItem("api") + "api/historiausuario/descendente"
+            //sessionStorage.getItem("idOrganizacion"))
+          )
+          .then((response) => {
+            this.setState(
+              {
+                userStoriesOrdered: response.data,
+              },
+              () => {
+                this.applyAllFilters();
+                this.setState({
+                  modalFilterOrder: !this.state.modalFilterOrder,
+                });
+              }
+            );
+          })
+          .catch((error) => {
+            console.log("Error en obtener Logs ordenados");
+          });
+      }
+    } else {
+      this.applyAllFilters();
+      this.setState({
+        modalFilterOrder: !this.state.modalFilterOrder,
+      });
+    }
   };
 
   applyFiltersFunc = (toGetFiltered) => {

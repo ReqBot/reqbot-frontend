@@ -100,6 +100,51 @@
   box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
 }
 
-.proyect-edit-body:hover {
+.edit-proyect-user-text-name {
+  text-align: start;
+  overflow: hidden;
+  color: #545871;
+  font-weight: bolder;
+  width: 25%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.edit-proyect-user-text-rol {
+  text-align: start;
+  overflow: hidden;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 20%;
+  max-height: 70%;
+  color: #545871;
+  padding-left: 8px;
+}
+
+.edit-proyect-user-text-state {
+  text-align: start;
+  overflow: hidden;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 32px;
+  width: fit-content;
+  color: #545871;
+  width: 20%;
+}
+
+.edit-proyect-user-text-delete {
+  text-align: start;
+  overflow: hidden;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 32px;
+  width: fit-content;
+  color: #545871;
+  width: 5%;
+}
+
+#delete-icon-general:hover {
   cursor: pointer;
 }

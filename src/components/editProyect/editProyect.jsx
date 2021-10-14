@@ -7,7 +7,9 @@ import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 import { BsPlusSquareFill } from "react-icons/bs";
 import Modal from "react-bootstrap/Modal";
-import { AiFillSetting, AiFillCloseCircle } from "react-icons/ai";
+import { AiFillCloseCircle, AiFillDelete } from "react-icons/ai";
+import axios from "axios";
+import Alert from "react-bootstrap/Alert";
 
 class EditProyect extends Component {
   state = {
@@ -15,79 +17,91 @@ class EditProyect extends Component {
     modalAddAnalyst: false,
     modalDelete: false,
     usuariosShowed: [],
+
+    etiquetas: [],
+    clientes: [],
+    analistas: [],
+
+    emptyClientes: true,
+    emptyAnalistas: true,
+
+    allClientes: [],
+    allAnalistas: [],
+
+    isHidden: false,
   };
 
   constructor(props) {
     super(props);
-    console.log(props);
   }
+
+  filterUsers(users, role) {
+    var filteredUsers = [];
+    for (const i in users) {
+      if (users[i].rol == role) {
+        filteredUsers.push(users[i]);
+      }
+    }
+
+    return filteredUsers;
+  }
+
+  getUsersByProyectId = () => {
+    axios
+      .get(
+        sessionStorage.getItem("api") +
+          "api/usuario/proyecto/" +
+          this.props.location.megastate.proyect.idProyecto
+      )
+      .then((response) => {
+        var users = response.data;
+        this.setState(
+          {
+            clientes: this.filterUsers(users, "Cliente"),
+            analistas: this.filterUsers(users, "Analista"),
+          },
+          () => {
+            if (this.state.clientes.length > 0) {
+              this.setState({
+                emptyClientes: false,
+              });
+            }
+            if (this.state.analistas.length > 0) {
+              this.setState({
+                emptyAnalistas: false,
+              });
+            }
+          }
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  getAllUsers = () => {
+    axios
+      .get(
+        sessionStorage.getItem("api") +
+          "api/usuario/organizacion/" +
+          sessionStorage.getItem("idOrganizacion")
+      )
+      .then((response) => {
+        var users = response.data;
+        this.setState({
+          allClientes: this.filterUsers(users, "Cliente"),
+          allAnalistas: this.filterUsers(users, "Analista"),
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   componentDidMount() {
-    this.setState({
-      usuariosShowed: this.usuarios,
-    });
+    this.getAllUsers();
+    this.getUsersByProyectId();
   }
-
-  etiquetas = ["Movil", "Perro", "Carro", "Carro"];
-
-  usuarios = [
-    {
-      nombre: "Luis",
-      apellido: "Kcomt",
-      correo: "",
-      contraseña: "",
-      rol: "Cliente",
-      estado: "Activo",
-    },
-    {
-      nombre: "Cesar",
-      apellido: "Lopez",
-      correo: "",
-      contraseña: "",
-      rol: "Analista",
-      estado: "Activo",
-    },
-    {
-      nombre: "Bruno",
-      apellido: "Atocha",
-      correo: "",
-      contraseña: "",
-      rol: "Analista",
-      estado: "Activo",
-    },
-    {
-      nombre: "Junioe",
-      apellido: "Lopez",
-      correo: "",
-      contraseña: "",
-      rol: "Cliente",
-      estado: "Activo",
-    },
-    {
-      nombre: "Piero",
-      apellido: "Melano",
-      correo: "",
-      contraseña: "",
-      rol: "Cliente",
-      estado: "Activo",
-    },
-    {
-      nombre: "Junioe",
-      apellido: "Lopez",
-      correo: "",
-      contraseña: "",
-      rol: "Cliente",
-      estado: "Activo",
-    },
-    {
-      nombre: "Piero",
-      apellido: "Melano",
-      correo: "",
-      contraseña: "",
-      rol: "Cliente",
-      estado: "Activo",
-    },
-  ];
 
   etiquetasRows = ({ etiquetas }) => (
     <div class="etiqueta-list">
@@ -100,15 +114,22 @@ class EditProyect extends Component {
   userRows = ({ users }) => (
     <div class="body-container-overflow-proyect">
       {users.map((user) => (
-        <div class="proyect-edit-body" onClick={this.hanldeSettings}>
-          <div class="organization-user-text-name">
+        <div class="proyect-edit-body">
+          <div class="edit-proyect-user-text-name">
             {user.nombre}&nbsp;{user.apellido}
           </div>
-          <div class="organization-user-text-rol">
+          <div class="edit-proyect-user-text-rol">
             <b>Rol:</b> {user.rol}
           </div>
-          <div class="organization-user-text-state">
+          <div class="edit-proyect-user-text-state">
             <b>Estado:</b> {user.estado}
+          </div>
+
+          <div class="edit-proyect-user-text-delete">
+            <AiFillDelete
+              id="delete-icon-general"
+              onClick={this.hanldeSettings}
+            ></AiFillDelete>
           </div>
         </div>
       ))}
@@ -116,21 +137,31 @@ class EditProyect extends Component {
   );
 
   handleAddClient = () => {
+    var result = this.state.allClientes.filter(
+      (o1) =>
+        this.state.clientes.filter((o2) => o2.idUsuario === o1.idUsuario)
+          .length === 0
+    );
     if (!this.state.modalAddClient) {
       this.setState({
-        usuariosShowed: this.usuarios,
+        usuariosShowed: result,
       });
     }
     this.setState({
-      usuariosShowed: this.usuarios,
       modalAddClient: !this.state.modalAddClient,
     });
   };
 
   handleAddAnalyst = () => {
+    var result = this.state.allAnalistas.filter(
+      (o1) =>
+        this.state.analistas.filter((o2) => o2.idUsuario === o1.idUsuario)
+          .length === 0
+    );
+
     if (!this.state.modalAddAnalyst) {
       this.setState({
-        usuariosShowed: this.usuarios,
+        usuariosShowed: result,
       });
     }
     this.setState({
@@ -192,11 +223,40 @@ class EditProyect extends Component {
           <div class="setting-user-text">
             {user.nombre}&nbsp;{user.apellido}
           </div>
-          <Button id="agregar-usuario-proyecto">Agregar</Button>
+          <Button
+            id="agregar-usuario-proyecto"
+            onClick={this.addUserToProyect.bind(this, user.idUsuario)}
+          >
+            Agregar
+          </Button>
         </div>
       ))}
     </div>
   );
+
+  addUserToProyect = (userID) => {
+    const headers = {};
+    let jsonSent = {
+      idProyecto: this.props.location.megastate.proyect.idProyecto,
+      idUsuario: userID,
+    };
+    axios
+      .post(sessionStorage.getItem("api") + "api/usuarioproyecto/", jsonSent, {
+        headers: headers,
+      })
+      .then((response) => {
+        this.getAllUsers();
+        this.getUsersByProyectId();
+        this.applyTime();
+        this.setState({
+          modalAddClient: false,
+          modalAddAnalyst: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   editProyect = () => {
     this.props.history.push({
@@ -205,9 +265,45 @@ class EditProyect extends Component {
     });
   };
 
+  applyTime = (message) => {
+    this.setState(
+      {
+        isHidden: true,
+      },
+      () => {
+        this.useEffect();
+      }
+    );
+  };
+
+  useEffect() {
+    const timeId = setTimeout(() => {
+      this.handleAlert();
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }
+
+  handleAlert = () => {
+    this.setState({
+      isHidden: false,
+    });
+  };
+
+  goBack = () => {
+    this.props.history.push({
+      pathname: "/dashboard/organization/",
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
+        <Alert variant={"success"} show={this.state.isHidden}>
+          Se agrego el usuario al proyecto exitosamente
+        </Alert>
         <div class="header-proyect-admin">
           <h1>Editar Proyecto</h1>
         </div>
@@ -233,7 +329,7 @@ class EditProyect extends Component {
               </InputGroup>
               <BsPlusSquareFill class="etiqueta-add"></BsPlusSquareFill>
             </div>
-            <this.etiquetasRows etiquetas={this.etiquetas}>
+            <this.etiquetasRows etiquetas={this.state.etiquetas}>
               {" "}
             </this.etiquetasRows>
 
@@ -253,9 +349,16 @@ class EditProyect extends Component {
               style={{ height: "19%" }}
               defaultValue={this.props.location.megastate.proyect.descripcion}
             />
-            <Button id="edit-button" onClick={this.editProyect}>
-              Guardar
-            </Button>
+
+            <div class="create-user-buttons-div">
+              <Button id="save-button" onClick={this.editProyect}>
+                Guardar
+              </Button>
+
+              <Button id="save-button" onClick={this.goBack}>
+                Cancelar
+              </Button>
+            </div>
           </div>
           <div class="proyect-admin-left">
             <div class="organizacion-usuarios">
@@ -269,7 +372,9 @@ class EditProyect extends Component {
                   Agregar
                 </Button>
               </div>{" "}
-              <this.userRows users={this.usuarios}></this.userRows>
+              {!this.state.emptyClientes ? (
+                <this.userRows users={this.state.clientes}></this.userRows>
+              ) : null}
             </div>
             <div class="organizacion-usuarios">
               {" "}
@@ -282,7 +387,9 @@ class EditProyect extends Component {
                   Agregar
                 </Button>
               </div>{" "}
-              <this.userRows users={this.usuarios}></this.userRows>
+              {!this.state.emptyAnalistas ? (
+                <this.userRows users={this.state.analistas}></this.userRows>
+              ) : null}
             </div>
           </div>
         </div>
@@ -353,7 +460,7 @@ class EditProyect extends Component {
                 onClick={this.hanldeSettings}
                 id="boton-guardar-modal"
               >
-                Si
+                Aceptar
               </Button>
             </Modal.Footer>
           </Modal>

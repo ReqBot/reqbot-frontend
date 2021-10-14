@@ -3,11 +3,16 @@ import { withRouter } from "react-router-dom";
 import "./organizationManagement.css";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import { AiFillCloseCircle, AiFillEdit, AiFillDelete } from "react-icons/ai";
+import Modal from "react-bootstrap/Modal";
 
 class OrganizationManagement extends Component {
   state = {
     proyects: [],
     users: [],
+
+    modalDeleteProyect: false,
+    modalDeleteUser: false,
   };
   constructor(props) {
     super(props);
@@ -232,10 +237,7 @@ class OrganizationManagement extends Component {
   userRows = ({ users }) => (
     <div class="body-container-overflow-organization">
       {users.map((user) => (
-        <div
-          class="organization-info-body"
-          onClick={this.goToEditUser.bind(this, user)}
-        >
+        <div class="organization-info-body">
           <div class="organization-user-text-name">
             {user.nombre}&nbsp;{user.apellido}
           </div>
@@ -245,6 +247,20 @@ class OrganizationManagement extends Component {
           <div class="organization-user-text-state">
             <b>Estado:</b> {user.estado}
           </div>
+
+          <div class="organization-proyect-edit">
+            <AiFillEdit
+              id="delete-icon-general"
+              onClick={this.goToEditUser.bind(this, user)}
+            ></AiFillEdit>
+          </div>
+
+          <div class="organization-proyect-delete">
+            <AiFillDelete
+              id="delete-icon-general"
+              onClick={this.hanldeModalDeleteUser}
+            ></AiFillDelete>
+          </div>
         </div>
       ))}
     </div>
@@ -253,14 +269,8 @@ class OrganizationManagement extends Component {
   projectRows = ({ proyects }) => (
     <div class="body-container-overflow-organization">
       {proyects.map((proyect) => (
-        <div
-          class="organization-info-body-proyect"
-          onClick={this.goToProyectInfo.bind(this, proyect)}
-        >
+        <div class="organization-info-body-proyect">
           <div class="organization-proyect-text-name">{proyect.nombre}</div>
-          <div class="organization-proyect-text-description">
-            {proyect.descripcion}
-          </div>
           <div class="organization-proyect-text-state">
             <b>Estado: </b>
             <br />
@@ -269,10 +279,36 @@ class OrganizationManagement extends Component {
           <div class="organization-proyect-text-date-2">
             <b>Ultima Modificación:</b> {proyect.fechaModificacion}
           </div>
+
+          <div class="organization-proyect-edit">
+            <AiFillEdit
+              id="delete-icon-general"
+              onClick={this.goToProyectInfo.bind(this, proyect)}
+            ></AiFillEdit>
+          </div>
+
+          <div class="organization-proyect-delete">
+            <AiFillDelete
+              id="delete-icon-general"
+              onClick={this.hanldeModalDeleteUser}
+            ></AiFillDelete>
+          </div>
         </div>
       ))}
     </div>
   );
+
+  hanldeModalDeleteProyect = () => {
+    this.setState({
+      modalDeleteProyect: !this.state.modalDeleteProyect,
+    });
+  };
+
+  hanldeModalDeleteUser = () => {
+    this.setState({
+      modalDeleteUser: !this.state.modalDeleteUser,
+    });
+  };
 
   render() {
     return (
@@ -311,6 +347,70 @@ class OrganizationManagement extends Component {
             </div>
           </div>
         </div>
+
+        <Modal
+          show={this.state.modalDeleteProyect}
+          onHide={this.hanldeModalDeleteProyect}
+          id="settings-info-user"
+        >
+          <Modal.Header>
+            <Modal.Title>Eliminar Proyecto</Modal.Title>
+            <AiFillCloseCircle
+              id="btn-close"
+              onClick={this.hanldeModalDeleteProyect}
+            ></AiFillCloseCircle>
+          </Modal.Header>
+          <Modal.Body>
+            ¿Esta seguro que desea eliminar este proyecto?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={this.hanldeModalDeleteProyect}
+              id="boton-cerrar-modal"
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="primary"
+              onClick={this.hanldeModalDeleteProyect}
+              id="boton-guardar-modal"
+            >
+              Aceptar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal
+          show={this.state.modalDeleteUser}
+          onHide={this.hanldeModalDeleteUser}
+          id="settings-info-user"
+        >
+          <Modal.Header>
+            <Modal.Title>Eliminar Usuario</Modal.Title>
+            <AiFillCloseCircle
+              id="btn-close"
+              onClick={this.hanldeModalDeleteUser}
+            ></AiFillCloseCircle>
+          </Modal.Header>
+          <Modal.Body>¿Esta seguro que desea eliminar este usuario?</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={this.hanldeModalDeleteUser}
+              id="boton-cerrar-modal"
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="primary"
+              onClick={this.hanldeModalDeleteUser}
+              id="boton-guardar-modal"
+            >
+              Aceptar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </React.Fragment>
     );
   }

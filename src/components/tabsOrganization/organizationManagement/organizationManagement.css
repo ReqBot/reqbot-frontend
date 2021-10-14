@@ -52,6 +52,7 @@
 .organization-info-body {
   background-color: white;
   padding-left: 36px;
+  padding-right: 16px;
   height: 100px;
   display: flex;
   font-size: 15px;
@@ -60,13 +61,10 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.organization-info-body:hover {
-  cursor: pointer;
-}
-
 .organization-info-body-proyect {
   background-color: white;
   padding-left: 36px;
+  padding-right: 16px;
   height: 150px;
   display: flex;
   font-size: 15px;
@@ -75,26 +73,13 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.organization-info-body-proyect:hover {
-  cursor: pointer;
-}
-
 .organization-proyect-text-name {
   color: #545871;
   font-weight: bolder;
-  width: 100px;
+  width: 15%;
   margin-top: auto;
   margin-bottom: auto;
-}
-
-.organization-proyect-text-description {
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 7%;
-  overflow: hidden;
-  width: 150px;
-  max-height: 75%;
-  color: #545871;
+  text-align: start;
 }
 
 .organization-proyect-text-date-1 {
@@ -105,6 +90,8 @@
   width: fit-content;
   font-weight: bold;
   color: #545871;
+  width: 17%;
+  text-align: start;
 }
 
 .organization-proyect-text-date-2 {
@@ -115,25 +102,49 @@
   width: fit-content;
   font-style: italic;
   color: #545871;
-  width: 100px;
+  width: 30%;
+  text-align: start;
+}
+
+.organization-proyect-edit {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 32px;
+  width: fit-content;
+  font-style: italic;
+  color: #545871;
+  width: 1%;
+}
+
+.organization-proyect-delete {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: 32px;
+  width: fit-content;
+  font-style: italic;
+  color: #545871;
+  width: 1%;
 }
 
 .organization-user-text-name {
   color: #545871;
   font-weight: bolder;
-  width: 100px;
+  width: 25%;
   margin-top: auto;
   margin-bottom: auto;
+  text-align: start;
 }
 
 .organization-user-text-rol {
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 22%;
   overflow: hidden;
-  width: 140px;
+  width: 20%;
   max-height: 70%;
   color: #545871;
+  text-align: start;
 }
 
 .organization-user-text-state {
@@ -143,6 +154,8 @@
   margin-right: 32px;
   width: fit-content;
   color: #545871;
+  width: 20%;
+  text-align: start;
 }
 
 .body-container-overflow-organization {
