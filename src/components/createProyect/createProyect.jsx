@@ -21,7 +21,7 @@ class CreateProyect extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
+    console.log(new Date().toLocaleString());
   }
 
   componentDidMount() {}

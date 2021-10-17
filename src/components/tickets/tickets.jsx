@@ -423,7 +423,7 @@ class Tickets extends Component {
       <React.Fragment>
         <Alert variant={"success"} show={this.state.isHidden}>
           {" "}
-          Se aprobó la historia de usuario de forma exitosa.{" "}
+          Se creo el ticket de manera exitosa.{" "}
         </Alert>
         <div class="organization-titleDiv">
           <h1>Tickets</h1>
