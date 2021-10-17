@@ -318,7 +318,11 @@ class Logys extends Component {
   };
 
   applyAllFilters = () => {
-    var toGetFiltered = this.state.logsNoFilter;
+    if (this.state.logsOrdered.length == 0) {
+      var toGetFiltered = this.state.logsNoFilter;
+    } else {
+      var toGetFiltered = this.state.logsOrdered;
+    }
 
     if (this.flagSearchBar) {
       toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);

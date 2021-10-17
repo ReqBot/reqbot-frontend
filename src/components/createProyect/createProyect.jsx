@@ -128,7 +128,11 @@ class CreateProyect extends Component {
   transformSemiColonsToArray = (input) => {
     var stringOfEtiquetas = "";
     for (const i in input) {
-      stringOfEtiquetas = stringOfEtiquetas + input[i] + ";";
+      if (i != input.length - 1) {
+        stringOfEtiquetas = stringOfEtiquetas + input[i] + ";";
+      } else {
+        stringOfEtiquetas = stringOfEtiquetas + input[i];
+      }
     }
     return stringOfEtiquetas;
   };

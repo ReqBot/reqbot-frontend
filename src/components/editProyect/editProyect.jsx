@@ -10,6 +10,7 @@ import Modal from "react-bootstrap/Modal";
 import { AiFillCloseCircle, AiFillDelete } from "react-icons/ai";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
+import { MdRemoveCircle } from "react-icons/md";
 
 class EditProyect extends Component {
   state = {
@@ -18,6 +19,7 @@ class EditProyect extends Component {
     modalDelete: false,
     usuariosShowed: [],
 
+    etiquetaIndi: "",
     etiquetas: [],
     clientes: [],
     analistas: [],
@@ -32,6 +34,11 @@ class EditProyect extends Component {
     alertMessage: "",
 
     userToDelete: "undefined",
+
+    nombre: "",
+    descripcion: "",
+    estado: "",
+    incompleteFields: false,
   };
 
   constructor(props) {
@@ -104,12 +111,62 @@ class EditProyect extends Component {
   componentDidMount() {
     this.getAllUsers();
     this.getUsersByProyectId();
+
+    this.stringSplitter(this.props.location.megastate.proyect.etiqueta);
+    this.setState({
+      nombre: this.props.location.megastate.proyect.nombre,
+      descripcion: this.props.location.megastate.proyect.descripcion,
+    });
   }
 
+  stringSplitter = (etiquetasString) => {
+    var fields = etiquetasString.split(";");
+
+    this.setState({
+      etiquetas: fields,
+    });
+  };
+
+  addEtiqueta = () => {
+    if (this.state.etiquetaIndi != "") {
+      let newArr = this.state.etiquetas;
+      newArr.push(this.state.etiquetaIndi);
+      this.setState(
+        {
+          etiquetas: newArr,
+        },
+        () => {
+          this.setState({
+            etiquetaIndi: "",
+          });
+        }
+      );
+    }
+  };
+
+  removeEtiqueta = (index) => {
+    let newArr = this.state.etiquetas;
+    newArr.splice(index, 1);
+    this.setState({
+      etiquetas: newArr,
+    });
+  };
+
   etiquetasRows = ({ etiquetas }) => (
-    <div class="etiqueta-list">
+    <div class="etiquetas-list">
       {etiquetas.map((etiqueta) => (
-        <div class="etiqueta-row">{etiqueta} </div>
+        <div class="etiquetas-row">
+          <p>{etiqueta} </p>
+          <MdRemoveCircle
+            class="etiqueta-delete"
+            onClick={this.removeEtiqueta.bind(
+              this,
+              etiquetas.indexOf(etiqueta)
+            )}
+          >
+            {" "}
+          </MdRemoveCircle>
+        </div>
       ))}
     </div>
   );
@@ -268,11 +325,62 @@ class EditProyect extends Component {
       });
   };
 
+  transformSemiColonsToArray = (input) => {
+    var stringOfEtiquetas = "";
+    for (const i in input) {
+      if (i != input.length - 1) {
+        stringOfEtiquetas = stringOfEtiquetas + input[i] + ";";
+      } else {
+        stringOfEtiquetas = stringOfEtiquetas + input[i];
+      }
+    }
+    return stringOfEtiquetas;
+  };
+
   editProyect = () => {
-    this.props.history.push({
-      pathname: "/dashboard/organization/",
-      megastate: { alert: "editProyect" },
-    });
+    if (
+      this.state.nombre == "" ||
+      this.state.descripcion == "" ||
+      this.state.estado == "" ||
+      this.state.etiquetas.length <= 0
+    ) {
+      this.setState({
+        incompleteFields: true,
+      });
+    } else {
+      const headers = {};
+
+      let jsonSent = {
+        nombre: this.state.nombre,
+        fechaModificacion: new Date().toLocaleString(),
+        etiqueta: this.transformSemiColonsToArray(this.state.etiquetas),
+        descripcion: this.state.descripcion,
+        estado: this.state.estado,
+        numeroHistorias: "0",
+        numeroUsuarios: "0",
+        idOrganizacion: sessionStorage.getItem("idOrganizacion"),
+      };
+
+      axios
+        .put(
+          sessionStorage.getItem("api") +
+            "api/proyecto/" +
+            this.props.location.megastate.proyect.idProyecto,
+          jsonSent,
+          {
+            headers: headers,
+          }
+        )
+        .then((response) => {
+          this.props.history.push({
+            pathname: "/dashboard/organization/",
+            megastate: { alert: "editProyect" },
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   applyTime = (message) => {
@@ -331,6 +439,16 @@ class EditProyect extends Component {
       });
   };
 
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -349,6 +467,8 @@ class EditProyect extends Component {
                 aria-label="Nombre"
                 aria-describedby="basic-addon1"
                 defaultValue={this.props.location.megastate.proyect.nombre}
+                name="nombre"
+                onChange={this.handleChange}
               />
             </InputGroup>
 
@@ -358,20 +478,30 @@ class EditProyect extends Component {
                 <FormControl
                   aria-label="Etiqueta"
                   aria-describedby="basic-addon1"
+                  value={this.state.etiquetaIndi}
+                  name="etiquetaIndi"
+                  onChange={this.handleChange}
                 />
               </InputGroup>
-              <BsPlusSquareFill class="etiqueta-add"></BsPlusSquareFill>
+              <BsPlusSquareFill
+                class="etiqueta-add"
+                onClick={this.addEtiqueta}
+              ></BsPlusSquareFill>
             </div>
             <this.etiquetasRows etiquetas={this.state.etiquetas}>
               {" "}
             </this.etiquetasRows>
 
             <h5>Estado:</h5>
-            <Form.Select aria-label="Estado" id="proyect-info-select">
-              <option>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <Form.Select
+              aria-label="Estado"
+              id="proyect-info-select"
+              onClick={this.handleChange}
+              name="estado"
+            >
+              <option>Eliga un Estado</option>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
             </Form.Select>
 
             <h5>Descripción:</h5>
@@ -380,7 +510,9 @@ class EditProyect extends Component {
               as="textarea"
               placeholder="Leave a comment here"
               style={{ height: "19%" }}
-              defaultValue={this.props.location.megastate.proyect.descripcion}
+              defaultValue={this.state.descripcion}
+              name="descripcion"
+              onChange={this.handleChange}
             />
 
             <div class="create-user-buttons-div">
@@ -408,6 +540,9 @@ class EditProyect extends Component {
               {!this.state.emptyClientes ? (
                 <this.userRows users={this.state.clientes}></this.userRows>
               ) : null}
+              {this.state.emptyClientes ? (
+                <div class="empty-spacer"></div>
+              ) : null}
             </div>
             <div class="organizacion-usuarios">
               {" "}
@@ -424,6 +559,12 @@ class EditProyect extends Component {
                 <this.userRows users={this.state.analistas}></this.userRows>
               ) : null}
             </div>
+
+            {this.state.incompleteFields ? (
+              <div class="empty-edit">
+                *Por favor, complete todos los campos
+              </div>
+            ) : null}
           </div>
         </div>
         <div>

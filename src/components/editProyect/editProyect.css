@@ -148,3 +148,13 @@
 #delete-icon-general:hover {
   cursor: pointer;
 }
+
+.empty-spacer {
+  margin-top: 32px;
+}
+
+.empty-edit {
+  color: #545871;
+  font-weight: 600;
+  margin-top: 32px;
+}

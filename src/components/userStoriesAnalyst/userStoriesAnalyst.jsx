@@ -391,7 +391,11 @@ class UserStoriesAnalyst extends Component {
   };
 
   applyAllFilters = () => {
-    var toGetFiltered = this.state.useStoriesNoFilter;
+    if (this.state.userStoriesOrdered.length == 0) {
+      var toGetFiltered = this.state.useStories;
+    } else {
+      var toGetFiltered = this.state.userStoriesOrdered;
+    }
 
     if (this.flagSearchBar) {
       toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);

@@ -270,8 +270,9 @@ class TicketsAdmin extends Component {
       if (this.state.ordernarPor == "fecha-a") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/ticket/ascendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/ticket/ascendente/" +
+              sessionStorage.getItem("idOrganizacion")
           )
           .then((response) => {
             this.setState(
@@ -291,8 +292,9 @@ class TicketsAdmin extends Component {
       if (this.state.ordernarPor == "fecha-d") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/ticket/descendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/ticket/descendente/" +
+              sessionStorage.getItem("idOrganizacion")
           )
           .then((response) => {
             this.setState(
@@ -353,7 +355,11 @@ class TicketsAdmin extends Component {
   };
 
   applyAllFilters = () => {
-    var toGetFiltered = this.state.ticketsNoFilter;
+    if (this.state.ticketsOrdered.length == 0) {
+      var toGetFiltered = this.state.ticketsNoFilter;
+    } else {
+      var toGetFiltered = this.state.ticketsOrdered;
+    }
 
     if (this.flagSearchBar) {
       toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);

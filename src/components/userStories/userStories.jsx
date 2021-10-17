@@ -370,6 +370,7 @@ class UserStories extends Component {
               this.props.proyect.idProyecto
           )
           .then((response) => {
+            console.log(response);
             this.setState(
               {
                 userStoriesOrdered: response.data,
@@ -379,6 +380,8 @@ class UserStories extends Component {
                 this.setState({
                   modalFilterOrder: !this.state.modalFilterOrder,
                 });
+
+                console.log(this.state.userStoriesOrdered);
               }
             );
           })
@@ -446,7 +449,11 @@ class UserStories extends Component {
   };
 
   applyAllFilters = () => {
-    var toGetFiltered = this.state.useStoriesNoFilter;
+    if (this.state.userStoriesOrdered.length == 0) {
+      var toGetFiltered = this.state.useStoriesNoFilter;
+    } else {
+      var toGetFiltered = this.state.userStoriesOrdered;
+    }
 
     if (this.flagSearchBar) {
       toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);
@@ -908,7 +915,7 @@ class UserStories extends Component {
               onClick={this.approveUserStory}
               id="boton-guardar-modal"
             >
-              Aprobar
+              Guardar
             </Button>
           </Modal.Footer>
         </Modal>
