@@ -26,12 +26,14 @@ class UserStoriesAnalyst extends Component {
     selectedUserStoryModPor: "",
     selectedUserStoryIdProyecto: "",
     selectedUserStoryEstado: "",
+    selectedUserStoryPrioridad: "",
+    selectedUserStoryPuntaje: "",
 
     modalFilterOrder: false,
 
     ordernarPor: "",
     checkBoxOne: false,
-    checkBoxTwo: false,
+    checkBoxTwo: true,
     rol: "",
 
     emptyUserStories: false,
@@ -55,19 +57,17 @@ class UserStoriesAnalyst extends Component {
 
   setPagination() {
     if (this.state.useStories.length > 0) {
-      this.setState({
-        emptyUserStories: false,
-        emptyUserStoriesSearch: false,
-      });
-      if (this.state.useStories.length > 4) {
-        this.setState({
-          userStoriesShowed: this.state.useStories.slice(0, 4),
-        });
-      } else {
-        this.setState({
-          userStoriesShowed: this.state.useStories,
-        });
-      }
+      this.setState(
+        {
+          emptyUserStories: false,
+          emptyUserStoriesSearch: false,
+        },
+        () => {
+          this.setState({
+            userStoriesShowed: this.state.useStories,
+          });
+        }
+      );
     } else {
       if (this.flagFilter || this.flagSearchBar) {
         this.setState({
@@ -102,29 +102,13 @@ class UserStoriesAnalyst extends Component {
                 emptyUserStories: true,
               });
             } else {
-              //this.flagFilter = true;
+              this.flagFilter = true;
               this.applyAllFilters();
             }
           }
         );
       })
       .catch((error) => {
-        this.setState(
-          {
-            useStories: this.userStories,
-            useStoriesNoFilter: this.userStories,
-          },
-          () => {
-            if (this.state.useStories.length == 0) {
-              this.setState({
-                emptyUserStories: true,
-              });
-            } else {
-              //this.flagFilter = true;
-              this.applyAllFilters();
-            }
-          }
-        );
         console.log(error);
       });
   };
@@ -144,6 +128,8 @@ class UserStoriesAnalyst extends Component {
       selectedUserStoryModPor: HUIndexed.modificadoPor,
       selectedUserStoryIdProyecto: HUIndexed.idProyecto,
       selectedUserStoryEstado: HUIndexed.estado,
+      selectedUserStoryPrioridad: HUIndexed.prioridad,
+      selectedUserStoryPuntaje: HUIndexed.puntaje,
     });
   };
 
@@ -180,6 +166,8 @@ class UserStoriesAnalyst extends Component {
       fechaModificacion: this.state.selectedUserStoryFecha,
       modificadoPor: this.state.selectedUserStoryModPor,
       idProyecto: this.state.selectedUserStoryIdProyecto,
+      prioridad: this.state.selectedUserStoryPrioridad,
+      puntaje: this.state.selectedUserStoryPuntaje,
       estado: "Aprobado",
     };
 
@@ -322,8 +310,9 @@ class UserStoriesAnalyst extends Component {
       if (this.state.ordernarPor == "nombre-a") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/historiausuario/ascendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/historiausuario/ascendente/" +
+              this.props.proyect.idProyecto
           )
           .then((response) => {
             this.setState(
@@ -338,15 +327,14 @@ class UserStoriesAnalyst extends Component {
               }
             );
           })
-          .catch((error) => {
-            console.log("Error en obtener Logs ordenados");
-          });
+          .catch((error) => {});
       }
       if (this.state.ordernarPor == "nombre-d") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/historiausuario/descendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/historiausuario/ascendente/" +
+              this.props.proyect.idProyecto
           )
           .then((response) => {
             this.setState(
@@ -361,9 +349,7 @@ class UserStoriesAnalyst extends Component {
               }
             );
           })
-          .catch((error) => {
-            console.log("Error en obtener Logs ordenados");
-          });
+          .catch((error) => {});
       }
     } else {
       this.applyAllFilters();
@@ -515,6 +501,18 @@ class UserStoriesAnalyst extends Component {
           </Modal.Header>
           <Modal.Body>
             <div>
+              <b>Nombre</b>
+              <InputGroup className="mb-3 login-input">
+                <FormControl
+                  aria-label="Apellido"
+                  aria-describedby="basic-addon1"
+                  defaultValue={this.state.selectedUserStoryNombre}
+                  name="selectedUserStoryNombre"
+                  onChange={this.handleChange}
+                />
+              </InputGroup>
+            </div>
+            <div>
               <b>Como</b>
               <InputGroup className="mb-3 login-input">
                 <FormControl
@@ -549,6 +547,33 @@ class UserStoriesAnalyst extends Component {
                   onChange={this.handleChange}
                 />
               </InputGroup>
+            </div>
+
+            <div class="prioridad-puntaje-div">
+              <div class="prioridad-inside">
+                <b>Prioridad</b>
+                <InputGroup className="mb-3 login-input">
+                  <FormControl
+                    aria-label="Apellido"
+                    aria-describedby="basic-addon1"
+                    defaultValue={this.state.selectedUserStoryPrioridad}
+                    name="selectedUserStoryPrioridad"
+                    onChange={this.handleChange}
+                  />
+                </InputGroup>
+              </div>{" "}
+              <div class="prioridad-inside">
+                <b>Puntaje</b>
+                <InputGroup className="mb-3 login-input">
+                  <FormControl
+                    aria-label="Apellido"
+                    aria-describedby="basic-addon1"
+                    defaultValue={this.state.selectedUserStoryPuntaje}
+                    name="selectedUserStoryPuntaje"
+                    onChange={this.handleChange}
+                  />
+                </InputGroup>
+              </div>
             </div>
           </Modal.Body>
           <Modal.Footer>
@@ -620,10 +645,9 @@ class UserStoriesAnalyst extends Component {
             <div>
               <b>Ordenar Por</b>
               <Form.Select aria-label="Estado" id="proyect-info-select-filter">
-                <option></option>
-                <option value="1">Id</option>
-                <option value="1">Fecha de Modificación</option>
-                <option value="2">Nombre</option>
+                <option>Eliga</option>
+                <option value="nombre-a">Nombre ascendente</option>
+                <option value="nombre-d">Nombre descendente</option>
               </Form.Select>
             </div>
           </Modal.Body>

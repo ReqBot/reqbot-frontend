@@ -220,6 +220,8 @@ class Proyects extends Component {
         megastate: { proyect: proyectIndex },
       });
     }
+
+    sessionStorage.setItem("proyectSelected", JSON.stringify(proyectIndex));
   };
 
   proyects = [];

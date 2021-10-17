@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
+import Alert from "react-bootstrap/Alert";
 
 class Login extends Component {
   state = {
@@ -15,9 +16,19 @@ class Login extends Component {
 
     incompleteFields: false,
     incorrectFields: false,
+
+    isHidden: false,
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    if (this.props.location.megastate) {
+      if (this.props.location.megastate.alert) {
+        this.applyTme();
+      }
+    } else {
+      console.log("Entro acacc");
+    }
+  }
 
   constructor(props) {
     super(props);
@@ -34,16 +45,17 @@ class Login extends Component {
   };
 
   goToRegister = () => {
-    /*
-    console.log(3);
     this.props.history.push({
       pathname: "/register",
     });
-    */
+
+    /*
     this.props.changeParentLogin(true, "Andre", "analyst");
     this.props.history.push({
       pathname: "/dashboard/proyects",
     });
+
+    */
   };
 
   goLogin = () => {
@@ -119,9 +131,37 @@ class Login extends Component {
     );
   };
 
+  applyTme = () => {
+    this.setState({
+      isHidden: true,
+    });
+
+    this.useEffect();
+  };
+
+  useEffect() {
+    const timeId = setTimeout(() => {
+      this.handleAlert();
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }
+
+  handleAlert = () => {
+    this.setState({
+      isHidden: false,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
+        <Alert variant={"success"} show={this.state.isHidden}>
+          {" "}
+          Se registro de manera exitosa
+        </Alert>
         <div class="login-container">
           <img class="login-image" src={logo}></img>
           <h1>ReqBot</h1>

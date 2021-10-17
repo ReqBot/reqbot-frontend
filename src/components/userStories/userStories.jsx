@@ -23,6 +23,7 @@ class UserStories extends Component {
     useStories: [],
     userStoriesShowed: [],
     modalFilterOrder: false,
+    modalDelete: false,
 
     ordernarPor: "",
     checkBoxOne: false,
@@ -37,18 +38,20 @@ class UserStories extends Component {
 
     userStoriesOrdered: [],
 
-    evos: [
-      {
-        idHistoriaUsuario: 4,
-        nombre: "Historia 4",
-        rol: "Cliente",
-      },
-      {
-        idHistoriaUsuario: 5,
-        nombre: "Historia 4",
-        rol: "Cliente",
-      },
-    ],
+    modalEdit: false,
+    selectedUserStoryId: "",
+    selectedUserStoryNombre: "",
+    selectedUserStoryRol: "",
+    selectedUserStoryFuncionalidad: "",
+    selectedUserStoryResultado: "",
+    selectedUserStoryFecha: "",
+    selectedUserStoryModPor: "",
+    selectedUserStoryIdProyecto: "",
+    selectedUserStoryEstado: "",
+    selectedUserStoryPrioridad: "",
+    selectedUserStoryPuntaje: "",
+
+    evos: [],
   };
 
   searchBarInput = "";
@@ -288,7 +291,6 @@ class UserStories extends Component {
   );
 
   handleDetail = () => {
-    console.log(this.state.userStorySelected);
     if (!this.state.modalDetail) {
       axios
         .get(
@@ -297,8 +299,6 @@ class UserStories extends Component {
             this.state.userStorySelected.identificador
         )
         .then((resonse) => {
-          console.log("REEE");
-          console.log(resonse);
           this.setState({
             evos: resonse.data,
           });
@@ -365,8 +365,9 @@ class UserStories extends Component {
       if (this.state.ordernarPor == "nombre-a") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/historiausuario/ascendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/historiausuario/ascendente/" +
+              this.props.proyect.idProyecto
           )
           .then((response) => {
             this.setState(
@@ -381,15 +382,14 @@ class UserStories extends Component {
               }
             );
           })
-          .catch((error) => {
-            console.log("Error en obtener Logs ordenados");
-          });
+          .catch((error) => {});
       }
       if (this.state.ordernarPor == "nombre-d") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/historiausuario/descendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/historiausuario/ascendente/" +
+              this.props.proyect.idProyecto
           )
           .then((response) => {
             this.setState(
@@ -404,9 +404,7 @@ class UserStories extends Component {
               }
             );
           })
-          .catch((error) => {
-            console.log("Error en obtener Logs ordenados");
-          });
+          .catch((error) => {});
       }
     } else {
       this.applyAllFilters();
@@ -531,6 +529,45 @@ class UserStories extends Component {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  hanldeSettings = () => {
+    this.setState({
+      modalDelete: !this.state.modalDelete,
+    });
+  };
+
+  handleDeleteAndMore = () => {
+    this.setState({
+      modalDelete: !this.state.modalDelete,
+      modalDetail: !this.state.modalDetail,
+    });
+  };
+
+  handleEditAndMore = () => {
+    this.setState({
+      modalEdit: !this.state.modalEdit,
+      modalDetail: !this.state.modalDetail,
+
+      selectedUserStoryId: this.state.userStorySelected.idHistoriaUsuario,
+      selectedUserStoryNombre: this.state.userStorySelected.nombre,
+      selectedUserStoryRol: this.state.userStorySelected.rol,
+      selectedUserStoryFuncionalidad:
+        this.state.userStorySelected.funcionalidad,
+      selectedUserStoryResultado: this.state.userStorySelected.resultado,
+      selectedUserStoryFecha: this.state.userStorySelected.fechaModificacion,
+      selectedUserStoryModPor: this.state.userStorySelected.modificadoPor,
+      selectedUserStoryIdProyecto: this.state.userStorySelected.idProyecto,
+      selectedUserStoryEstado: this.state.userStorySelected.estado,
+      selectedUserStoryPrioridad: this.state.userStorySelected.prioridad,
+      selectedUserStoryPuntaje: this.state.userStorySelected.puntaje,
+    });
+  };
+
+  hanldeApprove = () => {
+    this.setState({
+      modalEdit: !this.state.modalEdit,
+    });
   };
 
   render() {
@@ -684,6 +721,12 @@ class UserStories extends Component {
           size="xl"
         >
           <div class="user-story-detail-div">
+            <div class="closing-button-div">
+              <AiFillCloseCircle
+                id="btn-close"
+                onClick={this.handleDetail}
+              ></AiFillCloseCircle>
+            </div>
             <div class="header-modal-us-detail">
               <h3>{this.state.userStorySelected.nombre}</h3>
               <h4>{this.state.userStorySelected.version} &nbsp;v</h4>
@@ -704,10 +747,22 @@ class UserStories extends Component {
               </p>
             </div>
 
-            <div class="body-modal-us-detail-middle">
-              <Button id="edit-delete-detail">Editar</Button>
-              <Button id="edit-delete-detail">Eliminar</Button>
-            </div>
+            {this.state.userStorySelected.estado == "Aprobado" ? (
+              <div class="body-modal-us-detail-middle">
+                <Button
+                  id="edit-delete-detail"
+                  onClick={this.handleEditAndMore}
+                >
+                  Editar
+                </Button>
+                <Button
+                  id="edit-delete-detail"
+                  onClick={this.handleDeleteAndMore}
+                >
+                  Eliminar
+                </Button>
+              </div>
+            ) : null}
 
             <div class="footer-modal-us-detail">
               <h3>Evolucion</h3>
@@ -716,6 +771,146 @@ class UserStories extends Component {
               ></this.evolutionRows>
             </div>
           </div>
+        </Modal>
+
+        <Modal
+          show={this.state.modalDelete}
+          onHide={this.hanldeSettings}
+          id="settings-info-user"
+        >
+          <Modal.Header>
+            <Modal.Title>Eliminar Historia de usuario</Modal.Title>
+            <AiFillCloseCircle
+              id="btn-close"
+              onClick={this.hanldeSettings}
+            ></AiFillCloseCircle>
+          </Modal.Header>
+          <Modal.Body>
+            ¿Esta seguro que desea eliminar esta historia de usuario?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={this.hanldeSettings}
+              id="boton-cerrar-modal"
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="primary"
+              onClick={this.deleteUserFromProyect}
+              id="boton-guardar-modal"
+            >
+              Aceptar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal
+          show={this.state.modalEdit}
+          onHide={this.hanldeApprove}
+          id="settings-info-user"
+        >
+          <Modal.Header>
+            <Modal.Title>Editar historia de usuario</Modal.Title>
+            <AiFillCloseCircle
+              id="btn-close"
+              onClick={this.hanldeApprove}
+            ></AiFillCloseCircle>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <b>Nombre</b>
+              <InputGroup className="mb-3 login-input">
+                <FormControl
+                  aria-label="Apellido"
+                  aria-describedby="basic-addon1"
+                  defaultValue={this.state.selectedUserStoryNombre}
+                  name="selectedUserStoryNombre"
+                  onChange={this.handleChange}
+                />
+              </InputGroup>
+            </div>
+            <div>
+              <b>Como</b>
+              <InputGroup className="mb-3 login-input">
+                <FormControl
+                  aria-label="Apellido"
+                  aria-describedby="basic-addon1"
+                  defaultValue={this.state.selectedUserStoryRol}
+                  name="selectedUserStoryRol"
+                  onChange={this.handleChange}
+                />
+              </InputGroup>
+            </div>
+            <div>
+              <b>Quiero</b>
+              <InputGroup className="mb-3 login-input">
+                <FormControl
+                  aria-label="Apellido"
+                  aria-describedby="basic-addon1"
+                  defaultValue={this.state.selectedUserStoryFuncionalidad}
+                  name="selectedUserStoryFuncionalidad"
+                  onChange={this.handleChange}
+                />
+              </InputGroup>
+            </div>
+            <div>
+              <b>Para que</b>
+              <InputGroup className="mb-3 login-input">
+                <FormControl
+                  aria-label="Apellido"
+                  aria-describedby="basic-addon1"
+                  defaultValue={this.state.selectedUserStoryResultado}
+                  name="selectedUserStoryResultado"
+                  onChange={this.handleChange}
+                />
+              </InputGroup>
+            </div>
+
+            <div class="prioridad-puntaje-div">
+              <div class="prioridad-inside">
+                <b>Prioridad</b>
+                <InputGroup className="mb-3 login-input">
+                  <FormControl
+                    aria-label="Apellido"
+                    aria-describedby="basic-addon1"
+                    defaultValue={this.state.selectedUserStoryPrioridad}
+                    name="selectedUserStoryPrioridad"
+                    onChange={this.handleChange}
+                  />
+                </InputGroup>
+              </div>{" "}
+              <div class="prioridad-inside">
+                <b>Puntaje</b>
+                <InputGroup className="mb-3 login-input">
+                  <FormControl
+                    aria-label="Apellido"
+                    aria-describedby="basic-addon1"
+                    defaultValue={this.state.selectedUserStoryPuntaje}
+                    name="selectedUserStoryPuntaje"
+                    onChange={this.handleChange}
+                  />
+                </InputGroup>
+              </div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={this.hanldeApprove}
+              id="boton-cerrar-modal"
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="primary"
+              onClick={this.approveUserStory}
+              id="boton-guardar-modal"
+            >
+              Aprobar
+            </Button>
+          </Modal.Footer>
         </Modal>
       </React.Fragment>
     );

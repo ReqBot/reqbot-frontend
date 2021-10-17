@@ -245,11 +245,12 @@ class Logys extends Component {
     }
 
     if (this.state.ordernarPor != "") {
-      if (this.state.ordernarPor == "fecha-d") {
+      if (this.state.ordernarPor == "fecha-a") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/logs/ascendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/logs/ascendente" +
+              sessionStorage.getItem("idOrganizacion")
           )
           .then((response) => {
             this.setState(
@@ -271,8 +272,9 @@ class Logys extends Component {
       if (this.state.ordernarPor == "fecha-d") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/logs/descendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/logs/descendente" +
+              sessionStorage.getItem("idOrganizacion")
           )
           .then((response) => {
             this.setState(

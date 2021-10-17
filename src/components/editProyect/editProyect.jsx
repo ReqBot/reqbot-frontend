@@ -29,6 +29,9 @@ class EditProyect extends Component {
     allAnalistas: [],
 
     isHidden: false,
+    alertMessage: "",
+
+    userToDelete: "undefined",
   };
 
   constructor(props) {
@@ -128,7 +131,7 @@ class EditProyect extends Component {
           <div class="edit-proyect-user-text-delete">
             <AiFillDelete
               id="delete-icon-general"
-              onClick={this.hanldeSettings}
+              onClick={this.openModalDeleteAndSetUser.bind(this, user)}
             ></AiFillDelete>
           </div>
         </div>
@@ -201,6 +204,13 @@ class EditProyect extends Component {
     });
   };
 
+  openModalDeleteAndSetUser = (user) => {
+    this.setState({
+      modalDelete: !this.state.modalDelete,
+      userToDelete: user,
+    });
+  };
+
   addToProyectUserRows = ({ users }) => (
     <div class="add-to-proyects-body">
       <div class="searchbar-div-add-user-proyect">
@@ -247,7 +257,7 @@ class EditProyect extends Component {
       .then((response) => {
         this.getAllUsers();
         this.getUsersByProyectId();
-        this.applyTime();
+        this.applyTime("Se agrego el usuario al proyecto de forma exitosa");
         this.setState({
           modalAddClient: false,
           modalAddAnalyst: false,
@@ -269,6 +279,7 @@ class EditProyect extends Component {
     this.setState(
       {
         isHidden: true,
+        alertMessage: message,
       },
       () => {
         this.useEffect();
@@ -298,11 +309,33 @@ class EditProyect extends Component {
     });
   };
 
+  deleteUserFromProyect = () => {
+    axios
+      .delete(
+        sessionStorage.getItem("api") +
+          "api/usuarioproyecto/project/" +
+          this.props.location.megastate.proyect.idProyecto +
+          "/user/" +
+          this.state.userToDelete.idUsuario
+      )
+      .then((response) => {
+        this.getAllUsers();
+        this.getUsersByProyectId();
+        this.applyTime("Se elimino el usuario del proyecto de forma exitosa");
+        this.setState({
+          modalDelete: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <React.Fragment>
         <Alert variant={"success"} show={this.state.isHidden}>
-          Se agrego el usuario al proyecto exitosamente
+          {this.state.alertMessage}
         </Alert>
         <div class="header-proyect-admin">
           <h1>Editar Proyecto</h1>
@@ -457,7 +490,7 @@ class EditProyect extends Component {
               </Button>
               <Button
                 variant="primary"
-                onClick={this.hanldeSettings}
+                onClick={this.deleteUserFromProyect}
                 id="boton-guardar-modal"
               >
                 Aceptar

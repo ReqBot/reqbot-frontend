@@ -46,7 +46,6 @@ class CreateTicket extends Component {
       this.state.tipo == "" ||
       this.state.descripcion == ""
     ) {
-      console.log("YEER");
       this.setState({
         incompleteFields: true,
       });

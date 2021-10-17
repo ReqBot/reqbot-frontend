@@ -10,10 +10,18 @@ class TabsProyectAnalyst extends Component {
   state = {
     isHidden: false,
   };
+  proyect = "";
 
   constructor(props) {
     super(props);
-    console.log(props);
+
+    if (this.props.location.megastate != null) {
+      if (this.props.location.megastate.proyect) {
+        this.proyect = this.props.location.megastate.proyect;
+      }
+    } else {
+      this.proyect = JSON.parse(sessionStorage.getItem("proyectSelected"));
+    }
   }
   componentDidMount() {}
 
@@ -28,10 +36,10 @@ class TabsProyectAnalyst extends Component {
       <React.Fragment>
         <Alert variant={"success"} show={this.state.isHidden}>
           {" "}
-          Se aprobó la historia de usuario exitosamente.{" "}
+          Se aprobó la historia de usuario de forma exitosa.{" "}
         </Alert>
         <div class="titleDiv">
-          <h1>{this.props.location.megastate.proyect.nombre}</h1>
+          <h1>{this.proyect.nombre}</h1>
         </div>
         <div class="tab-div-parent-analyst">
           <Tabs defaultActiveKey="pendientes" id="uncontrolled-tab-example">
@@ -39,14 +47,12 @@ class TabsProyectAnalyst extends Component {
               <div class="tab-div-child">
                 <UserStoriesAnalyst
                   handleAlert={this.handleAlert}
-                  proyect={this.props.location.megastate.proyect}
+                  proyect={this.proyect}
                 ></UserStoriesAnalyst>
               </div>
             </Tab>
             <Tab eventKey="info" title="Info">
-              <InfoProyect
-                proyect={this.props.location.megastate.proyect}
-              ></InfoProyect>
+              <InfoProyect proyect={this.proyect}></InfoProyect>
             </Tab>
           </Tabs>
         </div>

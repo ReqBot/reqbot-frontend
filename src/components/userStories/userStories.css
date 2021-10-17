@@ -118,7 +118,7 @@
 }
 
 .user-story-detail-div {
-  padding: 32px;
+  padding: 8px 32px 32px 32px;
 }
 
 .header-modal-us-detail {
@@ -178,7 +178,7 @@
   border-radius: 10px;
   color: #545871;
   background-color: white;
-  height: 50px;
+  height: 60px;
   display: flex;
   justify-content: space-evenly;
 }
@@ -205,4 +205,11 @@
   margin-top: auto;
   margin-bottom: auto;
   width: 15%;
+}
+
+.closing-button-div {
+  text-align: end;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  margin-right: -16px;
 }

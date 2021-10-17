@@ -13,6 +13,9 @@ class OrganizationManagement extends Component {
 
     modalDeleteProyect: false,
     modalDeleteUser: false,
+
+    proyectToDelete: false,
+    userToDelete: false,
   };
   constructor(props) {
     super(props);
@@ -22,16 +25,16 @@ class OrganizationManagement extends Component {
   componentDidMount() {
     if (this.props.location.megastate) {
       if (this.props.location.megastate.alert == "createProyect") {
-        this.props.applyTime("Se creo el proyecto exitosamente");
+        this.props.applyTime("Se creo el proyecto de forma exitosa");
       }
       if (this.props.location.megastate.alert == "createUser") {
-        this.props.applyTime("Se creo el usuario exitosamente");
+        this.props.applyTime("Se creo el usuario de forma exitosa");
       }
       if (this.props.location.megastate.alert == "editProyect") {
-        this.props.applyTime("Se edito el proyecto exitosamente");
+        this.props.applyTime("Se edito el proyecto de forma exitosa");
       }
       if (this.props.location.megastate.alert == "editUser") {
-        this.props.applyTime("Se edito el usuario exitosamente");
+        this.props.applyTime("Se edito el usuario de forma exitosa");
       }
     } else {
       console.log("Entro acacc");
@@ -249,17 +252,21 @@ class OrganizationManagement extends Component {
           </div>
 
           <div class="organization-proyect-edit">
-            <AiFillEdit
-              id="delete-icon-general"
-              onClick={this.goToEditUser.bind(this, user)}
-            ></AiFillEdit>
+            {user.rol != "Administrador" ? (
+              <AiFillEdit
+                id="delete-icon-general"
+                onClick={this.goToEditUser.bind(this, user)}
+              ></AiFillEdit>
+            ) : null}
           </div>
 
           <div class="organization-proyect-delete">
-            <AiFillDelete
-              id="delete-icon-general"
-              onClick={this.hanldeModalDeleteUser}
-            ></AiFillDelete>
+            {user.rol != "Administrador" ? (
+              <AiFillDelete
+                id="delete-icon-general"
+                onClick={this.assignUserToDelete.bind(this, user)}
+              ></AiFillDelete>
+            ) : null}
           </div>
         </div>
       ))}
@@ -290,13 +297,27 @@ class OrganizationManagement extends Component {
           <div class="organization-proyect-delete">
             <AiFillDelete
               id="delete-icon-general"
-              onClick={this.hanldeModalDeleteUser}
+              onClick={this.assignProyectToDelete.bind(this, proyect)}
             ></AiFillDelete>
           </div>
         </div>
       ))}
     </div>
   );
+
+  assignProyectToDelete = (proyect) => {
+    this.setState({
+      modalDeleteProyect: !this.state.modalDeleteProyect,
+      proyectToDelete: proyect,
+    });
+  };
+
+  assignUserToDelete = (user) => {
+    this.setState({
+      modalDeleteUser: !this.state.modalDeleteUser,
+      proyectToDelete: user,
+    });
+  };
 
   hanldeModalDeleteProyect = () => {
     this.setState({
@@ -308,6 +329,44 @@ class OrganizationManagement extends Component {
     this.setState({
       modalDeleteUser: !this.state.modalDeleteUser,
     });
+  };
+
+  deleteProyect = () => {
+    axios
+      .delete(
+        sessionStorage.getItem("api") +
+          "api/proyecto/" +
+          this.state.proyectToDelete.idProyecto
+      )
+      .then((response) => {
+        this.getProyects();
+        this.props.applyTime("Se elimino el proyecto de forma exitosa");
+        this.setState({
+          modalDeleteProyect: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  deleteUser = () => {
+    axios
+      .delete(
+        sessionStorage.getItem("api") +
+          "api/usuario/" +
+          this.state.userToDelete.idUsuario
+      )
+      .then((response) => {
+        this.getUsers();
+        this.props.applyTime("Se elimino el usuario de forma exitosa");
+        this.setState({
+          modalDeleteUser: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   render() {
@@ -373,7 +432,7 @@ class OrganizationManagement extends Component {
             </Button>
             <Button
               variant="primary"
-              onClick={this.hanldeModalDeleteProyect}
+              onClick={this.deleteProyect}
               id="boton-guardar-modal"
             >
               Aceptar
@@ -404,7 +463,7 @@ class OrganizationManagement extends Component {
             </Button>
             <Button
               variant="primary"
-              onClick={this.hanldeModalDeleteUser}
+              onClick={this.deleteUser}
               id="boton-guardar-modal"
             >
               Aceptar
