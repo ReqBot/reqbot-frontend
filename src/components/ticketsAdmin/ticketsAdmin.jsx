@@ -419,7 +419,7 @@ class TicketsAdmin extends Component {
 
     let jsonSent = {
       titulo: this.state.selectedTicket.titulo,
-      fecha: new Date().toLocaleString(),
+      fecha: new Date().toLocaleString("en-US"),
       tipo: this.state.selectedTicket.tipo,
       descripcion: this.state.selectedTicket.descripcion,
       estado: "Resuelto",

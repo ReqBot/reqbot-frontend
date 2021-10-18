@@ -399,8 +399,9 @@ class Proyects extends Component {
       if (this.state.ordernarPor == "nombre-a") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/proyecto/ascendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/proyecto/ascendente/" +
+              sessionStorage.getItem("idUsuario")
           )
           .then((response) => {
             this.setState(
@@ -422,8 +423,9 @@ class Proyects extends Component {
       if (this.state.ordernarPor == "nombre-d") {
         axios
           .get(
-            sessionStorage.getItem("api") + "api/proyecto/descendente"
-            //sessionStorage.getItem("idOrganizacion"))
+            sessionStorage.getItem("api") +
+              "api/proyecto/descendente/" +
+              sessionStorage.getItem("idUsuario")
           )
           .then((response) => {
             this.setState(
@@ -639,19 +641,22 @@ class Proyects extends Component {
                 </InputGroup>
               </div>
             </div>
-            <div>
-              <b>Ordenar Por</b>
-              <Form.Select
-                aria-label="Estado"
-                id="proyect-info-select-filter"
-                onClick={this.handleChange}
-                name="ordernarPor"
-              >
-                <option>Eliga</option>
-                <option value="nombre-a">Nombre ascendente</option>
-                <option value="nombre-d">Nombre descendente</option>
-              </Form.Select>
-            </div>
+
+            {sessionStorage.getItem("rol") != "Administrador" ? (
+              <div>
+                <b>Ordenar Por</b>
+                <Form.Select
+                  aria-label="Estado"
+                  id="proyect-info-select-filter"
+                  onClick={this.handleChange}
+                  name="ordernarPor"
+                >
+                  <option>Eliga</option>
+                  <option value="nombre-a">Nombre ascendente</option>
+                  <option value="nombre-d">Nombre descendente</option>
+                </Form.Select>
+              </div>
+            ) : null}
           </Modal.Body>
           <Modal.Footer>
             <Button

@@ -198,3 +198,8 @@
 #search-bar-add-user-proyect {
   height: 30px;
 }
+
+.body-container-overflow-organization-info2 {
+  max-height: 400px;
+  overflow: auto;
+}

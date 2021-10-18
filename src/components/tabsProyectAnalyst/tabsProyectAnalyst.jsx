@@ -9,6 +9,9 @@ import Alert from "react-bootstrap/Alert";
 class TabsProyectAnalyst extends Component {
   state = {
     isHidden: false,
+    isHidden2: false,
+
+    alertMessage: "",
   };
   proyect = "";
 
@@ -31,12 +34,44 @@ class TabsProyectAnalyst extends Component {
     });
   };
 
+  applyTime = (message) => {
+    this.setState(
+      {
+        isHidden2: true,
+        alertMessage: message,
+      },
+      () => {
+        this.useEffect();
+      }
+    );
+  };
+
+  useEffect() {
+    const timeId = setTimeout(() => {
+      this.handleAlert2();
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }
+
+  handleAlert2 = () => {
+    this.setState({
+      isHidden2: false,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
         <Alert variant={"success"} show={this.state.isHidden}>
           {" "}
           Se aprobó la historia de usuario de forma exitosa.{" "}
+        </Alert>
+
+        <Alert variant={"success"} show={this.state.isHidden2}>
+          {this.state.alertMessage}
         </Alert>
         <div class="titleDiv">
           <h1>{this.proyect.nombre}</h1>
@@ -52,7 +87,10 @@ class TabsProyectAnalyst extends Component {
               </div>
             </Tab>
             <Tab eventKey="info" title="Info">
-              <InfoProyect proyect={this.proyect}></InfoProyect>
+              <InfoProyect
+                proyect={this.proyect}
+                makeAlert={this.applyTime}
+              ></InfoProyect>
             </Tab>
           </Tabs>
         </div>

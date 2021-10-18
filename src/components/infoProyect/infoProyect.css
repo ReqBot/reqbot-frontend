@@ -5,46 +5,55 @@
   display: flex;
   flex-direction: column;
   height: 740px;
-  padding: 32px 16px 32px 16px;
+  padding: 32px 32px 32px 32px;
   font-size: 17px;
 }
 
 .fecha {
-  height: 30px;
+  height: 35px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
 
 .fecha .sub-title {
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .etiqueta {
-  height: 30px;
+  height: 35px;
   width: 100%;
   display: flex;
 }
 
 .etiqueta .sub-title {
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .estado {
-  height: 30px;
+  height: 35px;
   width: 100%;
   display: flex;
 }
 
 .estado .sub-title {
-  font-weight: 500;
+  font-weight: bold;
+}
+
+.descripcion-title {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 24px;
+  font-weight: bold;
 }
 
 .descripcion {
-  padding: 32px 16px 0px 16px;
-  width: 90%;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
+  margin-top: 8px;
+  font-style: italic;
 }
 
 .button-div {

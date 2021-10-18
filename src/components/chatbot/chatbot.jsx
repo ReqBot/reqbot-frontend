@@ -56,7 +56,7 @@ class Chatbot extends Component {
 
   logger = (user, message) => {
     this.logMessage =
-      this.logMessage + new Date().toLocaleString() + this.newLine;
+      this.logMessage + new Date().toLocaleString("en-US") + this.newLine;
     this.logMessage =
       this.logMessage +
       " " +
@@ -87,7 +87,7 @@ class Chatbot extends Component {
       archivo: encodedString64,
       idProyecto: this.props.proyect.idProyecto,
       estado: "-",
-      fecha: new Date().toLocaleString(),
+      fecha: new Date().toLocaleString("en-US"),
       nombreProyecto: this.props.proyect.nombre,
     };
 
@@ -206,7 +206,7 @@ class Chatbot extends Component {
       rol: this.state.rol,
       funcionalidad: this.state.attribute,
       resultado: this.state.consequence,
-      fechaModificacion: new Date().toLocaleString(),
+      fechaModificacion: new Date().toLocaleString("en-US"),
       modificadoPor: sessionStorage.getItem("idUsuario"),
       idProyecto: this.props.proyect.idProyecto,
       estado: "Pendiente",

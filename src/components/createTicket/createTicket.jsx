@@ -19,12 +19,10 @@ class CreateTicket extends Component {
   constructor(props) {
     super(props);
 
-    console.log(new Date().toLocaleString());
+    console.log(new Date().toLocaleString("en-US"));
   }
 
   componentDidMount() {}
-
-  etiquetas = ["Movil", "Perro", "Carro", "Carro"];
 
   etiquetasRows = ({ etiquetas }) => (
     <div class="etiqueta-list">
@@ -57,13 +55,11 @@ class CreateTicket extends Component {
             sessionStorage.getItem("idOrganizacion")
         )
         .then((response) => {
-          console.log("Historia de usuario");
-          console.log(response.data[0]);
           const headers = {};
 
           let jsonSent = {
             titulo: this.state.titulo,
-            fecha: new Date().toLocaleString(),
+            fecha: new Date().toLocaleString("en-US"),
             tipo: this.state.tipo,
             descripcion: this.state.descripcion,
             estado: "Pendiente",

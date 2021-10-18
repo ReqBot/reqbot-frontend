@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./infoProyect.css";
-import Button from "react-bootstrap/Button";
 import UserInfoProyect from "./usersInfoProyect/usersInfoProyect";
+import Alert from "react-bootstrap/Alert";
 
 class InfoProyect extends Component {
   constructor(props) {
     super(props);
     console.log(props);
   }
+
   componentDidMount() {}
 
   render() {
@@ -27,15 +28,17 @@ class InfoProyect extends Component {
             <p class="sub-title">Estado: &nbsp;</p>
             <p> {this.props.proyect.estado}</p>
           </div>
-
+          <div class="descripcion-title">Descripción</div>
           <div class="descripcion">{this.props.proyect.descripcion}</div>
-          <div class="button-div">
-            <Button id="button-info">Editar</Button>
-          </div>
 
           <div class="info-users">
-            {" "}
-            <UserInfoProyect></UserInfoProyect>
+            {sessionStorage.getItem("rol") == "Administrador" ||
+            sessionStorage.getItem("rol") == "Analista" ? (
+              <UserInfoProyect
+                proyect={this.props.proyect}
+                makeAlert={this.props.makeAlert}
+              ></UserInfoProyect>
+            ) : null}
           </div>
         </div>
       </React.Fragment>
