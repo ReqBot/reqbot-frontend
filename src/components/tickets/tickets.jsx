@@ -85,6 +85,8 @@ class Tickets extends Component {
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {
+        console.log("Yeeer");
+        console.log(resonse);
         this.setState(
           {
             ticketsShowed: resonse.data,

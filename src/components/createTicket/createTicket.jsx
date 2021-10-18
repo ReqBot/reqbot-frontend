@@ -19,7 +19,7 @@ class CreateTicket extends Component {
   constructor(props) {
     super(props);
 
-    console.log(new Date().toLocaleString("en-GB"));
+    console.log(new Date().toLocaleString());
   }
 
   componentDidMount() {}
@@ -50,30 +50,41 @@ class CreateTicket extends Component {
         incompleteFields: true,
       });
     } else {
-      const headers = {};
-
-      let jsonSent = {
-        titulo: this.state.titulo,
-        fecha: new Date().toLocaleString("en-GB"),
-        tipo: this.state.tipo,
-        descripcion: this.state.descripcion,
-        estado: "Pendiente",
-        creadoPor: sessionStorage.getItem("idUsuario"),
-      };
-
       axios
-        .post(sessionStorage.getItem("api") + "api/ticket/", jsonSent, {
-          headers: headers,
-        })
+        .get(
+          sessionStorage.getItem("api") +
+            "api/historiausuario/organizacion/" +
+            sessionStorage.getItem("idOrganizacion")
+        )
         .then((response) => {
-          this.props.history.push({
-            pathname: "/dashboard/tickets",
-            megastate: { alert: true },
-          });
+          console.log("Historia de usuario");
+          console.log(response.data[0]);
+          const headers = {};
+
+          let jsonSent = {
+            titulo: this.state.titulo,
+            fecha: new Date().toLocaleString(),
+            tipo: this.state.tipo,
+            descripcion: this.state.descripcion,
+            estado: "Pendiente",
+            creadoPor: response.data[0].idHistoriaUsuario,
+          };
+
+          axios
+            .post(sessionStorage.getItem("api") + "api/ticket/", jsonSent, {
+              headers: headers,
+            })
+            .then((response) => {
+              this.props.history.push({
+                pathname: "/dashboard/tickets",
+                megastate: { alert: true },
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch((error) => {});
     }
   };
 

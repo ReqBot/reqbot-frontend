@@ -21,7 +21,7 @@ class CreateProyect extends Component {
 
   constructor(props) {
     super(props);
-    console.log(new Date().toLocaleString());
+    console.log(new Date().toLocaleString("en-US"));
   }
 
   componentDidMount() {}
@@ -65,7 +65,7 @@ class CreateProyect extends Component {
 
       let jsonSent = {
         nombre: this.state.nombre,
-        fechaModificacion: new Date().toLocaleString(),
+        fechaModificacion: new Date().toLocaleString("en-US"),
         etiqueta: this.transformSemiColonsToArray(this.state.etiquetas),
         descripcion: this.state.descripcion,
         estado: "Activo",

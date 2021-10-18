@@ -27,7 +27,7 @@ class Organization extends Component {
         });
       })
       .catch((error) => {
-        console.log("Error en obtener Proyectos ordenados");
+        console.log("Error en obtener Organizacion");
       });
   }
 
