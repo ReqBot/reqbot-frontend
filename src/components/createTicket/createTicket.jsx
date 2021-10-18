@@ -19,7 +19,7 @@ class CreateTicket extends Component {
   constructor(props) {
     super(props);
 
-    console.log(sessionStorage.getItem("idUsuario"));
+    console.log(new Date().toLocaleString("en-GB"));
   }
 
   componentDidMount() {}
@@ -54,7 +54,7 @@ class CreateTicket extends Component {
 
       let jsonSent = {
         titulo: this.state.titulo,
-        fecha: new Date().toLocaleString(),
+        fecha: new Date().toLocaleString("en-GB"),
         tipo: this.state.tipo,
         descripcion: this.state.descripcion,
         estado: "Pendiente",
