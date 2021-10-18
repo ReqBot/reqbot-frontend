@@ -65,7 +65,9 @@ class TabsOrganization extends Component {
             </Tab>
             <Tab eventKey="Perfil" title="Perfil">
               <div class="tab-div-child">
-                <OrganizationProfile></OrganizationProfile>
+                <OrganizationProfile
+                  applyTime={this.applyTime}
+                ></OrganizationProfile>
               </div>
             </Tab>
           </Tabs>

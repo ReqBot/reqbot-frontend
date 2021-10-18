@@ -9,7 +9,15 @@ class OrganizationProfile extends Component {
     super(props);
     console.log(props);
   }
-  componentDidMount() {}
+  componentDidMount() {
+    if (this.props.location.megastate) {
+      if (this.props.location.megastate.alert == "alert") {
+        this.props.applyTime("Se edito la información correctamente");
+      }
+    } else {
+      console.log("Entro acacc");
+    }
+  }
 
   goToInfoEdit = () => {
     this.props.history.push({
@@ -24,7 +32,7 @@ class OrganizationProfile extends Component {
           <div class="account-top-button">
             <div class="left-side"></div>
             <div class="inside-account-info">
-              <h5>Información y configuración</h5>
+              <h5>Información de cuenta</h5>
               <p>Nombre</p>
               <p>Idioma</p>
               <p>Color Primario</p>
@@ -43,7 +51,6 @@ class OrganizationProfile extends Component {
               <p>Descripción</p>
               <p>Costo</p>
               <p>Fecha de caducidad</p>
-              <Button id="edit-account-info">Editar</Button>
             </div>
           </div>
         </div>
@@ -52,11 +59,15 @@ class OrganizationProfile extends Component {
           <div class="account-bottom-button">
             <div class="left-side"></div>
             <div class="inside-account-info">
-              <h5>Información y configuración</h5>
+              <h5>Información de organización</h5>
               <p>Número de proyectos:</p>
               <p>Número de Historias de usuarios:</p>
               <p>Número de Clientes:</p>
               <p>Número de Analistas:</p>
+
+              <Button id="edit-account-info" onClick={this.goToInfoEdit}>
+                Editar
+              </Button>
             </div>
           </div>
         </div>

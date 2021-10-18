@@ -249,7 +249,11 @@ class Register extends Component {
             ) : null}
             {this.state.phase == 2 ? (
               <div class="register-info">
-                <h4>Datos de organización:</h4>{" "}
+                <div>
+                  {" "}
+                  <h4>Datos de organización:</h4>{" "}
+                </div>
+
                 <div class="register-seccions">
                   <div class="col-register">
                     <p>Nombre:</p>
@@ -316,7 +320,7 @@ class Register extends Component {
                         <h5>Color Primario:</h5>
                         <SliderPicker
                           color={this.state.color1}
-                          onChangeComplete={this.handleChangeComplete1}
+                          onChangeComplete={this.handleChangeComplete}
                         />
                       </div>
 
@@ -351,7 +355,11 @@ class Register extends Component {
 
             {this.state.phase == 3 ? (
               <div class="register-info">
-                <h4>Datos de cuenta:</h4>{" "}
+                <div>
+                  {" "}
+                  <h4>Datos de cuenta:</h4>{" "}
+                </div>
+
                 <div class="register-seccions">
                   <div class="col-register">
                     <p>Nombre:</p>

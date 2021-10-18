@@ -466,7 +466,7 @@ class EditProyect extends Component {
                 placeholder="Nombre"
                 aria-label="Nombre"
                 aria-describedby="basic-addon1"
-                defaultValue={this.props.location.megastate.proyect.nombre}
+                defaultValue={this.state.nombre}
                 name="nombre"
                 onChange={this.handleChange}
               />

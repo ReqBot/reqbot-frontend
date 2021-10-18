@@ -36,7 +36,7 @@
 }
 
 .register-parts {
-  width: 60%;
+  width: 65%;
   height: 80%;
   margin: auto;
   background-color: #545871;
@@ -91,7 +91,9 @@
   background-color: #ffff;
   border-radius: 10px;
   color: #545871;
-  padding: 24px;
+  padding: 24px 24px 24px 12px;
+  display: flex;
+  flex-direction: column;
 }
 
 .register-info h4 {
@@ -111,6 +113,7 @@
   margin-right: auto;
   display: flex;
   justify-content: space-around;
+  margin-top: auto;
 }
 
 #boton-guardar-modal-2 {
