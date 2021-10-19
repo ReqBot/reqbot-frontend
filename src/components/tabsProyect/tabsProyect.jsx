@@ -5,9 +5,16 @@ import "./tabsProyect.css";
 import Chatbot from "../chatbot/chatbot";
 import UserStories from "../userStories/userStories";
 import InfoProyect from "../infoProyect/infoProyect";
+import Alert from "react-bootstrap/Alert";
 
 class TabsProyect extends Component {
   proyect = "";
+
+  state = {
+    isHidden: false,
+
+    alertMessage: "",
+  };
 
   constructor(props) {
     super(props);
@@ -21,11 +28,42 @@ class TabsProyect extends Component {
     }
   }
 
+  handleAlert = () => {
+    this.setState({
+      isHidden: !this.state.isHidden,
+    });
+  };
+
+  applyTime = (message) => {
+    this.setState(
+      {
+        isHidden: true,
+        alertMessage: message,
+      },
+      () => {
+        this.useEffect();
+      }
+    );
+  };
+
+  useEffect() {
+    const timeId = setTimeout(() => {
+      this.handleAlert();
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }
+
   componentDidMount() {}
 
   render() {
     return (
       <React.Fragment>
+        <Alert variant={"success"} show={this.state.isHidden}>
+          {this.state.alertMessage}
+        </Alert>
         <div class="titleDiv">
           <h1>{this.proyect.nombre}</h1>
         </div>
@@ -38,7 +76,10 @@ class TabsProyect extends Component {
             </Tab>
             <Tab eventKey="historias" title="Historias">
               <div class="tab-div-child">
-                <UserStories proyect={this.proyect}></UserStories>
+                <UserStories
+                  proyect={this.proyect}
+                  makeAlert={this.applyTime}
+                ></UserStories>
               </div>
             </Tab>
             <Tab eventKey="info" title="Info">

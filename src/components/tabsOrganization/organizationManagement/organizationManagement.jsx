@@ -333,9 +333,9 @@ class OrganizationManagement extends Component {
 
   deleteProyect = () => {
     axios
-      .delete(
+      .get(
         sessionStorage.getItem("api") +
-          "api/proyecto/" +
+          "/api/proyecto/delete/" +
           this.state.proyectToDelete.idProyecto
       )
       .then((response) => {
@@ -354,7 +354,7 @@ class OrganizationManagement extends Component {
     axios
       .delete(
         sessionStorage.getItem("api") +
-          "api/usuario/" +
+          "api/usuario/delete/" +
           this.state.userToDelete.idUsuario
       )
       .then((response) => {

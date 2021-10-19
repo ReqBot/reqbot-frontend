@@ -26,6 +26,8 @@ class UserStoriesAnalyst extends Component {
     selectedUserStoryModPor: "",
     selectedUserStoryIdProyecto: "",
     selectedUserStoryEstado: "",
+    selectedUserStoryIdentificador: "",
+    selectedUserStoryVersion: "",
     selectedUserStoryPrioridad: "",
     selectedUserStoryPuntaje: "",
 
@@ -128,6 +130,8 @@ class UserStoriesAnalyst extends Component {
       selectedUserStoryModPor: HUIndexed.modificadoPor,
       selectedUserStoryIdProyecto: HUIndexed.idProyecto,
       selectedUserStoryEstado: HUIndexed.estado,
+      selectedUserStoryIdentificador: HUIndexed.identificador,
+      selectedUserStoryVersion: HUIndexed.version,
       selectedUserStoryPrioridad: HUIndexed.prioridad,
       selectedUserStoryPuntaje: HUIndexed.puntaje,
     });
@@ -156,40 +160,56 @@ class UserStoriesAnalyst extends Component {
   }
 
   approveUserStory = () => {
-    const headers = {};
-
-    let jsonSent = {
-      nombre: this.state.selectedUserStoryNombre,
-      rol: this.state.selectedUserStoryRol,
-      funcionalidad: this.state.selectedUserStoryFuncionalidad,
-      resultado: this.state.selectedUserStoryResultado,
-      fechaModificacion: this.state.selectedUserStoryFecha,
-      modificadoPor: this.state.selectedUserStoryModPor,
-      idProyecto: this.state.selectedUserStoryIdProyecto,
-      prioridad: this.state.selectedUserStoryPrioridad,
-      puntaje: this.state.selectedUserStoryPuntaje,
-      estado: "Aprobado",
-    };
-
     axios
-      .put(
+      .get(
         sessionStorage.getItem("api") +
-          "api/historiausuario/" +
-          this.state.selectedUserStoryId,
-        jsonSent,
-        {
-          headers: headers,
-        }
+          "api/historiausuario/ultimaversion/" +
+          this.state.selectedUserStoryIdentificador
       )
       .then((response) => {
-        console.log(response.data);
-        this.hanldeApprove();
-        this.getAlert();
-        this.getUserStories();
+        var lastver =
+          (parseFloat(response.data[0].version) + 1).toString() + ".0";
+
+        const headers = {};
+
+        let jsonSent = {
+          nombre: this.state.selectedUserStoryNombre,
+          rol: this.state.selectedUserStoryRol,
+          funcionalidad: this.state.selectedUserStoryFuncionalidad,
+          resultado: this.state.selectedUserStoryResultado,
+          fechaModificacion: this.state.selectedUserStoryFecha,
+          modificadoPor: this.state.selectedUserStoryModPor,
+          idProyecto: this.state.selectedUserStoryIdProyecto,
+          estado: "Aprobado",
+          identificador: this.state.selectedUserStoryIdentificador,
+          version: lastver,
+          prioridad: this.state.selectedUserStoryPrioridad,
+          puntaje: this.state.selectedUserStoryPuntaje,
+        };
+
+        axios
+          .post(
+            sessionStorage.getItem("api") + "api/historiausuario/",
+            jsonSent,
+            {
+              headers: headers,
+            }
+          )
+          .then((response) => {
+            this.getUserStories();
+            this.props.makeAlert(
+              "Se aprobo la historia de usuario de forma exitosa"
+            );
+
+            this.setState({
+              modalApprove: false,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 
   Test = ({ UserStories }) => (

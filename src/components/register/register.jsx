@@ -106,23 +106,30 @@ class Register extends Component {
   };
 
   plansCols = ({ planes }) => (
-    <div class="plan-flex-div">
-      {planes.map((plan) => (
-        <div
-          class="plan-card"
-          onClick={this.selectPlanAndNextPhase.bind(this, plan)}
-        >
-          <h5>{plan.nombre}</h5>
-          <p>{plan.descripcion}</p>
-          <p>
-            <b>S/.{plan.costo}</b>
-          </p>
-          <p>
-            <i>Mensual</i>
-          </p>{" "}
-          <Button id="boton-guardar-modal">Elegir</Button>
-        </div>
-      ))}
+    <div class="register-parts-2">
+      <div class="plan-flex-div">
+        {planes.map((plan) => (
+          <div
+            class="plan-card"
+            onClick={this.selectPlanAndNextPhase.bind(this, plan)}
+          >
+            <h5>{plan.nombre}</h5>
+            <p>{plan.descripcion}</p>
+            <p>
+              <b>S/.{plan.costo}</b>
+            </p>
+            <p>
+              <i>Mensual</i>
+            </p>{" "}
+            <Button id="boton-guardar-modal">Elegir</Button>
+          </div>
+        ))}
+      </div>
+      <div class="go-back-div">
+        <Button id="go-back-register" onClick={this.goBack}>
+          Regresar
+        </Button>{" "}
+      </div>
     </div>
   );
 
@@ -236,6 +243,12 @@ class Register extends Component {
           });
       }
     }
+  };
+
+  goBack = () => {
+    this.props.history.push({
+      pathname: "/",
+    });
   };
 
   render() {
@@ -461,6 +474,12 @@ class Register extends Component {
               </div>
             ) : null}
           </div>
+          <p class="footer-login">
+            Lima,
+            <br />
+            Proyecto de tesis de Luis Kcomt y Andres Lopez <br />
+            octubre, 2021
+          </p>
         </div>
       </React.Fragment>
     );

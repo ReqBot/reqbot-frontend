@@ -163,7 +163,10 @@ class Login extends Component {
           Se registro de manera exitosa
         </Alert>
         <div class="login-container">
-          <img class="login-image" src={logo}></img>
+          {" "}
+          <div class="login-title">
+            <img class="login-image" src={logo}></img>{" "}
+          </div>
           <h1>ReqBot</h1>
           <div class="input-parts">
             {" "}
@@ -214,6 +217,12 @@ class Login extends Component {
               ¿Olvidaste tu contraseña?
             </p>
           </div>
+          <p class="footer-login">
+            Lima,
+            <br />
+            Proyecto de tesis de Luis Kcomt y Andres Lopez <br />
+            octubre, 2021
+          </p>
         </div>
       </React.Fragment>
     );

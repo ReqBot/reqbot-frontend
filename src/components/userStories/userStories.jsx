@@ -48,6 +48,8 @@ class UserStories extends Component {
     selectedUserStoryModPor: "",
     selectedUserStoryIdProyecto: "",
     selectedUserStoryEstado: "",
+    selectedUserStoryIdentificador: "",
+    selectedUserStoryVersion: "",
     selectedUserStoryPrioridad: "",
     selectedUserStoryPuntaje: "",
 
@@ -72,6 +74,8 @@ class UserStories extends Component {
           this.props.proyect.idProyecto
       )
       .then((resonse) => {
+        console.log("SE ESTA TRAYENDO HUS ID");
+        console.log(resonse.data);
         this.setState(
           {
             useStories: resonse.data,
@@ -544,13 +548,6 @@ class UserStories extends Component {
     });
   };
 
-  handleDeleteAndMore = () => {
-    this.setState({
-      modalDelete: !this.state.modalDelete,
-      modalDetail: !this.state.modalDetail,
-    });
-  };
-
   handleEditAndMore = () => {
     this.setState({
       modalEdit: !this.state.modalEdit,
@@ -566,6 +563,32 @@ class UserStories extends Component {
       selectedUserStoryModPor: this.state.userStorySelected.modificadoPor,
       selectedUserStoryIdProyecto: this.state.userStorySelected.idProyecto,
       selectedUserStoryEstado: this.state.userStorySelected.estado,
+      selectedUserStoryIdentificador:
+        this.state.userStorySelected.identificador,
+      selectedUserStoryVersion: this.state.userStorySelected.version,
+      selectedUserStoryPrioridad: this.state.userStorySelected.prioridad,
+      selectedUserStoryPuntaje: this.state.userStorySelected.puntaje,
+    });
+  };
+
+  handleDeleteAndMore = () => {
+    this.setState({
+      modalDelete: !this.state.modalDelete,
+      modalDetail: !this.state.modalDetail,
+
+      selectedUserStoryId: this.state.userStorySelected.idHistoriaUsuario,
+      selectedUserStoryNombre: this.state.userStorySelected.nombre,
+      selectedUserStoryRol: this.state.userStorySelected.rol,
+      selectedUserStoryFuncionalidad:
+        this.state.userStorySelected.funcionalidad,
+      selectedUserStoryResultado: this.state.userStorySelected.resultado,
+      selectedUserStoryFecha: this.state.userStorySelected.fechaModificacion,
+      selectedUserStoryModPor: this.state.userStorySelected.modificadoPor,
+      selectedUserStoryIdProyecto: this.state.userStorySelected.idProyecto,
+      selectedUserStoryEstado: this.state.userStorySelected.estado,
+      selectedUserStoryIdentificador:
+        this.state.userStorySelected.identificador,
+      selectedUserStoryVersion: this.state.userStorySelected.version,
       selectedUserStoryPrioridad: this.state.userStorySelected.prioridad,
       selectedUserStoryPuntaje: this.state.userStorySelected.puntaje,
     });
@@ -575,6 +598,82 @@ class UserStories extends Component {
     this.setState({
       modalEdit: !this.state.modalEdit,
     });
+  };
+
+  editUserStory = () => {
+    axios
+      .get(
+        sessionStorage.getItem("api") +
+          "api/historiausuario/ultimaversion/" +
+          this.state.selectedUserStoryIdentificador
+      )
+      .then((response) => {
+        var lastver =
+          (parseFloat(response.data[0].version) + 1).toString() + ".0";
+
+        const headers = {};
+
+        let jsonSent = {
+          nombre: this.state.selectedUserStoryNombre,
+          rol: this.state.selectedUserStoryRol,
+          funcionalidad: this.state.selectedUserStoryFuncionalidad,
+          resultado: this.state.selectedUserStoryResultado,
+          fechaModificacion: new Date().toLocaleString("en-US"),
+          modificadoPor: this.state.selectedUserStoryModPor,
+          idProyecto: this.state.selectedUserStoryIdProyecto,
+          estado: "Aprobado",
+          identificador: this.state.selectedUserStoryIdentificador,
+          version: lastver,
+          prioridad: this.state.selectedUserStoryPrioridad,
+          puntaje: this.state.selectedUserStoryPuntaje,
+        };
+
+        console.log(jsonSent);
+        axios
+          .post(
+            sessionStorage.getItem("api") + "api/historiausuario/",
+            jsonSent,
+            {
+              headers: headers,
+            }
+          )
+          .then((response) => {
+            this.getUserStories();
+            this.props.makeAlert(
+              "Se edito la historia de usuario de forma exitosa"
+            );
+
+            this.setState({
+              modalEdit: false,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {});
+  };
+
+  deleteUserStory = () => {
+    console.log(this.state.selectedUserStoryId);
+    axios
+      .get(
+        sessionStorage.getItem("api") +
+          "api/historiausuario/delete/" +
+          this.state.selectedUserStoryId
+      )
+      .then((response) => {
+        this.getUserStories();
+        this.props.makeAlert(
+          "Se elimino la historia de usuario de forma exitosa"
+        );
+        this.setState({
+          modalDelete: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   render() {
@@ -805,7 +904,7 @@ class UserStories extends Component {
             </Button>
             <Button
               variant="primary"
-              onClick={this.deleteUserFromProyect}
+              onClick={this.deleteUserStory}
               id="boton-guardar-modal"
             >
               Aceptar
@@ -912,7 +1011,7 @@ class UserStories extends Component {
             </Button>
             <Button
               variant="primary"
-              onClick={this.approveUserStory}
+              onClick={this.editUserStory}
               id="boton-guardar-modal"
             >
               Guardar

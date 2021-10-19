@@ -9,8 +9,6 @@ import Alert from "react-bootstrap/Alert";
 class TabsProyectAnalyst extends Component {
   state = {
     isHidden: false,
-    isHidden2: false,
-
     alertMessage: "",
   };
   proyect = "";
@@ -28,16 +26,10 @@ class TabsProyectAnalyst extends Component {
   }
   componentDidMount() {}
 
-  handleAlert = () => {
-    this.setState({
-      isHidden: !this.state.isHidden,
-    });
-  };
-
   applyTime = (message) => {
     this.setState(
       {
-        isHidden2: true,
+        isHidden: true,
         alertMessage: message,
       },
       () => {
@@ -48,7 +40,7 @@ class TabsProyectAnalyst extends Component {
 
   useEffect() {
     const timeId = setTimeout(() => {
-      this.handleAlert2();
+      this.handleAlert();
     }, 3000);
 
     return () => {
@@ -56,9 +48,9 @@ class TabsProyectAnalyst extends Component {
     };
   }
 
-  handleAlert2 = () => {
+  handleAlert = () => {
     this.setState({
-      isHidden2: false,
+      isHidden: false,
     });
   };
 
@@ -66,11 +58,6 @@ class TabsProyectAnalyst extends Component {
     return (
       <React.Fragment>
         <Alert variant={"success"} show={this.state.isHidden}>
-          {" "}
-          Se aprobó la historia de usuario de forma exitosa.{" "}
-        </Alert>
-
-        <Alert variant={"success"} show={this.state.isHidden2}>
           {this.state.alertMessage}
         </Alert>
         <div class="titleDiv">
@@ -81,7 +68,7 @@ class TabsProyectAnalyst extends Component {
             <Tab eventKey="pendientes" title="Pendientes">
               <div class="tab-div-child">
                 <UserStoriesAnalyst
-                  handleAlert={this.handleAlert}
+                  makeAlert={this.applyTime}
                   proyect={this.proyect}
                 ></UserStoriesAnalyst>
               </div>

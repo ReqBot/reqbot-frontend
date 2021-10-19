@@ -23,9 +23,6 @@ class Logys extends Component {
 
     emptyLogs: false,
     emptyLogsSearch: false,
-
-    ordernarPor: "",
-    logsOrdered: [],
   };
 
   searchBarInput = "";
@@ -49,6 +46,7 @@ class Logys extends Component {
           sessionStorage.getItem("idOrganizacion")
       )
       .then((resonse) => {
+        console.log(resonse);
         this.setState(
           {
             logsShowed: resonse.data,
@@ -228,8 +226,6 @@ class Logys extends Component {
       {
         modalFilterOrder: !this.state.modalFilterOrder,
         nombreProyect: "",
-        ordernarPor: "",
-        logsOrdered: [],
       },
       () => {
         this.applyAllFilters();
@@ -244,61 +240,10 @@ class Logys extends Component {
       this.flagFilter = false;
     }
 
-    if (this.state.ordernarPor != "") {
-      if (this.state.ordernarPor == "fecha-a") {
-        axios
-          .get(
-            sessionStorage.getItem("api") +
-              "api/logs/ascendente" +
-              sessionStorage.getItem("idOrganizacion")
-          )
-          .then((response) => {
-            this.setState(
-              {
-                logsOrdered: response.data,
-              },
-              () => {
-                this.applyAllFilters();
-                this.setState({
-                  modalFilterOrder: !this.state.modalFilterOrder,
-                });
-              }
-            );
-          })
-          .catch((error) => {
-            console.log("Error en obtener Logs ordenados");
-          });
-      }
-      if (this.state.ordernarPor == "fecha-d") {
-        axios
-          .get(
-            sessionStorage.getItem("api") +
-              "api/logs/descendente" +
-              sessionStorage.getItem("idOrganizacion")
-          )
-          .then((response) => {
-            this.setState(
-              {
-                logsOrdered: response.data,
-              },
-              () => {
-                this.applyAllFilters();
-                this.setState({
-                  modalFilterOrder: !this.state.modalFilterOrder,
-                });
-              }
-            );
-          })
-          .catch((error) => {
-            console.log("Error en obtener Logs ordenados");
-          });
-      }
-    } else {
-      this.applyAllFilters();
-      this.setState({
-        modalFilterOrder: !this.state.modalFilterOrder,
-      });
-    }
+    this.applyAllFilters();
+    this.setState({
+      modalFilterOrder: !this.state.modalFilterOrder,
+    });
   };
 
   applyFiltersFunc = (toGetFiltered) => {
@@ -306,23 +251,19 @@ class Logys extends Component {
     var logsReturn = [];
 
     if (this.state.nombreProyect != "") {
-      toGetFiltered = this.filterByCondition(
+      proyectsAux = this.filterByCondition(
         this.state.nombreProyect,
         "tipo",
         toGetFiltered
       );
-      //logsReturn.push(...proyectsAux);
+      logsReturn.push(...proyectsAux);
     }
 
-    return toGetFiltered;
+    return logsReturn;
   };
 
   applyAllFilters = () => {
-    if (this.state.logsOrdered.length == 0) {
-      var toGetFiltered = this.state.logsNoFilter;
-    } else {
-      var toGetFiltered = this.state.logsOrdered;
-    }
+    var toGetFiltered = this.state.logsNoFilter;
 
     if (this.flagSearchBar) {
       toGetFiltered = this.filterFunction(toGetFiltered, this.searchBarInput);
@@ -437,15 +378,11 @@ class Logys extends Component {
             </div>
             <div>
               <b>Ordenar Por</b>
-              <Form.Select
-                aria-label="Estado"
-                id="proyect-info-select-filter"
-                onClick={this.handleChange}
-                name="ordernarPor"
-              >
-                <option>Eliga</option>
-                <option value="fecha-a">Fecha ascendente</option>
-                <option value="fecha-d">Fecha descendente</option>
+              <Form.Select aria-label="Estado" id="proyect-info-select-filter">
+                <option></option>
+                <option value="1">Id</option>
+                <option value="1">Fecha de Modificación</option>
+                <option value="2">Nombre</option>
               </Form.Select>
             </div>
           </Modal.Body>
