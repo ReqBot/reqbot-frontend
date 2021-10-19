@@ -212,10 +212,7 @@ class Login extends Component {
                 Registrarme
               </Button>
             </div>
-            <p class="login-link" onClick={this.goForgotPassword}>
-              {" "}
-              ¿Olvidaste tu contraseña?
-            </p>
+            <p class="login-link"> ¿Olvidaste tu contraseña?</p>
           </div>
           <p class="footer-login">
             Lima,

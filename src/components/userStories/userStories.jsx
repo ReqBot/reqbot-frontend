@@ -660,7 +660,7 @@ class UserStories extends Component {
       .get(
         sessionStorage.getItem("api") +
           "api/historiausuario/delete/" +
-          this.state.selectedUserStoryId
+          this.state.selectedUserStoryIdentificador
       )
       .then((response) => {
         this.getUserStories();
