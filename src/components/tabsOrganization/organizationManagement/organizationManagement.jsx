@@ -315,7 +315,7 @@ class OrganizationManagement extends Component {
   assignUserToDelete = (user) => {
     this.setState({
       modalDeleteUser: !this.state.modalDeleteUser,
-      proyectToDelete: user,
+      userToDelete: user,
     });
   };
 
@@ -335,7 +335,7 @@ class OrganizationManagement extends Component {
     axios
       .get(
         sessionStorage.getItem("api") +
-          "/api/proyecto/delete/" +
+          "api/proyecto/delete/" +
           this.state.proyectToDelete.idProyecto
       )
       .then((response) => {
@@ -352,7 +352,7 @@ class OrganizationManagement extends Component {
 
   deleteUser = () => {
     axios
-      .delete(
+      .get(
         sessionStorage.getItem("api") +
           "api/usuario/delete/" +
           this.state.userToDelete.idUsuario
