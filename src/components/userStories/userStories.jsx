@@ -170,7 +170,7 @@ class UserStories extends Component {
                   <Card.Title className="title">{userstory.nombre}</Card.Title>
                 </div>
                 <div className="card-top-div-right">
-                  <FiMoreVertical id="more-icon"></FiMoreVertical>
+                  {userstory.identificador}
                 </div>
               </div>
               <Card.Text className="text">
@@ -395,7 +395,7 @@ class UserStories extends Component {
         axios
           .get(
             sessionStorage.getItem("api") +
-              "api/historiausuario/ascendente/" +
+              "api/historiausuario/descendente/" +
               this.props.proyect.idProyecto
           )
           .then((response) => {
@@ -608,8 +608,8 @@ class UserStories extends Component {
           this.state.selectedUserStoryIdentificador
       )
       .then((response) => {
-        var lastver =
-          (parseFloat(response.data[0].version) + 1).toString() + ".0";
+        var lastver = parseFloat(response.data[0].version) + 1.0;
+        console.log(lastver);
 
         const headers = {};
 
@@ -835,7 +835,7 @@ class UserStories extends Component {
             </div>
             <div class="header-modal-us-detail">
               <h3>{this.state.userStorySelected.nombre}</h3>
-              <h4>{this.state.userStorySelected.version} &nbsp;v</h4>
+              <h4>{this.state.userStorySelected.version}.0 &nbsp;v</h4>
             </div>
             <div class="body-modal-us-detail-1">
               <p>

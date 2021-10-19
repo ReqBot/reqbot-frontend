@@ -167,8 +167,7 @@ class UserStoriesAnalyst extends Component {
           this.state.selectedUserStoryIdentificador
       )
       .then((response) => {
-        var lastver =
-          (parseFloat(response.data[0].version) + 1).toString() + ".0";
+        var lastver = parseFloat(response.data[0].version) + 1.0;
 
         const headers = {};
 
