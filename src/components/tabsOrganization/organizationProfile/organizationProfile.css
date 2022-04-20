@@ -21,7 +21,7 @@
   width: 45%;
   height: 75%;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 7px;
   display: flex;
 }
 
@@ -31,12 +31,12 @@
   width: 80%;
   height: 75%;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 7px;
   display: flex;
 }
 
 .left-side {
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 7px 0px 0px 10px;
   width: 20%;
   max-width: 75px;
   height: 100%;
@@ -63,7 +63,7 @@
   color: white;
   background-color: #545871;
   border-color: #545871;
-  border-radius: 10px;
+  border-radius: 7px;
   width: 120px;
   height: 35px;
   line-height: 1;

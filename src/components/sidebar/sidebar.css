@@ -26,11 +26,11 @@
   height: 45px;
   cursor: pointer;
   outline: none;
-  border-radius: 10px;
+  border-radius: 7px;
 }
 
 .kfARSm.active {
-  border-radius: 10px !important;
+  border-radius: 7px !important;
   padding: 0px !important;
 }
 
@@ -39,4 +39,38 @@ button:focus {
 }
 .logout:hover {
   cursor: pointer;
+}
+
+.cQvqpi {
+  min-width: 270px !important;
+  width: 270px !important;
+}
+
+.cQvqpi.toggled {
+  min-width: 80px !important;
+  width: 80px !important;
+}
+
+@media only screen and (max-width: 1600px) {
+  .cQvqpi {
+    min-width: 240px !important;
+    width: 240px !important;
+  }
+
+  .cQvqpi.toggled {
+    min-width: 80px !important;
+    width: 80px !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .cQvqpi {
+    min-width: 120px !important;
+    width: 120px !important;
+  }
+
+  .cQvqpi.toggled {
+    min-width: 40px !important;
+    width: 40px !important;
+  }
 }
