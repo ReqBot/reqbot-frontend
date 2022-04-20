@@ -255,231 +255,233 @@ class Register extends Component {
     return (
       <React.Fragment>
         <div class="register-container">
-          <h1>Registro</h1>
-          <div class="register-parts">
-            {this.state.phase == 1 ? (
-              <this.plansCols planes={this.state.planes}></this.plansCols>
-            ) : null}
-            {this.state.phase == 2 ? (
-              <div class="register-info">
-                <div>
-                  {" "}
-                  <h4>Datos de organización:</h4>{" "}
-                </div>
-
-                <div class="register-seccions">
-                  <div class="col-register">
-                    <p>Nombre:</p>
-                    <InputGroup className="mb-3 login-input">
-                      <FormControl
-                        aria-label="Nombre"
-                        aria-describedby="basic-addon1"
-                        name="nombre"
-                        value={this.state.nombre}
-                        onChange={this.handleChange}
-                      />
-                    </InputGroup>
-                    <p>Siglas:</p>
-                    <InputGroup className="mb-3 login-input">
-                      <FormControl
-                        aria-label="siglas"
-                        aria-describedby="basic-addon1"
-                        name="siglas"
-                        value={this.state.siglas}
-                        onChange={this.handleChange}
-                      />
-                    </InputGroup>
-                    <p>Descripcion:</p>
-                    <Form.Control
-                      aria-label="Descripcion"
-                      as="textarea"
-                      style={{ height: "19%" }}
-                      name="descripcion"
-                      value={this.state.descripcion}
-                      onChange={this.handleChange}
-                    />
-                  </div>{" "}
-                  <div class="col-register">
+          <div class="middle-center-register">
+            <h1>Registro</h1>
+            <div class="register-parts">
+              {this.state.phase == 1 ? (
+                <this.plansCols planes={this.state.planes}></this.plansCols>
+              ) : null}
+              {this.state.phase == 2 ? (
+                <div class="register-info">
+                  <div>
                     {" "}
-                    <h5>Idioma:</h5>
-                    <Form.Select
-                      aria-label="Rol"
-                      id="register-color-select"
-                      onClick={this.handleChange}
-                      name="idioma"
-                    >
-                      <option>Eliga un idioma</option>
-                      <option value="1">English</option>
-                      <option value="2">Español</option>
-                    </Form.Select>
-                    <h5>Pago:</h5>
-                    <CreditCardInput
-                      cardNumberInputProps={{
-                        value: this.state.cardNumber,
-                        onChange: this.handleCardNumberChange,
-                      }}
-                      cardExpiryInputProps={{
-                        value: this.state.expiry,
-                        onChange: this.handleCardExpiryChange,
-                      }}
-                      cardCVCInputProps={{
-                        value: this.state.cvc,
-                        onChange: this.handleCardCVCChange,
-                      }}
-                      fieldClassName="card-field"
-                    />
-                    <div class="line-flex-color-register">
-                      <div class="color-picker-div-register">
-                        <h5>Color Primario:</h5>
-                        <SliderPicker
-                          color={this.state.color1}
-                          onChangeComplete={this.handleChangeComplete}
-                        />
-                      </div>
+                    <h4>Datos de organización:</h4>{" "}
+                  </div>
 
-                      <div class="color-picker-div-register">
-                        <h5>Color de Secundario:</h5>
-                        <SliderPicker
-                          color={this.state.color2}
-                          onChangeComplete={this.handleChangeComplete2}
+                  <div class="register-seccions">
+                    <div class="col-register">
+                      <p>Nombre:</p>
+                      <InputGroup className="mb-3 login-input">
+                        <FormControl
+                          aria-label="Nombre"
+                          aria-describedby="basic-addon1"
+                          name="nombre"
+                          value={this.state.nombre}
+                          onChange={this.handleChange}
                         />
+                      </InputGroup>
+                      <p>Siglas:</p>
+                      <InputGroup className="mb-3 login-input">
+                        <FormControl
+                          aria-label="siglas"
+                          aria-describedby="basic-addon1"
+                          name="siglas"
+                          value={this.state.siglas}
+                          onChange={this.handleChange}
+                        />
+                      </InputGroup>
+                      <p>Descripcion:</p>
+                      <Form.Control
+                        aria-label="Descripcion"
+                        as="textarea"
+                        style={{ height: "19%" }}
+                        name="descripcion"
+                        value={this.state.descripcion}
+                        onChange={this.handleChange}
+                      />
+                    </div>{" "}
+                    <div class="col-register">
+                      {" "}
+                      <h5>Idioma:</h5>
+                      <Form.Select
+                        aria-label="Rol"
+                        id="register-color-select"
+                        onClick={this.handleChange}
+                        name="idioma"
+                      >
+                        <option>Eliga un idioma</option>
+                        <option value="1">English</option>
+                        <option value="2">Español</option>
+                      </Form.Select>
+                      <h5>Pago:</h5>
+                      <CreditCardInput
+                        cardNumberInputProps={{
+                          value: this.state.cardNumber,
+                          onChange: this.handleCardNumberChange,
+                        }}
+                        cardExpiryInputProps={{
+                          value: this.state.expiry,
+                          onChange: this.handleCardExpiryChange,
+                        }}
+                        cardCVCInputProps={{
+                          value: this.state.cvc,
+                          onChange: this.handleCardCVCChange,
+                        }}
+                        fieldClassName="card-field"
+                      />
+                      <div class="line-flex-color-register">
+                        <div class="color-picker-div-register">
+                          <h5>Color Primario:</h5>
+                          <SliderPicker
+                            color={this.state.color1}
+                            onChangeComplete={this.handleChangeComplete}
+                          />
+                        </div>
+
+                        <div class="color-picker-div-register">
+                          <h5>Color de Secundario:</h5>
+                          <SliderPicker
+                            color={this.state.color2}
+                            onChangeComplete={this.handleChangeComplete2}
+                          />
+                        </div>
                       </div>
+                      {this.state.incompleteFields1 ? (
+                        <div class="empty-fields-register">
+                          *Por favor, complete todos los campos
+                        </div>
+                      ) : null}
                     </div>
-                    {this.state.incompleteFields1 ? (
-                      <div class="empty-fields-register">
-                        *Por favor, complete todos los campos
-                      </div>
-                    ) : null}
+                  </div>
+                  <div class="buttons-register-info">
+                    <Button id="boton-guardar-modal-2" onClick={this.prevPhase}>
+                      Regresar
+                    </Button>
+                    <Button
+                      id="boton-guardar-modal-2"
+                      onClick={this.nextPhase2To3}
+                    >
+                      Siguiente
+                    </Button>
                   </div>
                 </div>
-                <div class="buttons-register-info">
-                  <Button id="boton-guardar-modal-2" onClick={this.prevPhase}>
-                    Regresar
-                  </Button>
-                  <Button
-                    id="boton-guardar-modal-2"
-                    onClick={this.nextPhase2To3}
-                  >
-                    Siguiente
-                  </Button>
-                </div>
-              </div>
-            ) : null}
+              ) : null}
 
-            {this.state.phase == 3 ? (
-              <div class="register-info">
-                <div>
-                  {" "}
-                  <h4>Datos de cuenta:</h4>{" "}
-                </div>
+              {this.state.phase == 3 ? (
+                <div class="register-info">
+                  <div>
+                    {" "}
+                    <h4>Datos de cuenta:</h4>{" "}
+                  </div>
 
-                <div class="register-seccions">
-                  <div class="col-register">
-                    <p>Nombre:</p>
-                    <InputGroup className="mb-3 login-input">
-                      <FormControl
-                        aria-label="Nombre"
-                        aria-describedby="basic-addon1"
-                        name="nombreUsuario"
-                        onChange={this.handleChange}
-                      />
-                    </InputGroup>
-                    <p>Apellido:</p>
-                    <InputGroup className="mb-3 login-input">
-                      <FormControl
-                        aria-label="siglas"
-                        aria-describedby="basic-addon1"
-                        name="apellidoUsuario"
-                        onChange={this.handleChange}
-                      />
-                    </InputGroup>
-                    <p>Correo:</p>
-                    <InputGroup className="mb-3 login-input">
-                      <FormControl
-                        aria-label="siglas"
-                        aria-describedby="basic-addon1"
-                        name="correoUsuario"
-                        onChange={this.handleChange}
-                      />
-                    </InputGroup>
-
-                    <h5>Rol:</h5>
-                    <Form.Select
-                      aria-label="Rol"
-                      id="register-color-select"
-                      disabled
-                    >
-                      <option>Administrador</option>
-                    </Form.Select>
-                  </div>{" "}
-                  <div class="col-register">
-                    <h5>Contraseña:</h5>
-                    <InputGroup className="mb-3 login-input">
-                      <FormControl
-                        type="password"
-                        aria-label="Contraseña"
-                        aria-describedby="passwordHelpBlock"
-                        onChange={this.handleChange}
-                        name="contraseña"
-                      />
-                    </InputGroup>
-                    <h5>Confirmar Contraseña:</h5>
-                    <InputGroup className="mb-3 login-input">
-                      <FormControl
-                        type="password"
-                        aria-label="ConfirmarContraseña"
-                        aria-describedby="passwordHelpBlock"
-                        onChange={this.handleChange}
-                        name="repetirContraseña"
-                      />
-                    </InputGroup>
-                    <div class="line-flex-color-register">
-                      <div class="color-picker-div-register">
-                        <h5>Color Terciario:</h5>
-                        <SliderPicker
-                          color={this.state.color3}
-                          onChangeComplete={this.handleChangeComplete3}
+                  <div class="register-seccions">
+                    <div class="col-register">
+                      <p>Nombre:</p>
+                      <InputGroup className="mb-3 login-input">
+                        <FormControl
+                          aria-label="Nombre"
+                          aria-describedby="basic-addon1"
+                          name="nombreUsuario"
+                          onChange={this.handleChange}
                         />
-                      </div>
-
-                      <div class="color-picker-div-register">
-                        <h5>Color de Texto:</h5>
-                        <SliderPicker
-                          color={this.state.color4}
-                          onChangeComplete={this.handleChangeComplete4}
+                      </InputGroup>
+                      <p>Apellido:</p>
+                      <InputGroup className="mb-3 login-input">
+                        <FormControl
+                          aria-label="siglas"
+                          aria-describedby="basic-addon1"
+                          name="apellidoUsuario"
+                          onChange={this.handleChange}
                         />
+                      </InputGroup>
+                      <p>Correo:</p>
+                      <InputGroup className="mb-3 login-input">
+                        <FormControl
+                          aria-label="siglas"
+                          aria-describedby="basic-addon1"
+                          name="correoUsuario"
+                          onChange={this.handleChange}
+                        />
+                      </InputGroup>
+
+                      <h5>Rol:</h5>
+                      <Form.Select
+                        aria-label="Rol"
+                        id="register-color-select"
+                        disabled
+                      >
+                        <option>Administrador</option>
+                      </Form.Select>
+                    </div>{" "}
+                    <div class="col-register">
+                      <h5>Contraseña:</h5>
+                      <InputGroup className="mb-3 login-input">
+                        <FormControl
+                          type="password"
+                          aria-label="Contraseña"
+                          aria-describedby="passwordHelpBlock"
+                          onChange={this.handleChange}
+                          name="contraseña"
+                        />
+                      </InputGroup>
+                      <h5>Confirmar Contraseña:</h5>
+                      <InputGroup className="mb-3 login-input">
+                        <FormControl
+                          type="password"
+                          aria-label="ConfirmarContraseña"
+                          aria-describedby="passwordHelpBlock"
+                          onChange={this.handleChange}
+                          name="repetirContraseña"
+                        />
+                      </InputGroup>
+                      <div class="line-flex-color-register">
+                        <div class="color-picker-div-register">
+                          <h5>Color Terciario:</h5>
+                          <SliderPicker
+                            color={this.state.color3}
+                            onChangeComplete={this.handleChangeComplete3}
+                          />
+                        </div>
+
+                        <div class="color-picker-div-register">
+                          <h5>Color de Texto:</h5>
+                          <SliderPicker
+                            color={this.state.color4}
+                            onChangeComplete={this.handleChangeComplete4}
+                          />
+                        </div>
                       </div>
+                      {this.state.incompleteFields2 ? (
+                        <div class="empty-fields-register">
+                          *Por favor, complete todos los campos
+                        </div>
+                      ) : null}
+
+                      {this.state.notEqualPasswords ? (
+                        <div class="empty-fields-register">
+                          *Las contraseñas no coinciden
+                        </div>
+                      ) : null}
                     </div>
-                    {this.state.incompleteFields2 ? (
-                      <div class="empty-fields-register">
-                        *Por favor, complete todos los campos
-                      </div>
-                    ) : null}
-
-                    {this.state.notEqualPasswords ? (
-                      <div class="empty-fields-register">
-                        *Las contraseñas no coinciden
-                      </div>
-                    ) : null}
+                  </div>
+                  <div class="buttons-register-info">
+                    <Button id="boton-guardar-modal-2" onClick={this.prevPhase}>
+                      Regresar
+                    </Button>
+                    <Button id="boton-guardar-modal-2" onClick={this.register}>
+                      Registrar
+                    </Button>
                   </div>
                 </div>
-                <div class="buttons-register-info">
-                  <Button id="boton-guardar-modal-2" onClick={this.prevPhase}>
-                    Regresar
-                  </Button>
-                  <Button id="boton-guardar-modal-2" onClick={this.register}>
-                    Registrar
-                  </Button>
-                </div>
-              </div>
-            ) : null}
+              ) : null}
+            </div>
+            <p class="footer-login">
+              Lima,
+              <br />
+              Proyecto de tesis de Luis Kcomt y Andres Lopez <br />
+              octubre, 2021
+            </p>
           </div>
-          <p class="footer-login">
-            Lima,
-            <br />
-            Proyecto de tesis de Luis Kcomt y Andres Lopez <br />
-            octubre, 2021
-          </p>
         </div>
       </React.Fragment>
     );

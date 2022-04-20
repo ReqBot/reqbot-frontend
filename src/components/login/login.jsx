@@ -163,63 +163,61 @@ class Login extends Component {
           Se registro de manera exitosa
         </Alert>
         <div class="login-container">
-          {" "}
-          <div class="login-title">
-            <img class="login-image" src={logo}></img>{" "}
-          </div>
-          <h1>ReqBot</h1>
-          <div class="input-parts">
-            {" "}
-            <Form noValidate validated={this.state.validated}>
-              <InputGroup className="mb-3 login-input">
-                <FormControl
-                  placeholder="Correo"
-                  type="text"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                  required
-                />
-              </InputGroup>
-              <InputGroup className="mb-3 login-input" hasValidation>
-                <FormControl
-                  placeholder="Contraseña"
-                  type="password"
-                  name="password"
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                  required
-                />
-              </InputGroup>
+          <div class="middle-center">
+            <img class="login-image" src={logo}></img> <h1>ReqBot</h1>
+            <div class="login-form-div">
+              {" "}
+              <Form noValidate validated={this.state.validated}>
+                <InputGroup className="mb-3 login-input">
+                  <FormControl
+                    placeholder="Correo"
+                    type="text"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </InputGroup>
+                <InputGroup className="mb-3 login-input" hasValidation>
+                  <FormControl
+                    placeholder="Contraseña"
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </InputGroup>
 
-              {this.state.incompleteFields ? (
-                <div class="error-login-message">
-                  *Por favor, complete todos los campos
-                </div>
-              ) : null}
+                {this.state.incompleteFields ? (
+                  <div class="error-login-message">
+                    *Por favor, complete todos los campos
+                  </div>
+                ) : null}
 
-              {this.state.incorrectFields ? (
-                <div class="error-login-message">
-                  *El correo o la contraseña ingresados son incorrectos
-                </div>
-              ) : null}
-            </Form>
-            <div class="login-buttons-div">
-              <Button id="login-button" onClick={this.handleSubmit}>
-                Iniciar Sesión
-              </Button>
-              <Button id="login-button" onClick={this.goToRegister}>
-                Registrarme
-              </Button>
+                {this.state.incorrectFields ? (
+                  <div class="error-login-message">
+                    *El correo o la contraseña ingresados son incorrectos
+                  </div>
+                ) : null}
+              </Form>
+              <div class="login-buttons-div">
+                <Button id="login-button" onClick={this.handleSubmit}>
+                  Iniciar Sesión
+                </Button>
+                <Button id="login-button" onClick={this.goToRegister}>
+                  Registrarme
+                </Button>
+              </div>
+              <p class="login-link"> ¿Olvidaste tu contraseña?</p>
             </div>
-            <p class="login-link"> ¿Olvidaste tu contraseña?</p>
+            <p class="footer-login">
+              Lima,
+              <br />
+              Proyecto de tesis de Luis Kcomt y Andres Lopez <br />
+              octubre, 2021
+            </p>
           </div>
-          <p class="footer-login">
-            Lima,
-            <br />
-            Proyecto de tesis de Luis Kcomt y Andres Lopez <br />
-            octubre, 2021
-          </p>
         </div>
       </React.Fragment>
     );
