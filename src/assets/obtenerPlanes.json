@@ -1,0 +1,16 @@
+[
+  {
+    "idPlan": 1,
+    "nombre": "Plan Gratis",
+    "descripcion": "Plan Gratis",
+    "costo": 0,
+    "fechaCaducidad": "2021-09-07T20:39:18.000Z"
+  },
+  {
+    "idPlan": 2,
+    "nombre": "Plan Premium",
+    "descripcion": "Plan Premium",
+    "costo": 150,
+    "fechaCaducidad": "2021-01-01T00:00:00.000Z"
+  }
+]

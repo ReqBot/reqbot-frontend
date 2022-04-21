@@ -1,0 +1,35 @@
+[
+  {
+    "idProyecto": 75,
+    "nombre": "Ecommerce Template",
+    "fechaModificacion": "2021-11-27T01:03:56.000Z",
+    "etiqueta": "Web;Responsive",
+    "estado": "Activo",
+    "numeroDeHistorias": null,
+    "numeroUsuarios": 0,
+    "idOrganizacion": 35,
+    "descripcion": "Un template de Ecommerce, que sea accesible para cualquier usuario."
+  },
+  {
+    "idProyecto": 85,
+    "nombre": "Proyecto Prueba",
+    "fechaModificacion": "2021-10-18T12:35:07.000Z",
+    "etiqueta": "web",
+    "estado": "Activo",
+    "numeroDeHistorias": 0,
+    "numeroUsuarios": 0,
+    "idOrganizacion": 35,
+    "descripcion": "asdasd"
+  },
+  {
+    "idProyecto": 135,
+    "nombre": "CarritOS",
+    "fechaModificacion": "2021-10-25T00:58:07.000Z",
+    "etiqueta": "proyecto;proyecto 4",
+    "estado": "Activo",
+    "numeroDeHistorias": null,
+    "numeroUsuarios": 0,
+    "idOrganizacion": 35,
+    "descripcion": "Proyecto numero 4"
+  }
+]

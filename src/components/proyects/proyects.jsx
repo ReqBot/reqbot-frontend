@@ -14,6 +14,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { BiMessageAltError } from "react-icons/bi";
 import { RiFileHistoryFill } from "react-icons/ri";
 import Form from "react-bootstrap/Form";
+import ProyectService from "./proyectsService.js";
 
 class Proyects extends Component {
   state = {

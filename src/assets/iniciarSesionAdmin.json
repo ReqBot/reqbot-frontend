@@ -1,0 +1,14 @@
+{
+  "error": false,
+  "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJpZFVzdWFyaW8iOjExNSwibm9tYnJlIjoiQWRtaW4iLCJhcGVsbGlkbyI6IkxhYiIsImNvcnJlbyI6ImFkbWluLnRlc3QucmVxYm90QGdtYWlsLmNvbSIsImNvbnRyYXNlbmlhIjoiJDJiJDEwJGhLQWNpTDM4aEJBRU1TNllJNXNCdGVLaDI3WndkV2hQWUREZ3JwWVlVeHJVYlBWZjlxRE9PIiwicm9sIjoiQWRtaW5pc3RyYWRvciIsImVzdGFkbyI6IkFjdGl2byIsImlkT3JnYW5pemFjaW9uIjozNX0.yB7JIQuBEUULfdaCAmco4oHdNfuC3hHmkKjNNLpq-9A",
+  "data": {
+    "id": 115,
+    "nombre": "Admin",
+    "apellido": "Lab",
+    "correo": "admin.test.reqbot@gmail.com",
+    "contrasenia": "$2b$10$hKAciL38hBAEMS6YI5sBteKh27ZwdWhPYDDgrpYYUxrUbPVf9qDOO",
+    "rol": "Administrador",
+    "estado": "Activo",
+    "idOrganizacion": 35
+  }
+}
