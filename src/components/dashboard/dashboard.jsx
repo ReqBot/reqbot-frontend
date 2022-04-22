@@ -29,6 +29,7 @@ class Dashboard extends Component {
     console.log(this.props.match.url);
 
     this.getOrganization();
+    console.log()
   }
   sideBarParent = () => {
     this.proyectsShowAlert();
