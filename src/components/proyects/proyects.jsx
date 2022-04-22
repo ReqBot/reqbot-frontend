@@ -39,19 +39,20 @@ class Proyects extends Component {
   flagSearchBar = false;
   flagFilter = false;
   index = 0;
-
   dummyText =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue congue nulla, sed ultricies lacus tincidunt sit amet. Vivamus semper eros lorem. Sed facilisis vulputate massa, quis elementum leo sagittis non. Aliquam  facilisis mollis dolor id ullamcorper. Phasellus cursus nunc ut eros rutrum vulputate. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum libero justo, ornare quis cursus ut, luctus sed diam.";
+  service = new ProyectService();
 
   constructor(props) {
     super(props);
     this.getAlert = this.getAlert.bind(this);
-    console.log(sessionStorage.getItem("idOrganizacion"));
   }
 
   componentDidMount() {
     this.props.setClick(this.getAlert);
     this.getProyects();
+
+    this.service.saySomething2();
   }
 
   handleChange = (event) => {
@@ -301,53 +302,51 @@ class Proyects extends Component {
   CardProyect = ({ proyectsEntry }) => (
     <div class="flex-div">
       {proyectsEntry.map((proyect) => (
-        <div>
-          <Card
-            className="proyectCard"
-            onClick={this.goDetailProject.bind(this, proyect)}
-          >
-            <Card.Body>
-              <Card.Title className="title">{proyect.nombre}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                Ultima Modificacion:
-              </Card.Subtitle>
-              <Card.Subtitle className="subtitle">
-                {proyect.fechaModificacion.slice(0, 10)}
-              </Card.Subtitle>
-              <Card.Text>
-                <div className="tag-proyects">
-                  <p>
-                    <b>
-                      {" "}
-                      Tipo: <br />
-                    </b>
-                    {proyect.etiqueta}
-                  </p>
-                </div>
-              </Card.Text>
-            </Card.Body>
-            <Card.Body>
-              <div class="pi-div">
-                <div class="pi-div-element">
-                  {" "}
-                  <RiFileHistoryFill class="pi-div-icon"></RiFileHistoryFill>
-                  <p>
-                    <b> Historias de usuario: &nbsp;</b>
-                    {proyect.numeroDeHistorias}
-                  </p>
-                </div>
-                <div class="pi-div-element">
-                  {" "}
-                  <FaUserAlt class="pi-div-icon"></FaUserAlt>
-                  <p>
-                    <b> Usuarios: &nbsp;</b>
-                    {proyect.numeroUsuarios}
-                  </p>
-                </div>
+        <Card
+          className="proyectCard"
+          onClick={this.goDetailProject.bind(this, proyect)}
+        >
+          <Card.Body>
+            <Card.Title className="title">{proyect.nombre}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">
+              Ultima Modificacion:
+            </Card.Subtitle>
+            <Card.Subtitle className="subtitle">
+              {proyect.fechaModificacion.slice(0, 10)}
+            </Card.Subtitle>
+            <Card.Text>
+              <div className="tag-proyects">
+                <p>
+                  <b>
+                    {" "}
+                    Tipo: <br />
+                  </b>
+                  {proyect.etiqueta}
+                </p>
               </div>
-            </Card.Body>
-          </Card>
-        </div>
+            </Card.Text>
+          </Card.Body>
+          <Card.Body>
+            <div class="pi-div">
+              <div class="pi-div-element">
+                {" "}
+                <RiFileHistoryFill class="pi-div-icon"></RiFileHistoryFill>
+                <p>
+                  <b> Historias de usuario: &nbsp;</b>
+                  {proyect.numeroDeHistorias}
+                </p>
+              </div>
+              <div class="pi-div-element">
+                {" "}
+                <FaUserAlt class="pi-div-icon"></FaUserAlt>
+                <p>
+                  <b> Usuarios: &nbsp;</b>
+                  {proyect.numeroUsuarios}
+                </p>
+              </div>
+            </div>
+          </Card.Body>
+        </Card>
       ))}
     </div>
   );

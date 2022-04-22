@@ -1,9 +1,9 @@
 .proyectCard {
-  width: 550px !important;
+  width: 45% !important;
   height: 300px !important;
   text-align: center;
   border-radius: 25px;
-  margin: 18px 48px 24px 48px;
+  margin: 2.5%;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   transition: all 0.2s ease-in-out;
 }
@@ -46,7 +46,7 @@
   flex-flow: row wrap;
   margin-left: auto;
   margin-right: auto;
-  width: 80%;
+  width: 76%;
 }
 
 #button-search {
@@ -180,6 +180,7 @@
 .pi-div {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .pi-div-element {
@@ -187,6 +188,11 @@
   display: flex;
   text-align: center;
   justify-content: space-evenly;
+  align-items: center;
+}
+
+.pi-div-element p {
+  margin: 0;
 }
 
 .pi-div-icon {
@@ -196,19 +202,75 @@
 }
 
 @media only screen and (max-width: 1600px) {
-  .proyectCard {
-    width: 450px !important;
-    height: 240px !important;
-    margin: 12px 24px 12px 24px;
+  .flex-div {
+    width: 72%;
   }
+
+  .proyectCard {
+    width: 47.5% !important;
+    height: 250px !important;
+    margin: 1.25%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
   .flex-div {
     width: 85%;
+  }
+
+  .proyectCard {
+    margin: 2% 1.25% 2% 1.25%;
+    width: 100% !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header-proyectos h1 {
+    font-size: 24px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  #filtrar-ordenar-button {
+    font-size: 14px;
+  }
+
+  .page-link {
+    font-size: 20px;
+}
+
+  .flex-div {
+    width: 90%;
+  }
+
+  .proyectCard {
+    height: 200px !important;
   }
 
   .card-body {
     padding: 0.5rem;
   }
-}
 
-@media only screen and (max-width: 600px) {
+  .proyectCard .title {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  .proyectCard .subtitle {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .tag-proyects {
+    margin-top: 12px;
+  }
+
+  .tag-proyects p {
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+  }
+
+  .pi-div {
+    font-size: 12px;
+  }
 }
