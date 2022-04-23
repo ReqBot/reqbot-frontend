@@ -44,6 +44,10 @@ class Sidebar extends Component {
     });
   };
 
+  clickSideBar = () =>{
+    this.props.clickSideBar();
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -55,11 +59,12 @@ class Sidebar extends Component {
           }}
         >
           <CDBSidebar textColor="#fff" backgroundColor="#545871">
-            <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+            <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"  onClick={this.clickSideBar}></i>}>
               <a
                 href="/"
                 className="text-decoration-none"
                 style={{ color: "inherit" }}
+               
               >
                 ReqBot
               </a>
