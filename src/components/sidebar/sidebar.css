@@ -65,12 +65,21 @@ button:focus {
 
 @media only screen and (max-width: 600px) {
   .cQvqpi {
-    min-width: 120px !important;
-    width: 120px !important;
+    min-width: 100px !important;
+    width: 100px !important;
   }
 
   .cQvqpi.toggled {
-    min-width: 40px !important;
-    width: 40px !important;
+    min-width: 100vw !important;
+    width: 100vw !important;
+    text-align: center;
+  }
+
+  .titleSide {
+    margin: 12px 0 16px 0 !important;
+  }
+
+  .kfARSm.toggled {
+    padding: 0px !important;
   }
 }
