@@ -6,7 +6,6 @@ import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
-import CreditCardInput from "react-credit-card-input";
 import { SliderPicker } from "react-color";
 
 class Register extends Component {
@@ -313,22 +312,6 @@ class Register extends Component {
                         <option value="1">English</option>
                         <option value="2">Español</option>
                       </Form.Select>
-                      <h5>Pago:</h5>
-                      <CreditCardInput
-                        cardNumberInputProps={{
-                          value: this.state.cardNumber,
-                          onChange: this.handleCardNumberChange,
-                        }}
-                        cardExpiryInputProps={{
-                          value: this.state.expiry,
-                          onChange: this.handleCardExpiryChange,
-                        }}
-                        cardCVCInputProps={{
-                          value: this.state.cvc,
-                          onChange: this.handleCardCVCChange,
-                        }}
-                        fieldClassName="card-field"
-                      />
                       <div class="line-flex-color-register">
                         <div class="color-picker-div-register">
                           <h5>Color Primario:</h5>
