@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import {
+  withRouter,
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
+  Navigate,
 } from "react-router-dom";
 import "@progress/kendo-theme-default/dist/all.css";
 import "./App.css";
@@ -43,7 +44,7 @@ class App extends Component {
                 sessionStorage.getItem("loggedIn") ? (
                   <Dashboard></Dashboard>
                 ) : (
-                  <Redirect to="/" />
+                  <Navigate to="/" />
                 )
               }
             />
@@ -55,7 +56,7 @@ class App extends Component {
                 !sessionStorage.getItem("loggedIn") ? (
                   <Login changeParentLogin={this.loggin}></Login>
                 ) : (
-                  <Redirect to="/dashboard/proyects" />
+                  <Navigate to="/dashboard/proyects" />
                 )
               }
             />
@@ -67,7 +68,7 @@ class App extends Component {
                 !sessionStorage.getItem("loggedIn") ? (
                   <Register></Register>
                 ) : (
-                  <Redirect to="/dashboard/proyects" />
+                  <Navigate to="/dashboard/proyects" />
                 )
               }
             />
@@ -79,7 +80,7 @@ class App extends Component {
                 !sessionStorage.getItem("loggedIn") ? (
                   <ForgotPassword></ForgotPassword>
                 ) : (
-                  <Redirect to="/dashboard/proyects" />
+                  <Navigate to="/dashboard/proyects" />
                 )
               }
             />
