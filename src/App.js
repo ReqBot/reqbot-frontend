@@ -7,6 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import "@progress/kendo-theme-default/dist/all.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Dashboard from "./components/dashboard/dashboard";
 import Login from "./components/login/login";
