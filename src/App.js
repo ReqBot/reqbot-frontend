@@ -22,7 +22,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     //https://reqbot-backend.herokuapp.com/
-    sessionStorage.setItem("api", "https://reqbot-backend.herokuapp.com/");
+    sessionStorage.setItem("api", process.env.REACT_APP_BASE_API_URL);
   }
 
   loggin = (loggedIn, userName, rol, token, idOrganizacion, idUsuario) => {
