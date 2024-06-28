@@ -2,8 +2,8 @@
   width: 40%;
   height: 45%;
   border-radius: 15px;
-  background-color: #545871;
-  border-color: #545871;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
   font-size: 14.5px;
   margin-top: auto;
   margin-bottom: auto;
@@ -13,7 +13,7 @@
   width: 40%;
   height: 45%;
   border-radius: 15px;
-  color: #545871;
+  color: var(--secondary-color);
   background-color: #dadbe6;
   border-color: #dadbe6;
   font-size: 14.5px;

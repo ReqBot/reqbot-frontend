@@ -410,7 +410,6 @@ class OrganizationManagement extends Component {
         <Modal
           show={this.state.modalDeleteProyect}
           onHide={this.hanldeModalDeleteProyect}
-          id="settings-info-user"
         >
           <Modal.Header>
             <Modal.Title>Eliminar Proyecto</Modal.Title>
@@ -426,14 +425,14 @@ class OrganizationManagement extends Component {
             <Button
               variant="secondary"
               onClick={this.hanldeModalDeleteProyect}
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
             >
               Cancelar
             </Button>
             <Button
               variant="primary"
               onClick={this.deleteProyect}
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
             >
               Aceptar
             </Button>
@@ -443,7 +442,6 @@ class OrganizationManagement extends Component {
         <Modal
           show={this.state.modalDeleteUser}
           onHide={this.hanldeModalDeleteUser}
-          id="settings-info-user"
         >
           <Modal.Header>
             <Modal.Title>Eliminar Usuario</Modal.Title>
@@ -457,14 +455,14 @@ class OrganizationManagement extends Component {
             <Button
               variant="secondary"
               onClick={this.hanldeModalDeleteUser}
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
             >
               Cancelar
             </Button>
             <Button
               variant="primary"
               onClick={this.deleteUser}
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
             >
               Aceptar
             </Button>

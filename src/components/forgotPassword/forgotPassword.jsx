@@ -31,7 +31,7 @@ class ForgotPassword extends Component {
       <React.Fragment>
         <div class="login-container">
           <img class="login-image" src={logo}></img>
-          <h1>Cambia tu Contraseña</h1>
+          <div class="page-main-title">Cambia tu Contraseña</div>
           <div class="input-parts">
             {" "}
             <p class="info-password-change">

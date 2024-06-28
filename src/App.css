@@ -1,38 +1,110 @@
+:root {
+  --primary-color: #e8f0f7; /* A lighter version of the secondary color */
+  --secondary-color: #b0c4de; /* Blueish pastel */
+  --secondary-color-darker: #8ba2b1; /* A slightly darker version of secondary color */
+
+  --inside-div-text-color: #2d2d2d; /* A contrasting dark color for text inside divs */
+  --outside-div-text-color: #2d2d2d; /* A contrasting dark color for text inside divs */
+
+  --button-background-color: #2d2d2d; /* A contrasting dark color for buttons */
+  --button-text-color: #ffffff;
+  --button-background-color-hover: #1a1a1a;
+
+  --highlight-color: #2d2d2d; /* A contrasting dark color for highlighting */
+  --hover-highlight-color: #1f1f1f; /* Slightly darker for hover effect */
+
+  --success: #28a745; /* Green */
+  --success-darker: #218838; /* Slightly darker green */
+
+  --failure: #dc3545; /* Red */
+  --failure-darker: #c82333; /* Slightly darker red */
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.input-label-inside-div {
+  color: var(--inside-div-text-color);
+  text-align: start;
+  font-weight: 450;
+  margin-bottom: 0.25rem !important;
+  margin-top: 0.5rem !important;
+  overflow: hidden;
+  text-align: start;
+  text-overflow: ellipsis;
+  width: 100%;
+  font-size: 0.95rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.content-container {
+  padding: 1rem;
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+  animation: fadeInScale 0.5s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* softer shadow */
+}
+
+.form-control {
+  font-size: 0.95rem;
+}
+
+.primary-button-size {
+  width: 100% !important;
+  height: 2.5rem !important;
+}
+
+.primary-button-color {
+  color: var(--button-text-color) !important;
+  background-color: var(--button-background-color) !important;
+  border: none !important;
+  border-radius: 7px !important;
+  margin-top: 16px !important;
+  font-size: 0.95rem !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.primary-button-color:hover {
+  background-color: var(
+    --button-background-color-hover
+  ) !important; /* Darker shade for hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important; /* More prominent shadow on hover */
+}
+
+.secondary-button-size {
+  width: 50%;
+  height: 2.5rem !important;
+}
+
+.secondary-button-color {
+  color: var(--button-background-color) !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  margin-left: 0px !important;
+  font-size: 0.95rem !important;
+  font-weight: bolder !important;
+}
+
+.loader-send-inside-button {
+  font-size: 1.25rem !important;
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  margin-right: 0.35rem !important;
+}
+
+@keyframes fadeInScale {
+  0% {
+    transform: translateY(-10px); /* Move a little from the left */
+    opacity: 0;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+  100% {
+    transform: translateY(0px); /* Move a little from the left */
+    opacity: 1;
   }
 }

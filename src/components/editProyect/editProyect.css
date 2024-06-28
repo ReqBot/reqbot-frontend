@@ -8,14 +8,14 @@
   margin: auto;
   margin-top: 3.5%;
   margin-bottom: 0rem;
-  color: #545871;
+  color: var(--secondary-color);
   font-weight: bolder;
 }
 
 .contenedor-proyect-admin {
   padding: 4% 5% 5% 5%;
   display: flex;
-  color: #545871;
+  color: var(--secondary-color);
 }
 
 .proyect-admin-left {
@@ -40,7 +40,7 @@
 
 .etiqueta-add {
   margin: 11px 8px 11px 16px;
-  color: #545871;
+  color: var(--secondary-color);
 }
 
 .etiqueta-add:hover {
@@ -54,12 +54,12 @@
   margin-right: auto;
   max-height: 90px;
   overflow: auto;
-  border-color: #545871;
-  color: #545871;
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .etiqueta-row {
-  color: #545871;
+  color: var(--secondary-color);
   font-size: 17px;
   margin-bottom: 4px;
   border-radius: 5px;
@@ -67,7 +67,7 @@
 }
 
 #edit-button {
-  color: #545871;
+  color: var(--secondary-color);
   background-color: #dadbe6;
   border-color: #dadbe6;
   border-radius: 7px;
@@ -80,7 +80,7 @@
   height: calc(1.5em + 0.75rem + 2px);
   border: none;
   padding-left: 8px;
-  color: #545871;
+  color: var(--secondary-color);
 }
 
 .body-container-overflow-proyect {
@@ -103,7 +103,7 @@
 .edit-proyect-user-text-name {
   text-align: start;
   overflow: hidden;
-  color: #545871;
+  color: var(--secondary-color);
   font-weight: bolder;
   width: 25%;
   margin-top: auto;
@@ -117,7 +117,7 @@
   margin-bottom: auto;
   width: 20%;
   max-height: 70%;
-  color: #545871;
+  color: var(--secondary-color);
   padding-left: 8px;
 }
 
@@ -129,7 +129,7 @@
   margin-left: auto;
   margin-right: 32px;
   width: fit-content;
-  color: #545871;
+  color: var(--secondary-color);
   width: 20%;
 }
 
@@ -141,7 +141,7 @@
   margin-left: auto;
   margin-right: 32px;
   width: fit-content;
-  color: #545871;
+  color: var(--secondary-color);
   width: 5%;
 }
 
@@ -154,7 +154,7 @@
 }
 
 .empty-edit {
-  color: #545871;
+  color: var(--secondary-color);
   font-weight: 600;
   margin-top: 32px;
 }

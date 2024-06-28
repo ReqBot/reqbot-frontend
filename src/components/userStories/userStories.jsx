@@ -683,13 +683,13 @@ class UserStories extends Component {
           <div class="header-proyectos">
             <div class="searchbar-div-userStories">
               <Button
-                id="filtrar-ordenar-button-userStory"
+                className="secondary-button-color secondary-button-size"
                 onClick={this.handleFilterOrder}
               >
                 Filtrar/Ordenar
               </Button>
               <Button
-                id="filtrar-ordenar-button-userStory"
+                className="secondary-button-color secondary-button-size"
                 onClick={this.exportStories}
               >
                 Exportar
@@ -714,9 +714,9 @@ class UserStories extends Component {
 
           {this.state.emptyUserStoriesSearch && !this.state.emptyUserStories ? (
             <div class="no-proyects">
-              <div class="inner-message-no-proyects">
+              <div class="inner-message-no-items">
                 {" "}
-                <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
+                <FaSearchMinus className="inner-message-no-items-icon"></FaSearchMinus>
                 <p>No existe ninguna historia de usuario con esos parámetros</p>
               </div>
             </div>
@@ -724,9 +724,9 @@ class UserStories extends Component {
 
           {this.state.emptyUserStories && !this.state.emptyUserStoriesSearch ? (
             <div class="no-proyects">
-              <div class="inner-message-no-proyects">
+              <div class="inner-message-no-items">
                 {" "}
-                <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
+                <BiMessageAltError className="inner-message-no-items-icon"></BiMessageAltError>
                 <p>Todavía no existen Historias de Usuario</p>
               </div>
             </div>
@@ -741,7 +741,6 @@ class UserStories extends Component {
         <Modal
           show={this.state.modalFilterOrder}
           onHide={this.handleFilterOrder}
-          id="settings-info-user"
         >
           <Modal.Header>
             <Modal.Title>Filtrar/Ordenar</Modal.Title>
@@ -803,14 +802,14 @@ class UserStories extends Component {
           <Modal.Footer>
             <Button
               variant="secondary"
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
               onClick={this.deleteFilters}
             >
               Limpiar
             </Button>
             <Button
               variant="primary"
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
               onClick={this.applyFilters}
             >
               Aplicar
@@ -879,11 +878,7 @@ class UserStories extends Component {
           </div>
         </Modal>
 
-        <Modal
-          show={this.state.modalDelete}
-          onHide={this.hanldeSettings}
-          id="settings-info-user"
-        >
+        <Modal show={this.state.modalDelete} onHide={this.hanldeSettings}>
           <Modal.Header>
             <Modal.Title>Eliminar Historia de usuario</Modal.Title>
             <AiFillCloseCircle
@@ -898,25 +893,21 @@ class UserStories extends Component {
             <Button
               variant="secondary"
               onClick={this.hanldeSettings}
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
             >
               Cancelar
             </Button>
             <Button
               variant="primary"
               onClick={this.deleteUserStory}
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
             >
               Aceptar
             </Button>
           </Modal.Footer>
         </Modal>
 
-        <Modal
-          show={this.state.modalEdit}
-          onHide={this.hanldeApprove}
-          id="settings-info-user"
-        >
+        <Modal show={this.state.modalEdit} onHide={this.hanldeApprove}>
           <Modal.Header>
             <Modal.Title>Editar historia de usuario</Modal.Title>
             <AiFillCloseCircle
@@ -1005,14 +996,14 @@ class UserStories extends Component {
             <Button
               variant="secondary"
               onClick={this.hanldeApprove}
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
             >
               Cancelar
             </Button>
             <Button
               variant="primary"
               onClick={this.editUserStory}
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
             >
               Guardar
             </Button>

@@ -532,14 +532,14 @@ class Proyects extends Component {
   render() {
     return (
       <React.Fragment>
-        <div class="proyects-div">
+        <div class="page-container proyects-container">
           <Alert variant={"danger"} show={this.state.isHidden}>
             {" "}
             <FaHandsHelping id="helpingHandIcon"></FaHandsHelping>
-            Debe elegir un proyecto para continuar.{" "}
+            Debe elegir un proyecto para continuar.
           </Alert>
           <div class="header-proyectos">
-            <h1>Proyectos</h1>
+            <div class="page-main-title">Proyectos</div>
             <div class="searchbar-div">
               <InputGroup className="mb-3">
                 <FormControl
@@ -555,7 +555,7 @@ class Proyects extends Component {
 
           <div class="div-pagination">
             <Button
-              id="filtrar-ordenar-button"
+              className="secondary-button-color secondary-button-size filter-sort-button-size"
               onClick={this.handleFilterOrder}
             >
               Filtrar/Ordenar
@@ -568,9 +568,9 @@ class Proyects extends Component {
 
           {this.state.emptyProyectsSearch && !this.state.emptyProyects ? (
             <div class="no-proyects">
-              <div class="inner-message-no-proyects">
+              <div class="inner-message-no-items">
                 {" "}
-                <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
+                <FaSearchMinus className="inner-message-no-items-icon"></FaSearchMinus>
                 <p>No existe ningún proyecto con esos parámetros</p>
               </div>
             </div>
@@ -578,9 +578,9 @@ class Proyects extends Component {
 
           {this.state.emptyProyects && !this.state.emptyProyectsSearch ? (
             <div class="no-proyects">
-              <div class="inner-message-no-proyects">
+              <div class="inner-message-no-items">
                 {" "}
-                <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
+                <BiMessageAltError className="inner-message-no-items-icon"></BiMessageAltError>
                 <p>No se ha creado ningún proyecto todavía</p>
               </div>
             </div>
@@ -596,10 +596,9 @@ class Proyects extends Component {
         <Modal
           show={this.state.modalFilterOrder}
           onHide={this.handleFilterOrder}
-          id="settings-info-user"
         >
           <Modal.Header>
-            <Modal.Title>Filtrar/Ordenar</Modal.Title>
+            <Modal.Title className="title">Filtrar/Ordenar</Modal.Title>
             <AiFillCloseCircle
               id="btn-close"
               onClick={this.handleFilterOrder}
@@ -607,7 +606,7 @@ class Proyects extends Component {
           </Modal.Header>
           <Modal.Body>
             <div>
-              <b>Filtrar por</b>
+              <div className="sub-title">Filtrar por</div>
               <div className="check-line">
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                   <Form.Check
@@ -661,14 +660,14 @@ class Proyects extends Component {
           <Modal.Footer>
             <Button
               variant="secondary"
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
               onClick={this.deleteFilters}
             >
               Limpiar
             </Button>
             <Button
               variant="primary"
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
               onClick={this.applyFilters}
             >
               Aplicar

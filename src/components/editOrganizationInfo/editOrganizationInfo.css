@@ -13,5 +13,5 @@
 .contenedor-proyect-admin-2 {
   padding: 2% 5% 2% 5%;
   display: flex;
-  color: #545871;
+  color: var(--secondary-color);
 }

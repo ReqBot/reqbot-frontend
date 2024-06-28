@@ -11,7 +11,7 @@
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: white;
-  background-color: #545871;
+  background-color: var(--secondary-color);
   border-color: #dee2e6 #dee2e6 #fff;
   border-radius: 7px;
 }
@@ -23,7 +23,7 @@
 .nav-tabs .nav-link {
   border: none;
   color: #9a9ba4;
-  background-color: #f7eceb;
+  background-color: var(--primary-color);
 }
 
 .titleDiv {
@@ -40,6 +40,6 @@
   margin: auto;
   margin-top: 3.5%;
   margin-bottom: 0rem;
-  color: #545871;
+  color: var(--secondary-color);
   font-weight: bolder;
 }

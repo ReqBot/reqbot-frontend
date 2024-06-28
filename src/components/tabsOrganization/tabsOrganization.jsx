@@ -52,7 +52,7 @@ class TabsOrganization extends Component {
           {this.state.alertMessage}
         </Alert>
         <div class="organization-titleDiv">
-          <h1>{this.props.org.nombre}</h1>
+          <div class="page-main-title">{this.props.org.nombre}</div>
         </div>
         <div class="tab-div-parent">
           <Tabs defaultActiveKey="general" id="uncontrolled-tab-example">

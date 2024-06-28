@@ -1,5 +1,5 @@
 .contenedor-info {
-  color: #545871;
+  color: var(--secondary-color);
   height: 100%;
   width: 100%;
   display: flex;
@@ -61,12 +61,12 @@
   justify-content: center;
   margin-top: 42px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #545871;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 #button-info {
   font-size: 16px;
-  color: #545871;
+  color: var(--secondary-color);
   background-color: #dadbe6;
   border-color: #dadbe6;
   border-radius: 20px;

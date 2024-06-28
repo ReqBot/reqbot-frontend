@@ -456,7 +456,7 @@ class EditProyect extends Component {
           {this.state.alertMessage}
         </Alert>
         <div class="header-proyect-admin">
-          <h1>Editar Proyecto</h1>
+          <div class="page-main-title">Editar Proyecto</div>
         </div>
         <div class="contenedor-proyect-admin">
           <div class="proyect-admin-left">
@@ -568,11 +568,7 @@ class EditProyect extends Component {
           </div>
         </div>
         <div>
-          <Modal
-            show={this.state.modalAddClient}
-            onHide={this.handleAddClient}
-            id="settings-info-user"
-          >
+          <Modal show={this.state.modalAddClient} onHide={this.handleAddClient}>
             <Modal.Header>
               <Modal.Title>Agregar un cliente al proyecto</Modal.Title>
               <AiFillCloseCircle
@@ -590,7 +586,6 @@ class EditProyect extends Component {
           <Modal
             show={this.state.modalAddAnalyst}
             onHide={this.handleAddAnalyst}
-            id="settings-info-user"
           >
             <Modal.Header>
               <Modal.Title>Agregar un analista al proyecto</Modal.Title>
@@ -606,11 +601,7 @@ class EditProyect extends Component {
             </Modal.Body>
           </Modal>
 
-          <Modal
-            show={this.state.modalDelete}
-            onHide={this.hanldeSettings}
-            id="settings-info-user"
-          >
+          <Modal show={this.state.modalDelete} onHide={this.hanldeSettings}>
             <Modal.Header>
               <Modal.Title>Eliminar Usuario de Proyecto</Modal.Title>
               <AiFillCloseCircle
@@ -625,14 +616,14 @@ class EditProyect extends Component {
               <Button
                 variant="secondary"
                 onClick={this.hanldeSettings}
-                id="boton-cerrar-modal"
+                className="secondary-button-color secondary-button-size"
               >
                 Cancelar
               </Button>
               <Button
                 variant="primary"
                 onClick={this.deleteUserFromProyect}
-                id="boton-guardar-modal"
+                className="primary-button-color primary-button-size"
               >
                 Aceptar
               </Button>

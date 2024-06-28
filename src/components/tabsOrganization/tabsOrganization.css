@@ -3,6 +3,6 @@
   margin: auto;
   margin-top: 3.5%;
   margin-bottom: 0rem;
-  color: #545871;
+  color: var(--secondary-color);
   font-weight: bolder;
 }

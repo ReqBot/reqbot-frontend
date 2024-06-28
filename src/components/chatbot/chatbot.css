@@ -7,7 +7,7 @@
 }
 
 .k-chat .k-alt .k-bubble {
-  background-color: #545871;
-  border-color: #545871;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
   color: white;
 }

@@ -39,8 +39,8 @@
   width: 50%;
   height: 35%;
   border-radius: 7px;
-  background-color: #545871;
-  border-color: #545871;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
 .overflow-analyst {

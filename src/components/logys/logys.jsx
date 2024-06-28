@@ -300,59 +300,60 @@ class Logys extends Component {
   render() {
     return (
       <React.Fragment>
-        <div class="header-proyect-admin">
-          <h1>Logs</h1>
-        </div>
-        <div class="top-search-div">
-          {" "}
-          <Button
-            id="filtrar-ordenar-button-userStory"
-            onClick={this.handleFilterOrder}
-          >
-            Filtrar/Ordenar
-          </Button>
-          <InputGroup id="input-tickets" className="mb-3">
-            <FaSearch id="seach-icon"></FaSearch>
-            <FormControl
-              placeholder="Buscar"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              id="search-userStories"
-              onChange={this.editSearchTerm}
-            />
-          </InputGroup>
-        </div>
-
-        {this.state.emptyLogsSearch && !this.state.emptyLogs ? (
-          <div class="no-proyects">
-            <div class="inner-message-no-proyects">
-              {" "}
-              <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
-              <p>No existe ningún log de chat con esos parámetros</p>
+        <div class="page-container">
+          <div class="header-proyectos">
+            <div class="page-main-title">Logs</div>{" "}
+            <div class="searchbar-div">
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Buscar"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  onChange={this.editSearchTerm}
+                />
+                <Button id="button-search">Buscar</Button>
+              </InputGroup>
             </div>
           </div>
-        ) : null}
 
-        {this.state.emptyLogs && !this.state.emptyLogsSearch ? (
-          <div class="no-proyects">
-            <div class="inner-message-no-proyects">
-              {" "}
-              <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
-              <p>No se ha creado un log de chat todavía</p>
+          <div class="div-pagination">
+            <Button
+              className="secondary-button-color secondary-button-size filter-sort-button-size"
+              onClick={this.handleFilterOrder}
+            >
+              Filtrar/Ordenar
+            </Button>
+          </div>
+
+          {this.state.emptyLogsSearch && !this.state.emptyLogs ? (
+            <div class="no-proyects">
+              <div class="inner-message-no-items">
+                {" "}
+                <FaSearchMinus className="inner-message-no-items-icon"></FaSearchMinus>
+                <p>No existe ningún log de chat con esos parámetros</p>
+              </div>
             </div>
-          </div>
-        ) : null}
+          ) : null}
 
-        {!this.state.emptyLogs && !this.state.emptyLogsSearch ? (
-          <div class="div-tickets">
-            <this.logsRow HUS={this.state.logsShowed}></this.logsRow>
-          </div>
-        ) : null}
+          {this.state.emptyLogs && !this.state.emptyLogsSearch ? (
+            <div class="no-proyects">
+              <div class="inner-message-no-items">
+                {" "}
+                <BiMessageAltError className="inner-message-no-items-icon"></BiMessageAltError>
+                <p>No se ha creado un log de chat todavía</p>
+              </div>
+            </div>
+          ) : null}
 
+          {!this.state.emptyLogs && !this.state.emptyLogsSearch ? (
+            <div class="div-tickets">
+              <this.logsRow HUS={this.state.logsShowed}></this.logsRow>
+            </div>
+          ) : null}
+        </div>
         <Modal
           show={this.state.modalFilterOrder}
           onHide={this.handleFilterOrder}
-          id="settings-info-user"
         >
           <Modal.Header>
             <Modal.Title>Filtrar/Ordenar</Modal.Title>
@@ -389,14 +390,14 @@ class Logys extends Component {
           <Modal.Footer>
             <Button
               variant="secondary"
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
               onClick={this.deleteFilters}
             >
               Limpiar
             </Button>
             <Button
               variant="primary"
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
               onClick={this.applyFilters}
             >
               Aplicar

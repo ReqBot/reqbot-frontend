@@ -93,7 +93,7 @@ class CreateUser extends Component {
     return (
       <React.Fragment>
         <div class="header-proyect-admin">
-          <h1>Crear Usuario</h1>
+          <div class="page-main-title">Crear Usuario</div>
         </div>
         <div class="contenedor-proyect-admin">
           <div class="proyect-admin-center">

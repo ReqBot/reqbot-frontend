@@ -10,8 +10,8 @@ import axios from "axios";
 
 class EditOrganizationInfo extends Component {
   state = {
-    color1: "#545871",
-    color2: "#f7eceb",
+    color1: "var(--secondary-color)",
+    color2: "var(--primary-color)",
     color3: "#FFFFFF",
     color4: "#FFFFFF",
 
@@ -137,7 +137,7 @@ class EditOrganizationInfo extends Component {
     return (
       <React.Fragment>
         <div class="header-proyect-admin">
-          <h1>Editar Información</h1>
+          <div class="page-main-title">Editar Información</div>
         </div>
         <div class="contenedor-proyect-admin-2">
           <div class="proyect-admin-center">

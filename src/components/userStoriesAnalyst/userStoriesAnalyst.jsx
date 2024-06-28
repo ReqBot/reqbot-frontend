@@ -464,7 +464,7 @@ class UserStoriesAnalyst extends Component {
           <div class="header-proyectos-analyst">
             <div class="searchbar-div-userStories">
               <Button
-                id="filtrar-ordenar-button-userStory"
+                className="secondary-button-color secondary-button-size"
                 onClick={this.handleFilterOrder}
               >
                 Filtrar/Ordenar
@@ -484,9 +484,9 @@ class UserStoriesAnalyst extends Component {
 
           {this.state.emptyUserStoriesSearch && !this.state.emptyUserStories ? (
             <div class="no-proyects">
-              <div class="inner-message-no-proyects">
+              <div class="inner-message-no-items">
                 {" "}
-                <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
+                <FaSearchMinus className="inner-message-no-items-icon"></FaSearchMinus>
                 <p>No existe ninguna historia de usuario con esos parámetros</p>
               </div>
             </div>
@@ -494,9 +494,9 @@ class UserStoriesAnalyst extends Component {
 
           {this.state.emptyUserStories && !this.state.emptyUserStoriesSearch ? (
             <div class="no-proyects">
-              <div class="inner-message-no-proyects">
+              <div class="inner-message-no-items">
                 {" "}
-                <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
+                <BiMessageAltError className="inner-message-no-items-icon"></BiMessageAltError>
                 <p>Todavía no existen Historias de Usuario</p>
               </div>
             </div>
@@ -510,11 +510,7 @@ class UserStoriesAnalyst extends Component {
           ) : null}
         </div>
 
-        <Modal
-          show={this.state.modalApprove}
-          onHide={this.hanldeApprove}
-          id="settings-info-user"
-        >
+        <Modal show={this.state.modalApprove} onHide={this.hanldeApprove}>
           <Modal.Header>
             <Modal.Title>Aprobar historia de usuario</Modal.Title>
             <AiFillCloseCircle
@@ -603,14 +599,14 @@ class UserStoriesAnalyst extends Component {
             <Button
               variant="secondary"
               onClick={this.hanldeApprove}
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
             >
               Cancelar
             </Button>
             <Button
               variant="primary"
               onClick={this.approveUserStory}
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
             >
               Aprobar
             </Button>
@@ -620,7 +616,6 @@ class UserStoriesAnalyst extends Component {
         <Modal
           show={this.state.modalFilterOrder}
           onHide={this.handleFilterOrder}
-          id="settings-info-user"
         >
           <Modal.Header>
             <Modal.Title>Filtrar/Ordenar</Modal.Title>
@@ -677,14 +672,14 @@ class UserStoriesAnalyst extends Component {
           <Modal.Footer>
             <Button
               variant="secondary"
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
               onClick={this.deleteFilters}
             >
               Limpiar
             </Button>
             <Button
               variant="primary"
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
               onClick={this.applyFilters}
             >
               Aplicar

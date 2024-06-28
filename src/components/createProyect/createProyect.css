@@ -12,7 +12,7 @@
 }
 
 #save-button {
-  color: #545871;
+  color: var(--secondary-color);
   background-color: #dadbe6;
   border-color: #dadbe6;
   border-radius: 7px;
@@ -23,7 +23,7 @@
 }
 
 .etiquetas-row {
-  color: #545871;
+  color: var(--secondary-color);
   font-size: 17px;
   margin-bottom: 4px;
   border-radius: 5px;
@@ -43,7 +43,7 @@
 .etiqueta-delete {
   margin-top: auto;
   margin-bottom: auto;
-  color: #545871;
+  color: var(--secondary-color);
   cursor: pointer;
 }
 
@@ -54,6 +54,6 @@
   margin-right: auto;
   max-height: 120px;
   overflow: auto;
-  border-color: #545871;
-  color: #545871;
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }

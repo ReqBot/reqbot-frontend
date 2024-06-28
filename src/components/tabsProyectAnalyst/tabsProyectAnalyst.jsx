@@ -61,7 +61,7 @@ class TabsProyectAnalyst extends Component {
           {this.state.alertMessage}
         </Alert>
         <div class="titleDiv">
-          <h1>{this.proyect.nombre}</h1>
+          <div class="page-main-title">{this.proyect.nombre}</div>
         </div>
         <div class="tab-div-parent-analyst">
           <Tabs defaultActiveKey="pendientes" id="uncontrolled-tab-example">

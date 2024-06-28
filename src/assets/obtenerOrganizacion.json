@@ -5,8 +5,8 @@
     "siglas": "Admin",
     "descripcion": "Es una empresa consultora de software.",
     "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdaXHXlG65nzBxuNdReq3btK65jtN0w1S_wQ&usqp=CAU",
-    "colorPrimario": "#545871",
-    "colorSecundario": "#f7eceb",
+    "colorPrimario": "var(--secondary-color)",
+    "colorSecundario": "var(--primary-color)",
     "idPlan": 2
   }
 ]

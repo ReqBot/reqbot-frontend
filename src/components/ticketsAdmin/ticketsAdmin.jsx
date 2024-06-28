@@ -475,34 +475,37 @@ class TicketsAdmin extends Component {
           {" "}
           Se aprobó la historia de usuario de forma exitosa.{" "}
         </Alert>
-        <div class="organization-titleDiv">
-          <h1>Tickets</h1>
+        <div class="page-container">
+          <div class="header-proyectos">
+            <div class="page-main-title">Tickets</div>
+            <div class="searchbar-div">
+              {" "}
+              <InputGroup className="mb-3">
+                <FormControl
+                  placeholder="Buscar"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  onChange={this.editSearchTerm}
+                />{" "}
+                <Button id="button-search">Buscar</Button>
+              </InputGroup>{" "}
+            </div>
+          </div>
+          <div class="div-pagination">
+            {" "}
+            <Button
+              className="secondary-button-color secondary-button-size filter-sort-button-size"
+              onClick={this.handleFilterOrder}
+            >
+              Filtrar/Ordenar
+            </Button>
+          </div>
         </div>
-        <div class="top-search-div">
-          {" "}
-          <Button
-            id="filtrar-ordenar-button-userStory"
-            onClick={this.handleFilterOrder}
-          >
-            Filtrar/Ordenar
-          </Button>
-          <InputGroup id="input-tickets" className="mb-3">
-            <FaSearch id="seach-icon"></FaSearch>
-            <FormControl
-              placeholder="Buscar"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              id="search-userStories"
-              onChange={this.editSearchTerm}
-            />
-          </InputGroup>
-        </div>
-
         {this.state.emptyTicketsSearch && !this.state.emptyTickets ? (
           <div class="no-proyects">
-            <div class="inner-message-no-proyects">
+            <div class="inner-message-no-items">
               {" "}
-              <FaSearchMinus className="inner-message-no-proyects-icon"></FaSearchMinus>
+              <FaSearchMinus className="inner-message-no-items-icon"></FaSearchMinus>
               <p>No existe ningún ticket con esos parámetros</p>
             </div>
           </div>
@@ -510,9 +513,9 @@ class TicketsAdmin extends Component {
 
         {this.state.emptyTickets && !this.state.emptyTicketsSearch ? (
           <div class="no-proyects">
-            <div class="inner-message-no-proyects">
+            <div class="inner-message-no-items">
               {" "}
-              <BiMessageAltError className="inner-message-no-proyects-icon"></BiMessageAltError>
+              <BiMessageAltError className="inner-message-no-items-icon"></BiMessageAltError>
               <p>No se ha creado ningún ticket todavía</p>
             </div>
           </div>
@@ -527,7 +530,6 @@ class TicketsAdmin extends Component {
         <Modal
           show={this.state.modalFilterOrder}
           onHide={this.handleFilterOrder}
-          id="settings-info-user"
         >
           <Modal.Header>
             <Modal.Title>Filtrar/Ordenar</Modal.Title>
@@ -599,14 +601,14 @@ class TicketsAdmin extends Component {
           <Modal.Footer>
             <Button
               variant="secondary"
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
               onClick={this.deleteFilters}
             >
               Limpiar
             </Button>
             <Button
               variant="primary"
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
               onClick={this.applyFilters}
             >
               Aplicar
@@ -614,11 +616,7 @@ class TicketsAdmin extends Component {
           </Modal.Footer>
         </Modal>
 
-        <Modal
-          show={this.state.modalApprove}
-          onHide={this.hanldeApprove}
-          id="settings-info-user"
-        >
+        <Modal show={this.state.modalApprove} onHide={this.hanldeApprove}>
           <Modal.Header>
             <Modal.Title>{this.state.topModalMessage}</Modal.Title>
             <AiFillCloseCircle
@@ -633,14 +631,14 @@ class TicketsAdmin extends Component {
             <Button
               variant="secondary"
               onClick={this.hanldeApprove}
-              id="boton-cerrar-modal"
+              className="secondary-button-color secondary-button-size"
             >
               Cancelar
             </Button>
             <Button
               variant="primary"
               onClick={this.editTicket}
-              id="boton-guardar-modal"
+              className="primary-button-color primary-button-size"
             >
               {this.state.buttonModalMessage}
             </Button>

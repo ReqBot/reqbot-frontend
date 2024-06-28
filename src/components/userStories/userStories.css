@@ -4,7 +4,7 @@
   text-align: center;
   border-radius: 7px;
   margin: 24px 48px 12px 48px;
-  color: #545871;
+  color: var(--secondary-color);
 }
 
 .userCard:hover {
@@ -13,7 +13,7 @@
 
 .userCard .title {
   margin-top: 10px;
-  color: #545871;
+  color: var(--secondary-color);
   font-size: 26px;
   font-weight: bold;
 }
@@ -44,16 +44,9 @@
   width: 1300px;
 }
 
-#button-search {
-  color: white;
-  background-color: #545871;
-  border-color: #545871;
-  border-radius: 0px;
-}
-
 #search-userStories {
-  background-color: #f7eceb;
-  border-color: #f7eceb;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
   box-shadow: none;
 }
 
@@ -64,7 +57,7 @@
 
 #seach-icon {
   margin-top: auto;
-  color: #545871;
+  color: var(--secondary-color);
   margin-bottom: auto;
 }
 
@@ -76,6 +69,7 @@
 .card-footer-div-left {
   width: 30%;
 }
+
 .card-footer-div-right {
   width: 45%;
 }
@@ -99,9 +93,9 @@
 }
 
 #filtrar-ordenar-button-userStory {
-  color: #545871;
-  background-color: #f7eceb;
-  border-color: #f7eceb;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
   border-radius: 15px;
   height: 35px;
   margin-left: 0px;
@@ -114,7 +108,7 @@
   height: 650px !important;
   width: 1200px !important;
   background-color: #f0f1f7;
-  color: #545871;
+  color: var(--secondary-color);
 }
 
 .user-story-detail-div {
@@ -154,8 +148,8 @@
   width: 40%;
   height: 35%;
   border-radius: 7px;
-  background-color: #545871;
-  border-color: #545871;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
 .footer-modal-us-detail {
@@ -176,7 +170,7 @@
   margin-top: 4px;
   margin-bottom: 4px;
   border-radius: 7px;
-  color: #545871;
+  color: var(--secondary-color);
   background-color: white;
   height: 60px;
   display: flex;

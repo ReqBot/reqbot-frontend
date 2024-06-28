@@ -109,7 +109,7 @@ class EditUser extends Component {
     return (
       <React.Fragment>
         <div class="header-proyect-admin">
-          <h1>Editar Usuario</h1>
+          <div class="page-main-title">Editar Usuario</div>
         </div>
         <div class="contenedor-proyect-admin">
           <div class="proyect-admin-center">

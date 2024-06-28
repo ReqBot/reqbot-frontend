@@ -141,7 +141,7 @@ class CreateProyect extends Component {
     return (
       <React.Fragment>
         <div class="header-proyect-admin">
-          <h1>Crear Proyecto</h1>
+          <div class="page-main-title">Crear Proyecto</div>
         </div>
         <div class="contenedor-proyect-admin">
           <div class="proyect-admin-center">

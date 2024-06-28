@@ -111,12 +111,10 @@ class Dashboard extends Component {
     return (
       <React.Fragment>
         <div class="aside">
-          <div class="sidebar-div">
-            <Sidebar
-              showProyectsAlert={this.sideBarParent}
-              clickSideBar={this.clickSideBar}
-            ></Sidebar>
-          </div>
+          <Sidebar
+            showProyectsAlert={this.sideBarParent}
+            clickSideBar={this.clickSideBar}
+          ></Sidebar>
 
           {!this.state.flagResponsive ||
           (this.state.flagResponsive && !this.state.sideBarDeployed) ? (

@@ -17,7 +17,7 @@
   text-align: center;
   border-radius: 7px;
   margin: 8px 0px 8px 0px;
-  color: #545871;
+  color: var(--secondary-color);
 }
 
 #logs-card-body {
@@ -43,8 +43,8 @@
   width: 10%;
   height: 30%;
   border-radius: 15px;
-  background-color: #545871;
-  border-color: #545871;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
 .flex-div-logs {
@@ -93,8 +93,8 @@
   width: 40%;
   height: 40%;
   border-radius: 15px;
-  background-color: #545871;
-  border-color: #545871;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
   font-size: 14.5px;
   margin-top: auto;
   margin-bottom: auto;
@@ -104,7 +104,7 @@
   width: 40%;
   height: 40%;
   border-radius: 15px;
-  color: #545871;
+  color: var(--secondary-color);
   background-color: #dadbe6;
   border-color: #dadbe6;
   font-size: 14.5px;
@@ -122,8 +122,8 @@
   width: 80%;
   height: 40%;
   border-radius: 15px;
-  background-color: #545871;
-  border-color: #545871;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
   font-size: 14.5px;
   margin-top: auto;
   margin-bottom: auto;

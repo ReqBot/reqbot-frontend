@@ -14,10 +14,10 @@ class Register extends Component {
 
     phase: 1,
 
-    color1: "#545871",
-    color2: "#f7eceb",
+    color1: "var(--secondary-color)",
+    color2: "var(--primary-color)",
     color3: "#FFFFFF",
-    color4: "#f7eceb",
+    color4: "var(--primary-color)",
 
     cardNumber: "",
     expiry: "",
@@ -120,7 +120,9 @@ class Register extends Component {
             <p>
               <i>Mensual</i>
             </p>{" "}
-            <Button id="boton-guardar-modal">Elegir</Button>
+            <Button className="primary-button-color primary-button-size">
+              Elegir
+            </Button>
           </div>
         ))}
       </div>

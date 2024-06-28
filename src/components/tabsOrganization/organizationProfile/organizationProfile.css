@@ -40,7 +40,7 @@
   width: 20%;
   max-width: 75px;
   height: 100%;
-  background-color: #545871;
+  background-color: var(--secondary-color);
 }
 
 .inside-account-info {
@@ -50,19 +50,19 @@
 
 .inside-account-info h5 {
   margin-bottom: 32px;
-  color: #545871;
+  color: var(--secondary-color);
 }
 
 .inside-account-info p {
   margin-bottom: 7px;
-  color: #545871;
+  color: var(--secondary-color);
 }
 
 #edit-account-info {
   font-size: 14px;
   color: white;
-  background-color: #545871;
-  border-color: #545871;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
   border-radius: 7px;
   width: 120px;
   height: 35px;

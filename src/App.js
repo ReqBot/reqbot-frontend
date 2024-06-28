@@ -25,7 +25,7 @@ class App extends Component {
     sessionStorage.setItem("api", process.env.REACT_APP_BASE_API_URL);
   }
 
-  loggin = (loggedIn, userName, rol, token, idOrganizacion, idUsuario) => {
+  login = (loggedIn, userName, rol, token, idOrganizacion, idUsuario) => {
     sessionStorage.setItem("loggedIn", loggedIn);
     sessionStorage.setItem("userName", userName);
     sessionStorage.setItem("rol", rol);
@@ -54,8 +54,8 @@ class App extends Component {
               exact
               path="/"
               render={(props) =>
-                !sessionStorage.getItem("loggedIn") ? (
-                  <Login changeParentLogin={this.loggin}></Login>
+                /*!sessionStorage.getItem("loggedIn")*/true ? (
+                  <Login changeParentLogin={this.login}></Login>
                 ) : (
                   <Redirect to="/dashboard/proyects" />
                 )

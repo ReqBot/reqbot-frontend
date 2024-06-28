@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
+import Spinner from "react-bootstrap/Spinner";
 
 class Login extends Component {
   state = {
@@ -18,6 +19,8 @@ class Login extends Component {
     incorrectFields: false,
 
     isHidden: false,
+
+    loadingSent: false,
   };
 
   componentDidMount() {
@@ -90,42 +93,55 @@ class Login extends Component {
             validated: true,
           });
         } else {
-          const headers = {};
+          this.setState(
+            {
+              loadingSent: true,
+            },
+            () => {
+              const headers = {};
 
-          let body = {
-            correo: this.state.email,
-            contrasenia: this.state.password,
-          };
-
-          axios
-            .post(sessionStorage.getItem("api") + "api/usuario/login", body, {
-              headers: headers,
-            })
-            .then((response) => {
-              console.log(response);
-              if (response.data == "Not allowed, invalid credentials") {
-                this.setState({
-                  incorrectFields: true,
+              let body = {
+                correo: this.state.email,
+                contrasenia: this.state.password,
+              };
+              axios
+                .post(
+                  sessionStorage.getItem("api") + "api/usuario/login",
+                  body,
+                  {
+                    headers: headers,
+                  }
+                )
+                .then((response) => {
+                  console.log(response);
+                  if (response.data == "Not allowed, invalid credentials") {
+                    this.setState({
+                      incorrectFields: true,
+                      loadingSent: false,
+                    });
+                  } else {
+                    this.setState({ loadingSent: false });
+                    this.props.changeParentLogin(
+                      true,
+                      response.data.data.nombre,
+                      response.data.data.rol,
+                      response.data.accessToken,
+                      response.data.data.idOrganizacion,
+                      response.data.data.id
+                    );
+                    this.props.history.push({
+                      pathname: "/dashboard/proyects",
+                    });
+                  }
+                })
+                .catch((error) => {
+                  this.setState({
+                    incorrectFields: true,
+                    loadingSent: false,
+                  });
                 });
-              } else {
-                this.props.changeParentLogin(
-                  true,
-                  response.data.data.nombre,
-                  response.data.data.rol,
-                  response.data.accessToken,
-                  response.data.data.idOrganizacion,
-                  response.data.data.id
-                );
-                this.props.history.push({
-                  pathname: "/dashboard/proyects",
-                });
-              }
-            })
-            .catch((error) => {
-              this.setState({
-                incorrectFields: true,
-              });
-            });
+            }
+          );
         }
       }
     );
@@ -164,11 +180,14 @@ class Login extends Component {
         </Alert>
         <div class="login-container">
           <div class="middle-center">
-            <img class="login-image" src={logo}></img> <h1>ReqBot</h1>
-            <div class="login-form-div">
-              {" "}
+            <div class="content-container login-form-div">
+              <img class="login-image" src={logo}></img>{" "}
+              <div class="login-title">ReqBot</div>{" "}
               <Form noValidate validated={this.state.validated}>
-                <InputGroup className="mb-3 login-input">
+                <Form.Group className="mb-3 login-input">
+                  <Form.Label className="input-label-inside-div">
+                    Correo Electronico
+                  </Form.Label>
                   <FormControl
                     placeholder="Correo"
                     type="text"
@@ -176,9 +195,13 @@ class Login extends Component {
                     value={this.state.email}
                     onChange={this.handleChange}
                     required
-                  />
-                </InputGroup>
-                <InputGroup className="mb-3 login-input" hasValidation>
+                  />{" "}
+                </Form.Group>
+
+                <Form.Group className="mb-3 login-input" hasValidation>
+                  <Form.Label className="input-label-inside-div">
+                    Contraseña
+                  </Form.Label>
                   <FormControl
                     placeholder="Contraseña"
                     type="password"
@@ -187,7 +210,7 @@ class Login extends Component {
                     onChange={this.handleChange}
                     required
                   />
-                </InputGroup>
+                </Form.Group>
 
                 {this.state.incompleteFields ? (
                   <div class="error-login-message">
@@ -202,14 +225,24 @@ class Login extends Component {
                 ) : null}
               </Form>
               <div class="login-buttons-div">
-                <Button id="login-button" onClick={this.handleSubmit}>
-                  Iniciar Sesión
+                <Button
+                  className="primary-button-color primary-button-size"
+                  onClick={this.handleSubmit}
+                  disabled={this.state.loadingSent}
+                >
+                  {this.state.loadingSent ? (
+                    <Spinner className="loader-send-inside-button"></Spinner>
+                  ) : null}
+                  <div class="button-text">Iniciar Sesión</div>
                 </Button>
-                <Button id="login-button" onClick={this.goToRegister}>
+                <Button
+                  className="primary-button-color primary-button-size"
+                  onClick={this.goToRegister}
+                >
                   Registrarme
                 </Button>
               </div>
-              <p class="login-link"> ¿Olvidaste tu contraseña?</p>
+              <p class="login-link">¿Olvidaste tu contraseña?</p>
             </div>
             <p class="footer-login">
               Lima,
